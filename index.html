@@ -304,9 +304,16 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto}
   text-transform:uppercase;letter-spacing:1px;
   min-width:70px;padding-top:3px;
 }
-.moment-body{flex:1;font-size:0.92em}
+.moment-body{flex:1;font-size:0.92em;min-width:0}
 .moment-body strong{color:var(--forest)}
 .moment-body .note{color:var(--muted);font-size:0.88em;margin-top:4px;display:block}
+.moment-body .note a{
+  color:var(--lake);text-decoration:none;font-weight:600;
+  white-space:nowrap;
+  padding:2px 4px;border-radius:4px;
+  transition:background .2s;
+}
+.moment-body .note a:hover,.moment-body .note a:active{background:rgba(58,106,130,0.12)}
 
 .anchor{
   background:linear-gradient(90deg,rgba(217,136,81,.08),transparent);
@@ -492,10 +499,104 @@ footer .sig{
 }
 
 @media(max-width:720px){
-  section{padding:60px 20px}
-  .hero-content{padding:50px 20px 140px}
-  .timeline{padding-left:24px}
-  .day::before{left:-24px;top:26px;width:14px;height:14px;border-width:2px}
+  section{padding:56px 18px}
+  .sec-lede{margin-bottom:28px}
+
+  /* Nav más compacto */
+  .nav-wrap{padding:12px 18px}
+  .nav-brand{font-size:0.92em;line-height:1.2}
+
+  /* Hero */
+  .hero{min-height:auto}
+  .hero-content{padding:44px 20px 120px}
+  .hero h1{font-size:clamp(2em,9vw,3em);max-width:none;margin-bottom:16px}
+  .hero-sub{font-size:0.98em;margin-bottom:26px}
+  .countdown{gap:10px;padding:14px 16px;flex-wrap:wrap;justify-content:center}
+  .cd-num{font-size:1.5em}
+  .cd-lbl{font-size:0.6em;letter-spacing:1px}
+
+  /* Timeline */
+  .timeline{padding-left:20px}
+  .day{margin-bottom:14px;border-radius:14px}
+  .day::before{left:-20px;top:24px;width:12px;height:12px;border-width:2px}
+  .day-head{padding:16px 18px;gap:12px}
+  .day-date{font-size:0.68em;letter-spacing:1.5px}
+  .day-title{font-size:1.15em}
+  .day-meta{font-size:0.76em;gap:10px;margin-top:5px}
+  .day-toggle{width:30px;height:30px;font-size:1.15em}
+  .day-body-inner{padding:18px 18px 20px}
+
+  /* Momentos: stack vertical para ganar ancho */
+  .moment{flex-direction:column;gap:4px;padding:12px 0}
+  .moment-time{
+    min-width:0;padding-top:0;
+    font-size:0.64em;
+    letter-spacing:1.2px;
+  }
+  .moment-body{font-size:0.95em;line-height:1.55}
+  .moment-body .note{font-size:0.86em;line-height:1.5}
+  .moment-body .note a{
+    display:inline-block;
+    padding:4px 8px;margin:2px 2px 0 0;
+    background:rgba(58,106,130,0.08);
+  }
+
+  /* Cajitas de aviso */
+  .warn,.info,.ok,.crit{font-size:0.82em;padding:10px 12px}
+  .anchor{padding:11px 13px;font-size:0.84em}
+
+  /* Viajeros */
+  .travelers{gap:12px}
+  .tcard{padding:20px}
+
+  /* Stats: 2 columnas forzadas */
+  .stats{grid-template-columns:repeat(2,1fr);margin:30px 0}
+  .stat{padding:22px 14px}
+  .stat .n{font-size:2.1em}
+  .stat .l{font-size:0.66em}
+
+  /* Hoteles */
+  .hotels{grid-template-columns:1fr;gap:14px}
+  .hotel{padding:20px}
+
+  /* Presupuesto */
+  .budget{padding:22px 18px}
+  .budget-row{padding:12px 0;gap:10px;flex-wrap:wrap}
+  .budget-row .cat{flex:1;min-width:0}
+  .budget-row .name{font-size:0.9em}
+  .budget-row .sub{font-size:0.72em}
+  .budget-row .val{font-size:1.02em}
+  .budget-row .icon{width:32px;height:32px;font-size:1em}
+  .budget-total .amt{font-size:1.6em}
+
+  /* Plan B / Packing */
+  .planb{grid-template-columns:1fr;gap:12px}
+  .planb-card{padding:18px}
+  .pack-grid{grid-template-columns:1fr;gap:12px}
+  .pack{padding:18px}
+
+  /* Mapas */
+  .map-wrap{padding:20px 14px;border-radius:16px}
+  .map-label{top:14px;left:16px;font-size:0.7em;padding:5px 11px}
+  .map-legend{gap:12px;padding:12px 14px;font-size:0.72em}
+
+  /* Footer */
+  footer{padding:60px 20px 30px}
+}
+
+@media(max-width:420px){
+  section{padding:48px 16px}
+  .nav-brand{font-size:0.85em}
+  .hero-content{padding:36px 18px 100px}
+  .hero h1{font-size:clamp(1.85em,9.5vw,2.5em)}
+  .day-head{padding:14px 16px}
+  .day-body-inner{padding:16px 16px 18px}
+  .day-title{font-size:1.08em}
+  .day-meta{font-size:0.72em;gap:8px}
+  .countdown{padding:12px 14px;gap:8px}
+  .cd-num{font-size:1.35em}
+  .stats{grid-template-columns:1fr}
+  .moment-body{font-size:0.93em}
 }
 </style>
 </head>
