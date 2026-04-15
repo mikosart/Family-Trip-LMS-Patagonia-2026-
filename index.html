@@ -294,26 +294,65 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto}
 .day-body-inner{padding:0 24px 24px;border-top:1px solid var(--line);padding-top:20px}
 
 .moment{
-  display:flex;gap:16px;
-  padding:14px 0;
-  border-bottom:1px dashed var(--line);
+  display:flex;gap:14px;
+  padding:9px 0;
+  border-bottom:1px dashed rgba(224,218,203,0.55);
+  transition:opacity .3s, max-height .3s;
 }
 .moment:last-child{border-bottom:none}
 .moment-time{
-  font-size:0.7em;font-weight:700;color:var(--moss);
+  font-size:0.68em;font-weight:700;color:var(--moss);
   text-transform:uppercase;letter-spacing:1px;
-  min-width:70px;padding-top:3px;
+  min-width:62px;padding-top:3px;
 }
-.moment-body{flex:1;font-size:0.92em;min-width:0}
+.moment-body{flex:1;font-size:0.9em;min-width:0;line-height:1.5}
 .moment-body strong{color:var(--forest)}
-.moment-body .note{color:var(--muted);font-size:0.88em;margin-top:4px;display:block}
+.moment-body .note{color:var(--muted);font-size:0.84em;margin-top:3px;display:block;line-height:1.45}
 .moment-body .note a{
   color:var(--lake);text-decoration:none;font-weight:600;
   white-space:nowrap;
-  padding:2px 4px;border-radius:4px;
+  padding:2px 6px;border-radius:4px;
+  background:rgba(58,106,130,0.08);
   transition:background .2s;
 }
-.moment-body .note a:hover,.moment-body .note a:active{background:rgba(58,106,130,0.12)}
+.moment-body .note a:hover,.moment-body .note a:active{background:rgba(58,106,130,0.18)}
+
+/* Momentos clave (comida) — resaltados */
+.moment.is-food{
+  background:linear-gradient(90deg,rgba(217,136,81,0.09),rgba(217,136,81,0) 60%);
+  border-left:3px solid var(--sunset);
+  padding-left:12px;margin-left:-12px;
+  border-radius:6px 0 0 6px;
+}
+.moment.is-food .moment-body strong{color:#b5632f}
+
+/* Filtro de día: Resumen / Completo */
+.day-filter{
+  display:inline-flex;gap:2px;
+  margin:0 0 14px;
+  padding:3px;
+  background:var(--fog);
+  border:1px solid var(--line);
+  border-radius:999px;
+}
+.day-filter button{
+  border:0;background:transparent;
+  padding:6px 14px;border-radius:999px;
+  font:600 0.68em 'Inter',sans-serif;
+  color:var(--muted);cursor:pointer;
+  text-transform:uppercase;letter-spacing:1.2px;
+  transition:all .25s;
+}
+.day-filter button.active{
+  background:var(--white);color:var(--forest);
+  box-shadow:0 2px 6px -2px rgba(15,42,29,0.2);
+}
+.day-filter button:not(.active):hover{color:var(--forest)}
+
+/* Modo resumen: ocultar momentos no clave */
+.day.is-summary .moment:not(.is-key){
+  display:none;
+}
 
 .anchor{
   background:linear-gradient(90deg,rgba(217,136,81,.08),transparent);
@@ -527,19 +566,22 @@ footer .sig{
   .day-body-inner{padding:18px 18px 20px}
 
   /* Momentos: stack vertical para ganar ancho */
-  .moment{flex-direction:column;gap:4px;padding:12px 0}
+  .moment{flex-direction:column;gap:3px;padding:9px 0}
+  .moment.is-food{padding-left:10px;margin-left:-10px}
   .moment-time{
     min-width:0;padding-top:0;
-    font-size:0.64em;
+    font-size:0.62em;
     letter-spacing:1.2px;
   }
-  .moment-body{font-size:0.95em;line-height:1.55}
-  .moment-body .note{font-size:0.86em;line-height:1.5}
+  .moment-body{font-size:0.93em;line-height:1.5}
+  .moment-body .note{font-size:0.84em;line-height:1.45}
   .moment-body .note a{
     display:inline-block;
-    padding:4px 8px;margin:2px 2px 0 0;
-    background:rgba(58,106,130,0.08);
+    padding:4px 9px;margin:3px 3px 0 0;
+    background:rgba(58,106,130,0.1);
   }
+  .day-filter{margin-bottom:12px}
+  .day-filter button{padding:7px 13px;font-size:0.66em}
 
   /* Cajitas de aviso */
   .warn,.info,.ok,.crit{font-size:0.82em;padding:10px 12px}
@@ -1347,6 +1389,45 @@ function toggleDay(el){
 }
 // Abrir el primer día por defecto
 document.querySelector('.day').classList.add('open');
+
+// Compactar días: marcar momentos clave + agregar filtro Resumen/Completo
+(function setupDayFilters(){
+  const FOOD_RX = /desayuno|almuerzo|cena|merienda|brindis|🍽️|🥟|🍖|🥩|🍺|🍔|🍰|🍦|🥘|🥪|🫓|🐟|🌭|🍲|🧉|🍫/i;
+  const KEY_RX  = /vuelo|aterriz|check-?in|checkout|salida|llegada|retiro|entrega|aeropuerto|✈️|🚠|⛽|🔥|teleférico|cerro otto|curanto/i;
+
+  document.querySelectorAll('.day').forEach(day => {
+    const body = day.querySelector('.day-body-inner');
+    if(!body) return;
+
+    const moments = body.querySelectorAll('.moment');
+    moments.forEach(m => {
+      const text = m.textContent;
+      if(FOOD_RX.test(text)){
+        m.classList.add('is-key','is-food');
+      } else if(KEY_RX.test(text)){
+        m.classList.add('is-key');
+      }
+    });
+
+    // Si no hay momentos, no hace falta filtro
+    if(!moments.length) return;
+
+    const filter = document.createElement('div');
+    filter.className = 'day-filter';
+    filter.innerHTML = '<button type="button" data-mode="summary">✨ Resumen</button><button type="button" data-mode="full" class="active">Completo</button>';
+    const firstMoment = body.querySelector('.moment');
+    body.insertBefore(filter, firstMoment);
+
+    filter.addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if(!btn) return;
+      e.stopPropagation();
+      filter.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      day.classList.toggle('is-summary', btn.dataset.mode === 'summary');
+    });
+  });
+})();
 
 // Countdown to April 18, 2026 09:20 (hora AR)
 const target = new Date('2026-04-18T09:20:00-03:00').getTime();
