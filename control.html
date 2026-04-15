@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Control · Patagonia 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#0f2a1d;
+  --moss:#2d5a3d;
+  --sage:#6a9378;
+  --fog:#f4efe6;
+  --mist:#e9e2d4;
+  --line:#e0dacb;
+  --ink:#1a1a1a;
+  --muted:#6b6b63;
+  --sunset:#d98851;
+  --danger:#c53030;
+  --breakfast:#e8985e;
+  --lunch:#6a9378;
+  --dinner:#3a6a82;
+  --activity:#9c6ab4;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--fog);
+  color:var(--ink);
+  line-height:1.55;
+}
+.serif{font-family:'Fraunces',serif;letter-spacing:-0.02em}
+.mono{font-family:'JetBrains Mono',monospace}
+
+#app{max-width:1100px;margin:0 auto;padding:30px 24px 140px}
+
+header.ctrl-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 22px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  margin-bottom:22px;
+  gap:14px;flex-wrap:wrap;
+}
+.ctrl-brand{font-family:'Fraunces',serif;font-size:1.1em;color:var(--forest);font-weight:600}
+.ctrl-brand .badge{
+  display:inline-block;background:var(--sunset);color:#fff;
+  font-size:0.6em;padding:2px 8px;border-radius:20px;
+  margin-left:8px;letter-spacing:1px;text-transform:uppercase;
+  font-family:'Inter',sans-serif;font-weight:700;
+  vertical-align:middle;
+}
+.ctrl-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  padding:9px 16px;border:1px solid var(--line);
+  background:#fff;border-radius:8px;cursor:pointer;
+  font-size:0.82em;font-weight:600;color:var(--forest);
+  transition:all .15s;
+  font-family:inherit;
+}
+.btn:hover{border-color:var(--moss);transform:translateY(-1px)}
+.btn-primary{background:var(--moss);color:#fff;border-color:var(--moss)}
+.btn-primary:hover{background:var(--forest);border-color:var(--forest)}
+.btn-danger{background:#fff;color:var(--danger);border-color:#f4c8c8}
+.btn-danger:hover{background:#fdecea}
+.btn-small{padding:6px 12px;font-size:0.76em}
+
+/* TABS */
+.tabs{
+  display:flex;gap:4px;
+  background:var(--mist);
+  border-radius:12px;padding:4px;
+  margin-bottom:24px;
+  overflow-x:auto;
+}
+.tab{
+  flex:1;min-width:max-content;
+  padding:11px 18px;
+  background:transparent;border:none;
+  border-radius:9px;
+  font-size:0.85em;font-weight:600;
+  color:var(--muted);cursor:pointer;
+  transition:all .2s;
+  white-space:nowrap;
+  font-family:inherit;
+}
+.tab.active{background:#fff;color:var(--forest);box-shadow:0 2px 6px rgba(0,0,0,0.08)}
+
+.panel{display:none}
+.panel.active{display:block}
+
+/* ═══════════ RESUMEN HEADER ═══════════ */
+.resume-header{
+  background:linear-gradient(135deg,var(--forest) 0%,var(--moss) 60%,var(--sage) 100%);
+  color:#fff;
+  border-radius:16px;
+  padding:28px 30px;
+  margin-bottom:20px;
+  position:relative;overflow:hidden;
+}
+.resume-header::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 85% 20%, rgba(217,136,81,0.2) 0%, transparent 45%);
+}
+.resume-header h2{
+  font-family:'Fraunces',serif;font-weight:400;
+  font-size:1.7em;margin-bottom:8px;
+  position:relative;
+}
+.resume-header p{opacity:0.8;font-size:0.88em;max-width:50ch;position:relative}
+.resume-stats{
+  display:flex;gap:24px;margin-top:18px;
+  flex-wrap:wrap;position:relative;
+}
+.resume-stat{display:flex;flex-direction:column}
+.resume-stat .lbl{font-size:0.68em;text-transform:uppercase;letter-spacing:1.5px;opacity:0.7}
+.resume-stat .val{font-family:'Fraunces',serif;font-size:1.8em;font-weight:600;line-height:1;margin-top:4px}
+
+/* ═══════════ DAY CARDS ═══════════ */
+.day-summary{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  margin-bottom:12px;
+  overflow:hidden;
+  transition:box-shadow .25s;
+}
+.day-summary:hover{box-shadow:0 8px 24px -12px rgba(15,42,29,0.15)}
+
+.ds-head{
+  padding:16px 22px;
+  background:linear-gradient(90deg,#fafaf4, #fff);
+  border-bottom:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;
+  cursor:pointer;user-select:none;
+  gap:14px;
+}
+.day-summary.closed .ds-head{border-bottom:none}
+.ds-title{
+  font-family:'Fraunces',serif;font-weight:600;
+  color:var(--forest);font-size:1.1em;
+  flex:1;
+}
+.ds-title small{
+  display:block;font-family:'Inter',sans-serif;
+  font-size:0.68em;font-weight:500;color:var(--muted);
+  text-transform:uppercase;letter-spacing:1.2px;margin-top:3px;
+}
+.ds-total{
+  font-family:'JetBrains Mono',monospace;
+  font-weight:700;color:var(--moss);
+  font-size:1.05em;
+  background:#e8f5e9;
+  padding:6px 14px;border-radius:20px;
+  white-space:nowrap;
+}
+.ds-toggle{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--fog);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--moss);font-size:1.4em;font-weight:300;
+  transition:transform .3s;flex-shrink:0;
+}
+.day-summary.closed .ds-toggle{transform:rotate(-45deg)}
+
+.ds-body{
+  padding:16px 22px;
+  transition:max-height .35s ease, padding .35s;
+  max-height:3000px;overflow:hidden;
+}
+.day-summary.closed .ds-body{max-height:0;padding-top:0;padding-bottom:0}
+
+/* ═══════════ ITEM ROW ═══════════ */
+.item-row{
+  display:grid;
+  grid-template-columns:110px 1fr 100px 90px 90px 34px;
+  gap:10px;align-items:center;
+  padding:10px 12px;
+  background:var(--fog);
+  border-radius:10px;
+  margin-bottom:8px;
+  transition:background .2s;
+}
+.item-row:hover{background:#f0ebdd}
+
+.item-type-badge{
+  font-size:0.7em;font-weight:700;text-transform:uppercase;
+  letter-spacing:1px;
+  padding:6px 10px;border-radius:20px;
+  text-align:center;color:#fff;
+  white-space:nowrap;
+}
+.type-desayuno{background:var(--breakfast)}
+.type-almuerzo{background:var(--lunch)}
+.type-cena{background:var(--dinner)}
+.type-actividad{background:var(--activity)}
+
+.item-name-wrap{min-width:0;position:relative}
+.item-name-wrap select, .item-name-wrap input[type=text]{
+  width:100%;
+  padding:8px 10px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  font-size:0.87em;
+  background:#fff;
+  color:var(--ink);
+  font-family:inherit;
+  outline:none;
+  transition:border-color .15s;
+}
+.item-name-wrap select:focus, .item-name-wrap input:focus{border-color:var(--moss)}
+.item-note{
+  font-size:0.72em;color:var(--muted);
+  margin-top:2px;padding-left:2px;
+  font-style:italic;
+}
+
+.item-price-wrap, .item-people-wrap{position:relative}
+.item-price-wrap::before{
+  content:'$';
+  position:absolute;left:10px;top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);font-weight:600;font-size:0.85em;
+  pointer-events:none;
+}
+.item-price-wrap input{
+  width:100%;padding:8px 10px 8px 22px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  font-size:0.87em;font-family:'JetBrains Mono',monospace;
+  text-align:right;outline:none;
+  background:#fff;
+  transition:border-color .15s;
+}
+.item-people-wrap input{
+  width:100%;padding:8px 10px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  font-size:0.87em;font-family:'JetBrains Mono',monospace;
+  text-align:center;outline:none;
+  background:#fff;
+  transition:border-color .15s;
+}
+.item-price-wrap input:focus, .item-people-wrap input:focus{border-color:var(--moss)}
+
+.item-total{
+  font-family:'JetBrains Mono',monospace;
+  font-weight:700;font-size:0.9em;
+  color:var(--forest);
+  text-align:right;
+  padding-right:6px;
+}
+
+.item-del{
+  width:28px;height:28px;
+  border:none;background:transparent;
+  color:var(--muted);cursor:pointer;
+  border-radius:50%;
+  font-size:1.2em;line-height:1;
+  transition:all .15s;
+}
+.item-del:hover{background:#fdecea;color:var(--danger)}
+
+.row-headers{
+  display:grid;
+  grid-template-columns:110px 1fr 100px 90px 90px 34px;
+  gap:10px;
+  padding:0 12px 8px;
+  font-size:0.66em;font-weight:700;
+  text-transform:uppercase;letter-spacing:1.2px;
+  color:var(--muted);
+}
+.row-headers .rh-price, .row-headers .rh-total{text-align:right}
+.row-headers .rh-people{text-align:center}
+
+.btn-add-item{
+  width:100%;
+  padding:12px;margin-top:6px;
+  background:transparent;
+  border:2px dashed var(--line);
+  border-radius:10px;
+  color:var(--muted);
+  font-size:0.85em;font-weight:600;
+  cursor:pointer;
+  transition:all .2s;
+  font-family:inherit;
+}
+.btn-add-item:hover{
+  border-color:var(--moss);color:var(--moss);
+  background:rgba(45,90,61,0.03);
+}
+
+/* Add item type picker */
+.type-picker{
+  display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;
+  padding:10px;background:var(--fog);border-radius:10px;
+}
+.type-pick-btn{
+  padding:8px 14px;border:none;cursor:pointer;
+  border-radius:20px;
+  font-size:0.75em;font-weight:700;text-transform:uppercase;
+  letter-spacing:1px;color:#fff;
+  transition:transform .15s;
+  font-family:inherit;
+}
+.type-pick-btn:hover{transform:translateY(-1px)}
+
+/* ═══════════ EMPTY STATE ═══════════ */
+.empty-day{
+  padding:20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:0.85em;
+  font-style:italic;
+}
+
+/* ═══════════ STICKY TOTAL BAR ═══════════ */
+.total-bar{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  background:var(--forest);
+  color:#fff;
+  border-radius:16px;
+  padding:16px 28px;
+  display:flex;justify-content:space-between;align-items:center;gap:28px;
+  box-shadow:0 20px 60px -10px rgba(15,42,29,0.5);
+  z-index:90;
+  max-width:calc(100vw - 40px);
+  width:auto;
+}
+.total-bar .tb-label{
+  font-size:0.68em;text-transform:uppercase;letter-spacing:1.8px;opacity:0.7;
+}
+.total-bar .tb-amount{
+  font-family:'Fraunces',serif;font-size:2.2em;font-weight:600;line-height:1;
+}
+.total-bar .tb-sub{font-size:0.72em;opacity:0.65;margin-top:4px}
+
+/* ═══════════ SCHEDULE EDITOR (tab 2) ═══════════ */
+.sched-card{
+  background:#fff;border:1px solid var(--line);
+  border-radius:14px;padding:24px;
+  margin-bottom:16px;
+}
+.sched-card h2{
+  font-family:'Fraunces',serif;color:var(--forest);
+  font-size:1.35em;margin-bottom:4px;
+}
+.sched-card .sub{color:var(--muted);font-size:0.85em;margin-bottom:20px}
+.moment-edit{
+  display:grid;
+  grid-template-columns:110px 1fr;
+  gap:10px;
+  padding:14px;
+  background:var(--fog);
+  border-radius:10px;
+  margin-bottom:10px;
+}
+.moment-edit label{
+  font-size:0.7em;text-transform:uppercase;letter-spacing:1px;
+  color:var(--muted);font-weight:600;
+  margin-bottom:4px;display:block;
+}
+.moment-edit input, .moment-edit textarea{
+  width:100%;padding:8px 10px;
+  border:1px solid var(--line);border-radius:7px;
+  font-size:0.88em;font-family:inherit;
+  background:#fff;color:var(--ink);
+  outline:none;transition:border-color .15s;
+}
+.moment-edit input:focus, .moment-edit textarea:focus{border-color:var(--moss)}
+.moment-edit textarea{resize:vertical;min-height:38px}
+.moment-edit .time-col input{text-align:center;font-weight:700;color:var(--moss)}
+
+/* ═══════════ MODALS / TOAST ═══════════ */
+.modal-bg{
+  position:fixed;inset:0;background:rgba(15,42,29,0.6);
+  display:none;align-items:center;justify-content:center;
+  z-index:200;padding:20px;
+}
+.modal-bg.open{display:flex}
+.modal{
+  background:#fff;border-radius:16px;
+  max-width:600px;width:100%;
+  padding:28px;
+}
+.modal h3{font-family:'Fraunces',serif;color:var(--forest);font-size:1.3em;margin-bottom:8px}
+.modal p{color:var(--muted);font-size:0.88em;margin-bottom:16px}
+.modal textarea{
+  width:100%;min-height:220px;
+  padding:14px;border:1px solid var(--line);border-radius:10px;
+  font-family:'JetBrains Mono',monospace;font-size:0.75em;
+  background:var(--fog);color:var(--ink);
+  resize:vertical;outline:none;
+}
+.modal-actions{display:flex;gap:8px;margin-top:14px;justify-content:flex-end;flex-wrap:wrap}
+
+.toast{
+  position:fixed;top:30px;left:50%;transform:translateX(-50%);
+  background:var(--forest);color:#fff;
+  padding:12px 22px;border-radius:10px;
+  font-size:0.85em;font-weight:600;
+  opacity:0;transition:opacity .3s;
+  pointer-events:none;z-index:300;
+  box-shadow:0 10px 30px -10px rgba(15,42,29,0.4);
+}
+.toast.show{opacity:1}
+
+@media(max-width:780px){
+  .item-row, .row-headers{
+    grid-template-columns:100px 1fr 80px 70px 80px 30px;
+    gap:6px;
+  }
+  .item-type-badge{font-size:0.64em;padding:5px 7px}
+  .moment-edit{grid-template-columns:1fr}
+  .total-bar{flex-direction:column;gap:4px;text-align:center;padding:14px 22px}
+  .resume-header{padding:22px 22px}
+}
+@media(max-width:560px){
+  .item-row, .row-headers{
+    grid-template-columns:1fr;
+    gap:6px;
+  }
+  .row-headers{display:none}
+  .item-row{padding:12px}
+  .item-price-wrap, .item-people-wrap{display:flex;align-items:center;gap:8px}
+  .item-price-wrap::before{position:static;transform:none}
+  .item-total{text-align:left;padding:4px 0}
+  .item-del{justify-self:flex-end}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ APP ═══════════ -->
+<div id="app">
+  <header class="ctrl-head">
+    <div class="ctrl-brand">Family Trip LMS · Patagonia 2026 🏔️ <span class="badge">Control</span></div>
+    <div class="ctrl-actions">
+      <button class="btn" onclick="openExport()">📤 Exportar</button>
+      <button class="btn btn-primary" onclick="saveData()">💾 Guardar</button>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showPanel('summary', this)">📊 Resumen del día</button>
+    <button class="tab" onclick="showPanel('schedule', this)">📅 Cronograma Día 1</button>
+    <button class="tab" onclick="showPanel('settings', this)">⚙️ Ajustes</button>
+  </div>
+
+  <!-- ═══════════ SUMMARY PANEL (primera) ═══════════ -->
+  <div class="panel active" id="panel-summary">
+    <div class="resume-header">
+      <h2>Resumen del viaje</h2>
+      <p>Cada día muestra desayuno, almuerzo, cena y actividades pagas. Cambiá el precio por persona o la cantidad de personas y el total se actualiza en vivo.</p>
+      <div class="resume-stats">
+        <div class="resume-stat"><div class="lbl">Días</div><div class="val" id="stat-days">9</div></div>
+        <div class="resume-stat"><div class="lbl">Ítems</div><div class="val" id="stat-items">0</div></div>
+        <div class="resume-stat"><div class="lbl">Personas</div><div class="val">4</div></div>
+      </div>
+    </div>
+
+    <div id="days-container"></div>
+  </div>
+
+  <!-- ═══════════ SCHEDULE PANEL ═══════════ -->
+  <div class="panel" id="panel-schedule">
+    <div class="sched-card">
+      <h2>Sábado 18 · Buenos Aires</h2>
+      <div class="sub">Editá horarios, títulos y notas. Los cambios se reflejan en la página pública al guardar y recargar.</div>
+
+      <div class="moment-edit">
+        <div class="time-col"><label>Horario</label><input type="text" data-moment="sat18-0" data-field="time" value="9:20am"></div>
+        <div><label>Actividad</label><input type="text" data-moment="sat18-0" data-field="title" value="Aterrizaje Delta DL6019">
+        <label style="margin-top:8px">Nota</label><textarea data-moment="sat18-0" data-field="note">Inmigración puede tardar 1–1.5hs. Esperarlos en Llegadas Internacionales.</textarea></div>
+      </div>
+      <div class="moment-edit">
+        <div class="time-col"><label>Horario</label><input type="text" data-moment="sat18-1" data-field="time" value="11:00"></div>
+        <div><label>Actividad</label><input type="text" data-moment="sat18-1" data-field="title" value="Comida en casa">
+        <label style="margin-top:8px">Nota</label><textarea data-moment="sat18-1" data-field="note">Tiempo para que respiren antes de arrancar el recorrido.</textarea></div>
+      </div>
+      <div class="moment-edit">
+        <div class="time-col"><label>Horario</label><input type="text" data-moment="sat18-2" data-field="time" value="12:30pm"></div>
+        <div><label>Actividad</label><input type="text" data-moment="sat18-2" data-field="title" value="Jardín Japonés (Palermo)">
+        <label style="margin-top:8px">Nota</label><textarea data-moment="sat18-2" data-field="note">Senderos pavimentados, bancos, estanque con carpas. Av. Casares 2966.</textarea></div>
+      </div>
+      <div class="moment-edit">
+        <div class="time-col"><label>Horario</label><input type="text" data-moment="sat18-3" data-field="time" value="~2:00pm"></div>
+        <div><label>Actividad</label><input type="text" data-moment="sat18-3" data-field="title" value="🍽️ Almuerzo — Salgado">
+        <label style="margin-top:8px">Nota</label><textarea data-moment="sat18-3" data-field="note">Cerca del Jardín Japonés. Plan B: Las Cuartetas.</textarea></div>
+      </div>
+      <div class="moment-edit">
+        <div class="time-col"><label>Horario</label><input type="text" data-moment="sat18-4" data-field="time" value="~3:30pm"></div>
+        <div><label>Actividad</label><input type="text" data-moment="sat18-4" data-field="title" value="Obelisco">
+        <label style="margin-top:8px">Nota</label><textarea data-moment="sat18-4" data-field="note">Av. 9 de Julio · foto obligada del ícono porteño.</textarea></div>
+      </div>
+      <div class="moment-edit">
+        <div class="time-col"><label>Horario</label><input type="text" data-moment="sat18-5" data-field="time" value="~4:30pm"></div>
+        <div><label>Actividad</label><input type="text" data-moment="sat18-5" data-field="title" value="Palacio Libertad (CCK)">
+        <label style="margin-top:8px">Nota</label><textarea data-moment="sat18-5" data-field="note">Entrada libre. Arquitectura monumental, vale la foto.</textarea></div>
+      </div>
+      <div class="moment-edit">
+        <div class="time-col"><label>Horario</label><input type="text" data-moment="sat18-6" data-field="time" value="~6:00pm"></div>
+        <div><label>Actividad</label><input type="text" data-moment="sat18-6" data-field="title" value="Puerto Madero">
+        <label style="margin-top:8px">Nota</label><textarea data-moment="sat18-6" data-field="note">Costanera, Puente de la Mujer, caminata tranquila.</textarea></div>
+      </div>
+      <div class="moment-edit">
+        <div class="time-col"><label>Horario</label><input type="text" data-moment="sat18-7" data-field="time" value="~7:30pm"></div>
+        <div><label>Actividad</label><input type="text" data-moment="sat18-7" data-field="title" value="Av. Corrientes">
+        <label style="margin-top:8px">Nota</label><textarea data-moment="sat18-7" data-field="note">Librerías, luces, ambiente nocturno porteño.</textarea></div>
+      </div>
+      <div class="moment-edit">
+        <div class="time-col"><label>Horario</label><input type="text" data-moment="sat18-8" data-field="time" value="~9:00pm"></div>
+        <div><label>Actividad</label><input type="text" data-moment="sat18-8" data-field="title" value="🥟 Cena en casa — Empanadas Mi Gusto">
+        <label style="margin-top:8px">Nota</label><textarea data-moment="sat18-8" data-field="note">Pedir a domicilio. Algo tranquilo antes de dormir.</textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SETTINGS PANEL ═══════════ -->
+  <div class="panel" id="panel-settings">
+    <div class="sched-card">
+      <h2>⚙️ Ajustes</h2>
+      <div class="sub">Acciones sobre los datos guardados en este navegador.</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+        <button class="btn btn-primary" onclick="saveData()">💾 Guardar cambios actuales</button>
+        <button class="btn" onclick="openExport()">📤 Ver / Exportar JSON</button>
+        <button class="btn btn-danger" onclick="resetData()">🗑️ Reset a valores por defecto</button>
+      </div>
+      <div style="background:#e3f2fd;border-left:3px solid #3a6a82;padding:14px 16px;border-radius:8px;margin-top:24px;font-size:0.88em;line-height:1.65">
+        <strong style="color:#0f2a1d;display:block;margin-bottom:6px">Cómo funciona la persistencia</strong>
+        Los cambios se guardan en el <code class="mono">localStorage</code> de este navegador. Para compartir con tu hermano: usá <strong>Exportar</strong>, mandale el JSON, que él lo pegue e <strong>Importe</strong>.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOTAL STICKY BAR -->
+<div class="total-bar" id="total-bar">
+  <div>
+    <div class="tb-label">Total del viaje</div>
+    <div class="tb-sub" id="tb-sub">9 días · 4 personas</div>
+  </div>
+  <div class="tb-amount" id="tb-amount">$0</div>
+</div>
+
+<!-- EXPORT MODAL -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <h3>📤 Exportar / Importar datos</h3>
+    <p>Copiá este JSON para compartirlo, o pegá uno nuevo y dale "Importar".</p>
+    <textarea id="export-text"></textarea>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeExport()">Cerrar</button>
+      <button class="btn" onclick="copyExport()">📋 Copiar</button>
+      <button class="btn btn-primary" onclick="importData()">📥 Importar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ════════════════════════════════════════════════
+//  DATOS DEL VIAJE
+// ════════════════════════════════════════════════
+const DEFAULT_PEOPLE = 4;
+
+// Estructura: cada día tiene items. Cada item = { id, type, options[], selectedIndex, customName, pricePerPerson, people }
+// options = lista de opciones predefinidas con {name, price}. El user puede elegir una, usar "Otro..." (customName) y editar el precio.
+// type puede ser: desayuno | almuerzo | cena | actividad
+
+const DEFAULT_DATA = {
+  sat18: {
+    title: 'Sábado 18 · Abril',
+    subtitle: 'Bienvenida a Buenos Aires',
+    items: [
+      { id: 'sat18-a', type: 'almuerzo', options: [
+        { name: 'Salgado (cerca Jardín Japonés)', price: 22 },
+        { name: 'Las Cuartetas · Plan B', price: 15 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'sat18-c', type: 'cena', options: [
+        { name: 'Empanadas Mi Gusto (en casa)', price: 10 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'sat18-x', type: 'actividad', options: [
+        { name: 'Mercado · sanguches lunes', price: 20 }
+      ], selectedIndex: 0, people: 1 }
+    ]
+  },
+  sun19: {
+    title: 'Domingo 19 · Abril',
+    subtitle: 'Bus rojo + San Telmo',
+    items: [
+      { id: 'sun19-d', type: 'desayuno', options: [
+        { name: 'Arepas en casa', price: 5 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'sun19-a', type: 'almuerzo', options: [
+        { name: 'La Choripanería', price: 18 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'sun19-c', type: 'cena', options: [
+        { name: 'El Ferroviario ✅ Reservado', price: 40 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'sun19-x', type: 'actividad', options: [
+        { name: 'Bus turístico rojo', price: 20 }
+      ], selectedIndex: 0, people: 4 }
+    ]
+  },
+  mon20: {
+    title: 'Lunes 20 · Abril',
+    subtitle: 'Vuelo a BRC → SMA',
+    items: [
+      { id: 'mon20-d', type: 'desayuno', options: [
+        { name: 'Sanguches en el auto (hechos en casa)', price: 0 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'mon20-a', type: 'almuerzo', options: [
+        { name: 'Parada VLA · super o empanadas', price: 12 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'mon20-c', type: 'cena', options: [
+        { name: 'Las Barricas del Abasto', price: 35 },
+        { name: 'El Abasto · Plan B', price: 40 }
+      ], selectedIndex: 0, people: 4 }
+    ]
+  },
+  tue21: {
+    title: 'Martes 21 · Abril',
+    subtitle: '7 Lagos → Villa La Angostura',
+    items: [
+      { id: 'tue21-d', type: 'desayuno', options: [
+        { name: 'Arepas en el hotel SMA', price: 5 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'tue21-a', type: 'almuerzo', options: [
+        { name: 'Peumawe (Villa Traful) · trucha', price: 30 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'tue21-c', type: 'cena', options: [
+        { name: 'Cena ligera en la posada', price: 12 },
+        { name: 'Asadito en la parrillera · Plan B', price: 15 }
+      ], selectedIndex: 0, people: 4 }
+    ]
+  },
+  wed22: {
+    title: 'Miércoles 22 · Abril',
+    subtitle: 'Curanto en Colonia Suiza',
+    items: [
+      { id: 'wed22-d', type: 'desayuno', options: [
+        { name: 'Arepa en la cabaña', price: 5 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'wed22-a', type: 'almuerzo', options: [
+        { name: 'Curanto · Patagonia Mía', price: 30 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'wed22-c', type: 'cena', options: [
+        { name: 'Cena relajada en la cabaña', price: 10 },
+        { name: 'Pioneros · Plan B', price: 28 }
+      ], selectedIndex: 0, people: 4 }
+    ]
+  },
+  thu23: {
+    title: 'Jueves 23 · Abril',
+    subtitle: 'Traslado suave a Llao Llao',
+    items: [
+      { id: 'thu23-d', type: 'desayuno', options: [
+        { name: 'Arepa en la cabaña', price: 5 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'thu23-a', type: 'almuerzo', options: [
+        { name: 'Cervecería Blest', price: 30 },
+        { name: 'El Patacón · Plan B', price: 32 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'thu23-c', type: 'cena', options: [
+        { name: 'Empanaditas o pasta · por definir', price: 20 }
+      ], selectedIndex: 0, people: 4 }
+    ]
+  },
+  fri24: {
+    title: 'Viernes 24 · Abril',
+    subtitle: 'Circuito Chico + Cerro Otto',
+    items: [
+      { id: 'fri24-d', type: 'desayuno', options: [
+        { name: 'Desayuno incluido en hotel', price: 0 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'fri24-a', type: 'almuerzo', options: [
+        { name: 'Cervecería Wesley', price: 25 },
+        { name: 'Cervecería Weiss · Plan B', price: 28 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'fri24-c', type: 'cena', options: [
+        { name: 'Por definir', price: 30 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'fri24-x', type: 'actividad', options: [
+        { name: 'Teleférico Cerro Otto', price: 25 }
+      ], selectedIndex: 0, people: 4 }
+    ]
+  },
+  sat25: {
+    title: 'Sábado 25 · Abril',
+    subtitle: 'Último día · vuelo 9:15pm',
+    items: [
+      { id: 'sat25-d', type: 'desayuno', options: [
+        { name: 'Desayuno incluido en hotel', price: 0 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'sat25-a', type: 'almuerzo', options: [
+        { name: 'Centro Bariloche · La Fonda del Tío', price: 22 },
+        { name: 'Centro Bariloche · Manush', price: 15 },
+        { name: 'Centro Bariloche · El Boliche de Alberto', price: 40 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'sat25-c', type: 'cena', options: [
+        { name: 'Sanguchitos pa\' llevar', price: 10 }
+      ], selectedIndex: 0, people: 4 },
+      { id: 'sat25-x', type: 'actividad', options: [
+        { name: 'Chocolates y recuerdos', price: 15 }
+      ], selectedIndex: 0, people: 4 }
+    ]
+  },
+  sun26: {
+    title: 'Domingo 26 · Abril',
+    subtitle: 'Despedida',
+    items: [
+      { id: 'sun26-d', type: 'desayuno', options: [
+        { name: 'Desayuno en casa', price: 5 }
+      ], selectedIndex: 0, people: 4 }
+    ]
+  }
+};
+
+// Deep clone
+function clone(obj){ return JSON.parse(JSON.stringify(obj)); }
+
+// Estado mutable
+let tripData = clone(DEFAULT_DATA);
+
+// ════════════════════════════════════════════════
+//  PERSISTENCIA
+// ════════════════════════════════════════════════
+function gatherAllData(){
+  const data = { trip: tripData, moments: {} };
+  document.querySelectorAll('[data-moment][data-field]').forEach(inp => {
+    const key = inp.dataset.moment;
+    const field = inp.dataset.field;
+    if(!data.moments[key]) data.moments[key] = {};
+    data.moments[key][field] = inp.value;
+  });
+  return data;
+}
+
+function saveData(){
+  const data = gatherAllData();
+  localStorage.setItem('patagonia-data', JSON.stringify(data));
+  showToast('✅ Guardado. Recargá index.html para ver los cambios del cronograma.');
+}
+
+function loadData(){
+  const raw = localStorage.getItem('patagonia-data');
+  if(!raw) return;
+  try {
+    const data = JSON.parse(raw);
+    if(data.trip){
+      // Merge con defaults para mantener nuevos días/items si cambia el schema
+      Object.keys(data.trip).forEach(key => {
+        if(tripData[key]) tripData[key] = data.trip[key];
+      });
+    }
+    if(data.moments){
+      Object.keys(data.moments).forEach(key => {
+        Object.keys(data.moments[key]).forEach(field => {
+          const el = document.querySelector(`[data-moment="${key}"][data-field="${field}"]`);
+          if(el) el.value = data.moments[key][field];
+        });
+      });
+    }
+  } catch(e){ console.warn('loadData:', e); }
+}
+
+function resetData(){
+  if(!confirm('¿Borrar todos los cambios y volver a los valores por defecto?')) return;
+  localStorage.removeItem('patagonia-data');
+  tripData = clone(DEFAULT_DATA);
+  renderAllDays();
+  showToast('🗑️ Datos reseteados');
+}
+
+// ════════════════════════════════════════════════
+//  RENDER
+// ════════════════════════════════════════════════
+const TYPE_LABELS = {
+  desayuno: 'Desayuno',
+  almuerzo: 'Almuerzo',
+  cena: 'Cena',
+  actividad: 'Actividad'
+};
+const TYPE_COLORS = {
+  desayuno: 'var(--breakfast)',
+  almuerzo: 'var(--lunch)',
+  cena: 'var(--dinner)',
+  actividad: 'var(--activity)'
+};
+
+function getItemPrice(item){
+  if(item.customPrice !== undefined && item.selectedIndex === -1){
+    return parseFloat(item.customPrice) || 0;
+  }
+  const opt = item.options[item.selectedIndex];
+  return opt ? (parseFloat(opt.price) || 0) : 0;
+}
+
+function getItemName(item){
+  if(item.selectedIndex === -1 && item.customName) return item.customName;
+  const opt = item.options[item.selectedIndex];
+  return opt ? opt.name : '';
+}
+
+function calcItemTotal(item){
+  return getItemPrice(item) * (item.people || 0);
+}
+
+function renderItem(dayKey, idx, item){
+  const price = getItemPrice(item);
+  const total = calcItemTotal(item);
+  const isCustom = item.selectedIndex === -1;
+  const typeClass = 'type-' + item.type;
+
+  let nameHtml;
+  if(item.options.length > 1 || !isCustom){
+    // Select dropdown
+    nameHtml = `<select onchange="onOptionChange('${dayKey}', ${idx}, this.value)">
+      ${item.options.map((opt, i) => `
+        <option value="${i}" ${i === item.selectedIndex ? 'selected' : ''}>${escapeHtml(opt.name)}</option>
+      `).join('')}
+      <option value="custom" ${isCustom ? 'selected' : ''}>✏️ Otro (editable)...</option>
+    </select>`;
+    if(isCustom){
+      nameHtml += `<input type="text" value="${escapeHtml(item.customName || '')}" placeholder="Nombre..." style="margin-top:4px" oninput="updateField('${dayKey}', ${idx}, 'customName', this.value)">`;
+    }
+  } else {
+    // Único sin opciones, mostrar como input text
+    nameHtml = `<input type="text" value="${escapeHtml(item.options[0].name)}" oninput="updateOptionName('${dayKey}', ${idx}, this.value)">`;
+  }
+
+  return `
+    <div class="item-row">
+      <div class="item-type-badge ${typeClass}">${TYPE_LABELS[item.type]}</div>
+      <div class="item-name-wrap">${nameHtml}</div>
+      <div class="item-price-wrap">
+        <input type="number" step="0.5" value="${price}" oninput="updatePrice('${dayKey}', ${idx}, this.value)">
+      </div>
+      <div class="item-people-wrap">
+        <input type="number" min="1" value="${item.people}" oninput="updateField('${dayKey}', ${idx}, 'people', parseInt(this.value) || 1)">
+      </div>
+      <div class="item-total">$${total.toFixed(0)}</div>
+      <button class="item-del" onclick="deleteItem('${dayKey}', ${idx})" title="Eliminar">×</button>
+    </div>
+  `;
+}
+
+function renderDay(dayKey){
+  const day = tripData[dayKey];
+  const dayTotal = day.items.reduce((sum, item) => sum + calcItemTotal(item), 0);
+
+  const itemsHtml = day.items.length
+    ? `<div class="row-headers">
+         <div></div><div>Nombre / opción</div><div class="rh-price">Precio p/p</div><div class="rh-people">Personas</div><div class="rh-total">Total</div><div></div>
+       </div>` + day.items.map((item, idx) => renderItem(dayKey, idx, item)).join('')
+    : '<div class="empty-day">Sin ítems. Agregá el primero abajo.</div>';
+
+  return `
+    <div class="day-summary" data-day="${dayKey}">
+      <div class="ds-head" onclick="toggleDaySummary('${dayKey}')">
+        <div class="ds-title">${day.title}<small>${day.subtitle}</small></div>
+        <div class="ds-total" id="total-${dayKey}">$${dayTotal.toFixed(0)}</div>
+        <div class="ds-toggle">+</div>
+      </div>
+      <div class="ds-body">
+        ${itemsHtml}
+        <div id="picker-${dayKey}"></div>
+        <button class="btn-add-item" onclick="showTypePicker('${dayKey}')">+ Agregar comida o actividad</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderAllDays(){
+  const container = document.getElementById('days-container');
+  container.innerHTML = Object.keys(tripData).map(key => renderDay(key)).join('');
+  updateGrandTotal();
+}
+
+function updateDayTotal(dayKey){
+  const day = tripData[dayKey];
+  const total = day.items.reduce((sum, item) => sum + calcItemTotal(item), 0);
+  const el = document.getElementById('total-' + dayKey);
+  if(el) el.textContent = '$' + total.toFixed(0);
+  updateGrandTotal();
+}
+
+function updateGrandTotal(){
+  let grand = 0;
+  let itemCount = 0;
+  Object.values(tripData).forEach(day => {
+    day.items.forEach(item => {
+      grand += calcItemTotal(item);
+      itemCount++;
+    });
+  });
+  document.getElementById('tb-amount').textContent = '$' + grand.toFixed(0);
+  document.getElementById('stat-items').textContent = itemCount;
+}
+
+function escapeHtml(str){
+  if(str === undefined || str === null) return '';
+  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ════════════════════════════════════════════════
+//  ACCIONES
+// ════════════════════════════════════════════════
+function toggleDaySummary(dayKey){
+  const el = document.querySelector(`[data-day="${dayKey}"]`);
+  if(el) el.classList.toggle('closed');
+}
+
+function onOptionChange(dayKey, idx, value){
+  const item = tripData[dayKey].items[idx];
+  if(value === 'custom'){
+    item.selectedIndex = -1;
+    if(!item.customName) item.customName = '';
+  } else {
+    item.selectedIndex = parseInt(value);
+  }
+  // Re-render solo ese día
+  const el = document.querySelector(`[data-day="${dayKey}"]`);
+  if(el){
+    const open = !el.classList.contains('closed');
+    el.outerHTML = renderDay(dayKey);
+    if(!open) document.querySelector(`[data-day="${dayKey}"]`).classList.add('closed');
+  }
+  updateGrandTotal();
+}
+
+function updatePrice(dayKey, idx, value){
+  const item = tripData[dayKey].items[idx];
+  const price = parseFloat(value) || 0;
+  if(item.selectedIndex === -1){
+    item.customPrice = price;
+  } else {
+    item.options[item.selectedIndex].price = price;
+  }
+  // Actualizar solo el total del row y del día
+  const rows = document.querySelectorAll(`[data-day="${dayKey}"] .item-row`);
+  const row = rows[idx];
+  if(row){
+    row.querySelector('.item-total').textContent = '$' + calcItemTotal(item).toFixed(0);
+  }
+  updateDayTotal(dayKey);
+}
+
+function updateField(dayKey, idx, field, value){
+  const item = tripData[dayKey].items[idx];
+  item[field] = value;
+  // actualizar total del row
+  const rows = document.querySelectorAll(`[data-day="${dayKey}"] .item-row`);
+  const row = rows[idx];
+  if(row){
+    row.querySelector('.item-total').textContent = '$' + calcItemTotal(item).toFixed(0);
+  }
+  updateDayTotal(dayKey);
+}
+
+function updateOptionName(dayKey, idx, value){
+  const item = tripData[dayKey].items[idx];
+  if(item.options[item.selectedIndex]){
+    item.options[item.selectedIndex].name = value;
+  }
+}
+
+function deleteItem(dayKey, idx){
+  tripData[dayKey].items.splice(idx, 1);
+  const el = document.querySelector(`[data-day="${dayKey}"]`);
+  const open = !el.classList.contains('closed');
+  el.outerHTML = renderDay(dayKey);
+  if(!open) document.querySelector(`[data-day="${dayKey}"]`).classList.add('closed');
+  updateGrandTotal();
+}
+
+function showTypePicker(dayKey){
+  const picker = document.getElementById('picker-' + dayKey);
+  picker.innerHTML = `
+    <div class="type-picker">
+      <button class="type-pick-btn" style="background:var(--breakfast)" onclick="addItem('${dayKey}','desayuno')">+ Desayuno</button>
+      <button class="type-pick-btn" style="background:var(--lunch)" onclick="addItem('${dayKey}','almuerzo')">+ Almuerzo</button>
+      <button class="type-pick-btn" style="background:var(--dinner)" onclick="addItem('${dayKey}','cena')">+ Cena</button>
+      <button class="type-pick-btn" style="background:var(--activity)" onclick="addItem('${dayKey}','actividad')">+ Actividad</button>
+      <button class="btn btn-small" onclick="cancelPicker('${dayKey}')">Cancelar</button>
+    </div>
+  `;
+}
+
+function cancelPicker(dayKey){
+  document.getElementById('picker-' + dayKey).innerHTML = '';
+}
+
+function addItem(dayKey, type){
+  const newItem = {
+    id: dayKey + '-' + Date.now(),
+    type: type,
+    options: [{ name: 'Nuevo · editable', price: 0 }],
+    selectedIndex: -1,
+    customName: '',
+    customPrice: 0,
+    people: DEFAULT_PEOPLE
+  };
+  tripData[dayKey].items.push(newItem);
+  const el = document.querySelector(`[data-day="${dayKey}"]`);
+  el.outerHTML = renderDay(dayKey);
+  updateGrandTotal();
+}
+
+// ════════════════════════════════════════════════
+//  TABS
+// ════════════════════════════════════════════════
+function showPanel(name, btn){
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+}
+
+// ════════════════════════════════════════════════
+//  EXPORT / IMPORT
+// ════════════════════════════════════════════════
+function openExport(){
+  document.getElementById('export-text').value = JSON.stringify(gatherAllData(), null, 2);
+  document.getElementById('modal-bg').classList.add('open');
+}
+function closeExport(){
+  document.getElementById('modal-bg').classList.remove('open');
+}
+function copyExport(){
+  const ta = document.getElementById('export-text');
+  ta.select();
+  document.execCommand('copy');
+  showToast('📋 Copiado');
+}
+function importData(){
+  try {
+    const raw = document.getElementById('export-text').value;
+    const data = JSON.parse(raw);
+    localStorage.setItem('patagonia-data', JSON.stringify(data));
+    if(data.trip) tripData = data.trip;
+    renderAllDays();
+    loadData();
+    closeExport();
+    showToast('✅ Datos importados');
+  } catch(e){
+    alert('JSON inválido: ' + e.message);
+  }
+}
+
+// ════════════════════════════════════════════════
+//  TOAST
+// ════════════════════════════════════════════════
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+// ════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════
+loadData();
+renderAllDays();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0f2a1d" />
+<title>Patagonia · Abril 2026 — Miko, Ryna, Daniel & Mamá</title>
+<meta name="description" content="Nueve días recorriendo San Martín de los Andes, Villa La Angostura y Bariloche. Un viaje en familia, pensado con calma." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#0f2a1d;
+  --moss:#2d5a3d;
+  --sage:#6a9378;
+  --fog:#f4efe6;
+  --mist:#e9e2d4;
+  --lake:#3a6a82;
+  --sunset:#d98851;
+  --ink:#1a1a1a;
+  --muted:#6b6b63;
+  --line:#e0dacb;
+  --white:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--fog);
+  color:var(--ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* Textura de grano sutil en todo el body */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  pointer-events:none;
+  z-index:1;
+  opacity:0.35;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.18 0 0 0 0 0.15 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Scroll reveal */
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1);
+}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal-2{transition-delay:.08s}
+.reveal-3{transition-delay:.16s}
+.reveal-4{transition-delay:.24s}
+
+/* Float loop */
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+@keyframes drift{
+  from{transform:translateX(-20px)}
+  to{transform:translateX(20px)}
+}
+@keyframes breathe{
+  0%,100%{opacity:0.5}
+  50%{opacity:0.9}
+}
+.serif{font-family:'Fraunces',Georgia,serif;font-weight:400;letter-spacing:-0.02em}
+
+/* ═══════════ NAV ═══════════ */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(244,239,230,0.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav-wrap{
+  max-width:1100px;margin:0 auto;
+  padding:14px 24px;
+  display:flex;justify-content:space-between;align-items:center;gap:20px;
+}
+.nav-brand{font-family:'Fraunces',serif;font-weight:600;font-size:1.05em;color:var(--forest)}
+.nav-links{display:flex;gap:22px;font-size:0.85em}
+.nav-links a{color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--forest)}
+@media(max-width:720px){.nav-links{display:none}}
+
+/* ═══════════ HERO ═══════════ */
+.hero{
+  position:relative;
+  min-height:94vh;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(183,228,199,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(217,136,81,0.12) 0%, transparent 55%),
+    linear-gradient(180deg,#081810 0%,#0f2a1d 25%,#1d3f2c 55%,#2d5a3d 100%);
+  color:var(--white);
+  overflow:hidden;
+  display:flex;align-items:center;
+  isolation:isolate;
+}
+.hero svg.mountains{
+  position:absolute;bottom:-2px;left:0;width:100%;height:auto;
+  z-index:1;
+}
+.hero svg.mountains-back{
+  position:absolute;bottom:80px;left:0;width:110%;height:auto;
+  z-index:0;opacity:0.4;
+  animation:drift 20s ease-in-out infinite alternate;
+}
+/* Nubes animadas */
+.cloud{
+  position:absolute;
+  border-radius:100px;
+  background:rgba(255,255,255,0.08);
+  filter:blur(20px);
+  pointer-events:none;
+  z-index:1;
+}
+.cloud-1{width:300px;height:60px;top:15%;left:-10%;animation:drift 30s ease-in-out infinite alternate}
+.cloud-2{width:220px;height:50px;top:25%;right:-8%;animation:drift 40s ease-in-out infinite alternate-reverse}
+.cloud-3{width:400px;height:80px;top:8%;left:40%;animation:drift 50s ease-in-out infinite alternate}
+/* Estrellas puntitos */
+.stars{position:absolute;inset:0;z-index:0;opacity:0.6;
+  background-image:
+    radial-gradient(1px 1px at 15% 12%, #fff, transparent),
+    radial-gradient(1px 1px at 25% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 50% 18%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 70% 25%, #fff, transparent),
+    radial-gradient(1px 1px at 85% 15%, #fff, transparent),
+    radial-gradient(1px 1px at 92% 35%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 35% 8%, #fff, transparent),
+    radial-gradient(1px 1px at 60% 5%, #fff, transparent);
+  animation:breathe 4s ease-in-out infinite;
+}
+.hero-content{
+  position:relative;z-index:3;
+  max-width:1100px;margin:0 auto;
+  padding:60px 24px 180px;
+  width:100%;
+}
+.hero-eyebrow{
+  text-transform:uppercase;letter-spacing:3px;font-size:0.72em;
+  color:var(--sage);font-weight:600;margin-bottom:18px;
+}
+.hero h1{
+  font-family:'Fraunces',serif;
+  font-size:clamp(2.4em,6.5vw,5em);
+  font-weight:300;
+  line-height:1.02;
+  letter-spacing:-0.03em;
+  margin-bottom:22px;
+  max-width:14ch;
+}
+.hero h1 em{font-style:italic;font-weight:400;color:#b7e4c7}
+.hero-sub{
+  font-size:clamp(1em,1.6vw,1.15em);
+  max-width:52ch;
+  opacity:0.85;
+  margin-bottom:32px;
+}
+.countdown{
+  display:inline-flex;gap:14px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.18);
+  border-radius:14px;
+  padding:16px 22px;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  box-shadow:0 20px 60px -20px rgba(0,0,0,0.6);
+}
+.cd-box{text-align:center}
+.cd-num{font-family:'Fraunces',serif;font-size:1.8em;font-weight:600;line-height:1}
+.cd-lbl{font-size:0.65em;text-transform:uppercase;letter-spacing:1.5px;opacity:0.7;margin-top:4px}
+
+/* ═══════════ SECTIONS ═══════════ */
+section{padding:80px 24px;max-width:1100px;margin:0 auto}
+.sec-eyebrow{
+  text-transform:uppercase;letter-spacing:2.5px;font-size:0.7em;font-weight:600;
+  color:var(--sage);margin-bottom:14px;
+}
+.sec-title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(1.8em,4vw,2.8em);
+  font-weight:400;
+  color:var(--forest);
+  margin-bottom:14px;
+  letter-spacing:-0.02em;
+  line-height:1.1;
+}
+.sec-lede{font-size:1.05em;color:var(--muted);max-width:58ch;margin-bottom:40px}
+
+/* ═══════════ VIAJEROS ═══════════ */
+.travelers{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.tcard{
+  background:var(--white);
+  border-radius:16px;
+  padding:24px;
+  border:1px solid var(--line);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s, border-color .3s;
+  position:relative;
+  overflow:hidden;
+}
+.tcard::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--moss),var(--sage),var(--sunset));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1);
+}
+.tcard:hover{transform:translateY(-6px);box-shadow:0 20px 40px -18px rgba(15,42,29,.3);border-color:var(--sage)}
+.tcard:hover::before{transform:scaleX(1)}
+.tcard-avatar{
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,var(--moss),var(--sage));
+  color:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-size:1.4em;font-weight:600;
+  margin-bottom:14px;
+}
+.tcard h3{font-family:'Fraunces',serif;font-size:1.2em;color:var(--forest);margin-bottom:4px}
+.tcard .role{font-size:0.78em;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.tcard p{font-size:0.88em;color:#444}
+.tcard .energy{display:flex;gap:3px;margin-top:10px}
+.tcard .energy span{width:22px;height:4px;border-radius:2px;background:var(--mist)}
+.tcard .energy span.on{background:var(--moss)}
+
+/* ═══════════ ESTADÍSTICAS ═══════════ */
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2px;
+  background:var(--line);
+  border-radius:16px;
+  overflow:hidden;
+  margin:40px 0;
+}
+.stat{background:var(--white);padding:28px 20px;text-align:center;transition:background .3s}
+.stat:hover{background:#fafaf4}
+.stat .n{font-family:'Fraunces',serif;font-size:2.6em;font-weight:600;color:var(--forest);line-height:1;
+  background:linear-gradient(135deg,var(--forest) 0%,var(--moss) 50%,var(--sage) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.stat .l{font-size:0.72em;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-top:6px}
+
+/* ═══════════ TIMELINE ═══════════ */
+.timeline{position:relative;padding-left:30px}
+.timeline::before{
+  content:'';position:absolute;left:8px;top:8px;bottom:8px;
+  width:2px;background:linear-gradient(180deg,var(--moss),var(--sage),transparent);
+}
+.day{
+  position:relative;
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:16px;
+  margin-bottom:16px;
+  overflow:hidden;
+  transition:box-shadow .25s;
+}
+.day::before{
+  content:'';position:absolute;left:-30px;top:28px;
+  width:18px;height:18px;border-radius:50%;
+  background:var(--fog);
+  border:3px solid var(--moss);
+  z-index:2;
+}
+.day:hover{box-shadow:0 12px 30px -15px rgba(15,42,29,.2)}
+.day-head{
+  padding:20px 24px;
+  cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;gap:20px;
+  user-select:none;
+}
+.day-head-left{flex:1}
+.day-date{font-size:0.72em;text-transform:uppercase;letter-spacing:2px;color:var(--sage);font-weight:600;margin-bottom:4px}
+.day-title{font-family:'Fraunces',serif;font-size:1.4em;color:var(--forest);font-weight:500;line-height:1.2}
+.day-meta{font-size:0.82em;color:var(--muted);margin-top:6px;display:flex;gap:14px;flex-wrap:wrap}
+.day-meta span{display:inline-flex;align-items:center;gap:5px}
+.day-toggle{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--fog);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--moss);font-size:1.3em;font-weight:300;
+  transition:transform .3s;flex-shrink:0;
+}
+.day.open .day-toggle{transform:rotate(45deg)}
+.day-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s ease;
+}
+.day.open .day-body{max-height:3000px}
+.day-body-inner{padding:0 24px 24px;border-top:1px solid var(--line);padding-top:20px}
+
+.moment{
+  display:flex;gap:16px;
+  padding:14px 0;
+  border-bottom:1px dashed var(--line);
+}
+.moment:last-child{border-bottom:none}
+.moment-time{
+  font-size:0.7em;font-weight:700;color:var(--moss);
+  text-transform:uppercase;letter-spacing:1px;
+  min-width:70px;padding-top:3px;
+}
+.moment-body{flex:1;font-size:0.92em}
+.moment-body strong{color:var(--forest)}
+.moment-body .note{color:var(--muted);font-size:0.88em;margin-top:4px;display:block}
+
+.anchor{
+  background:linear-gradient(90deg,rgba(217,136,81,.08),transparent);
+  border-left:3px solid var(--sunset);
+  padding:12px 14px;
+  border-radius:6px;
+  margin:12px 0;
+  font-size:0.88em;
+}
+.anchor strong{color:var(--sunset);display:block;margin-bottom:3px;font-size:0.78em;text-transform:uppercase;letter-spacing:1.5px}
+
+.warn,.info,.ok{
+  border-radius:8px;padding:11px 14px;margin:10px 0;
+  font-size:0.86em;line-height:1.5;
+}
+.warn{background:#fff8e1;border-left:3px solid #f9a825}
+.info{background:#e3f2fd;border-left:3px solid var(--lake)}
+.ok{background:#e8f5e9;border-left:3px solid var(--moss)}
+.crit{background:#fdecea;border-left:3px solid #c53030;padding:11px 14px;border-radius:8px;margin:10px 0;font-size:0.86em}
+
+/* ═══════════ ACCESIBILIDAD ═══════════ */
+.acc-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--fog);padding:3px 10px;border-radius:20px;
+  font-size:0.72em;font-weight:600;color:var(--moss);
+  margin-top:6px;
+}
+.acc-dots{display:inline-flex;gap:2px;margin-left:3px}
+.acc-dots i{
+  width:6px;height:6px;border-radius:50%;background:var(--mist);display:inline-block;
+}
+.acc-dots i.on{background:var(--moss)}
+
+/* ═══════════ HOSPEDAJES ═══════════ */
+.hotels{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.hotel{
+  background:var(--white);border:1px solid var(--line);
+  border-radius:16px;padding:22px;
+  position:relative;overflow:hidden;
+}
+.hotel::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--moss),var(--sage));
+}
+.hotel h3{font-family:'Fraunces',serif;font-size:1.2em;color:var(--forest);margin-bottom:6px}
+.hotel .loc{font-size:0.8em;color:var(--muted);margin-bottom:10px}
+.hotel .dates{font-size:0.85em;color:#444;margin-bottom:10px}
+.hotel .feat{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.hotel .feat span{
+  font-size:0.7em;background:var(--fog);padding:4px 10px;border-radius:20px;
+  color:var(--moss);font-weight:600;
+}
+
+/* ═══════════ PRESUPUESTO ═══════════ */
+.budget{
+  background:var(--white);border:1px solid var(--line);
+  border-radius:16px;padding:30px;
+}
+.budget-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 0;border-bottom:1px solid var(--line);
+}
+.budget-row:last-child{border-bottom:none}
+.budget-row .cat{display:flex;align-items:center;gap:12px}
+.budget-row .icon{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--fog);display:flex;align-items:center;justify-content:center;
+  font-size:1.1em;
+}
+.budget-row .name{font-weight:500;font-size:0.95em}
+.budget-row .sub{font-size:0.78em;color:var(--muted)}
+.budget-row .val{font-family:'Fraunces',serif;font-size:1.15em;font-weight:600;color:var(--forest)}
+.budget-total{
+  margin-top:18px;padding-top:20px;border-top:2px solid var(--forest);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.budget-total .lbl{font-size:0.78em;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted)}
+.budget-total .amt{font-family:'Fraunces',serif;font-size:2em;font-weight:600;color:var(--forest)}
+
+/* ═══════════ PLAN B CLIMA ═══════════ */
+.planb{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.planb-card{
+  background:var(--white);border:1px solid var(--line);
+  border-radius:14px;padding:20px;
+}
+.planb-card h4{font-family:'Fraunces',serif;color:var(--forest);margin-bottom:4px;font-size:1.05em}
+.planb-card .sunny{color:var(--sunset);font-size:0.78em;font-weight:600;margin-bottom:10px}
+.planb-card .rainy{color:var(--lake);font-size:0.78em;font-weight:600;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.planb-card p{font-size:0.86em;color:#444;line-height:1.5}
+
+/* ═══════════ MAPAS ILUSTRADOS ═══════════ */
+.map-wrap{
+  position:relative;
+  background:linear-gradient(180deg,#f8f5ec 0%,#efe8d5 100%);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:24px;
+  margin:24px 0;
+  overflow:hidden;
+  box-shadow:0 20px 60px -30px rgba(15,42,29,0.25);
+}
+.map-wrap::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(45,90,61,0.04) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(58,106,130,0.05) 0%, transparent 40%);
+  pointer-events:none;
+}
+.map-label{
+  position:absolute;top:20px;left:24px;
+  font-family:'Fraunces',serif;
+  font-size:0.78em;font-weight:600;
+  color:var(--forest);
+  background:rgba(255,255,255,0.85);
+  padding:6px 14px;border-radius:20px;
+  letter-spacing:1px;text-transform:uppercase;
+  backdrop-filter:blur(4px);
+  z-index:2;
+}
+.map-legend{
+  display:flex;gap:18px;flex-wrap:wrap;
+  margin-top:14px;font-size:0.78em;
+  color:var(--muted);
+  padding:14px 18px;
+  background:rgba(255,255,255,0.5);
+  border-radius:12px;
+  position:relative;z-index:2;
+}
+.map-legend .lg{display:flex;align-items:center;gap:6px}
+.map-legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.map-svg{width:100%;height:auto;position:relative;z-index:1;display:block}
+
+/* Animación pulse de puntos en mapas */
+@keyframes pulseCircle{
+  0%{r:8;opacity:1}
+  100%{r:20;opacity:0}
+}
+.pulse{
+  transform-origin:center;
+  animation:pulseCircle 2s ease-out infinite;
+}
+
+/* ═══════════ PACKING ═══════════ */
+.pack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.pack{
+  background:var(--white);border:1px solid var(--line);
+  border-radius:14px;padding:20px;
+}
+.pack h4{font-family:'Fraunces',serif;color:var(--forest);margin-bottom:12px;font-size:1.05em}
+.pack ul{list-style:none}
+.pack li{
+  font-size:0.86em;padding:6px 0 6px 22px;
+  position:relative;color:#444;
+  border-bottom:1px solid var(--line);
+}
+.pack li:last-child{border-bottom:none}
+.pack li::before{
+  content:'';position:absolute;left:0;top:12px;
+  width:14px;height:14px;border:1.5px solid var(--sage);border-radius:3px;
+}
+
+/* ═══════════ FOOTER ═══════════ */
+footer{
+  background:var(--forest);
+  color:#b7e4c7;
+  padding:80px 24px 40px;
+  text-align:center;
+  margin-top:40px;
+}
+footer h2{
+  font-family:'Fraunces',serif;
+  font-size:clamp(1.8em,4vw,2.6em);
+  font-weight:300;
+  color:var(--white);
+  margin-bottom:14px;
+  font-style:italic;
+}
+footer p{opacity:0.7;max-width:48ch;margin:0 auto 30px;font-size:0.95em}
+footer .sig{
+  margin-top:40px;padding-top:30px;
+  border-top:1px solid rgba(255,255,255,0.1);
+  font-size:0.78em;opacity:0.5;
+}
+
+@media(max-width:720px){
+  section{padding:60px 20px}
+  .hero-content{padding:50px 20px 140px}
+  .timeline{padding-left:24px}
+  .day::before{left:-24px;top:26px;width:14px;height:14px;border-width:2px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav>
+  <div class="nav-wrap">
+    <div class="nav-brand">Family Trip LMS · Patagonia 2026 🏔️</div>
+    <div class="nav-links">
+      <a href="#viajeros">Viajeros</a>
+      <a href="#itinerario">Itinerario</a>
+      <a href="#hospedajes">Hospedajes</a>
+      <a href="#ruta">Ruta</a>
+      <a href="#equipaje">Equipaje</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero">
+  <div class="stars"></div>
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Abril 2026 · 9 días · 4 personas</div>
+    <h1>Nueve días al sur del <em>mundo</em>, en familia.</h1>
+    <p class="hero-sub">De Buenos Aires a San Martín de los Andes, Villa La Angostura y Bariloche. Sin prisa, con lagos de por medio, asados caseros y un ritmo pensado para caminar despacio y mirar mucho.</p>
+    <div class="countdown" id="countdown">
+      <div class="cd-box"><div class="cd-num" id="cd-d">—</div><div class="cd-lbl">Días</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-h">—</div><div class="cd-lbl">Horas</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-m">—</div><div class="cd-lbl">Minutos</div></div>
+    </div>
+  </div>
+
+  <!-- Montañas del fondo (drift animado) -->
+  <svg class="mountains-back" viewBox="0 0 1440 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#1d3f2c" d="M0,220 L90,140 L180,180 L270,100 L360,150 L450,80 L540,130 L630,60 L720,110 L810,70 L900,130 L990,90 L1080,150 L1170,100 L1260,160 L1350,120 L1440,170 L1440,300 L0,300 Z"/>
+  </svg>
+
+  <!-- Montañas frente con picos nevados -->
+  <svg class="mountains" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="snowGrad" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0" stop-color="#e8f0e9" stop-opacity="0.95"/>
+        <stop offset="0.5" stop-color="#a4c4ad" stop-opacity="0.4"/>
+        <stop offset="1" stop-color="#0a1f15" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <!-- Capa media -->
+    <path fill="#0a1f15" fill-opacity="0.75" d="M0,240 L80,200 L160,230 L240,170 L320,200 L400,140 L480,170 L560,110 L640,140 L720,90 L800,130 L880,160 L960,140 L1040,180 L1120,140 L1200,190 L1280,170 L1360,210 L1440,185 L1440,320 L0,320 Z"/>
+    <!-- Picos nevados brillo -->
+    <path fill="url(#snowGrad)" d="M560,110 L600,140 L560,130 Z M720,90 L760,130 L720,115 Z M880,160 L910,190 L880,180 Z"/>
+    <!-- Capa frontal -->
+    <path fill="#050e08" d="M0,280 L60,260 L140,278 L220,246 L300,262 L380,230 L460,246 L540,214 L620,230 L700,198 L780,230 L860,246 L940,230 L1020,246 L1100,230 L1180,262 L1260,246 L1340,262 L1440,246 L1440,320 L0,320 Z"/>
+  </svg>
+</div>
+
+<!-- ═══════════ VIAJEROS ═══════════ -->
+<section id="viajeros">
+  <div class="sec-eyebrow reveal">Quiénes viajan</div>
+  <h2 class="sec-title reveal">Cuatro perfiles, un mismo ritmo.</h2>
+  <p class="sec-lede reveal">El viaje se arma alrededor del ritmo tranquilo de mamá. Todo lo que figura acá fue elegido para que nadie quede fuera, aun cuando cada uno tiene energías distintas.</p>
+  <div class="travelers reveal reveal-2">
+    <div class="tcard">
+      <div class="tcard-avatar">M</div>
+      <h3>Miko</h3>
+      <div class="role">Organizador · Conductor</div>
+      <p>Arma logística, maneja el auto y conoce la ruta. Le ilusiona mostrarles la Patagonia tal como la vivió.</p>
+      <div class="energy"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-avatar">R</div>
+      <h3>Ryna</h3>
+      <div class="role">Compañera · DJ del camino</div>
+      <p>Viene a disfrutar del paisaje, la calma y los silencios largos entre montañas. La compañera perfecta para los tramos de ruta — y la que arma la playlist que nos va a acompañar.</p>
+      <div class="energy"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-avatar">D</div>
+      <h3>Daniel</h3>
+      <div class="role">Copiloto · Fotógrafo</div>
+      <p>El experto en fotografía del grupo. Ojo entrenado, paciencia para esperar la luz justa y el encargado de que este viaje quede registrado como merece.</p>
+      <div class="energy"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-avatar">♥</div>
+      <h3>Mamá</h3>
+      <div class="role">Corazón del viaje</div>
+      <p>Ritmo tranquilo, caminatas cortas, banco cerca. El plan se diseñó para que disfrute todo sin forzarse.</p>
+      <div class="energy"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ STATS ═══════════ -->
+<section style="padding-top:0">
+  <div class="stats">
+    <div class="stat"><div class="n">9</div><div class="l">Días</div></div>
+    <div class="stat"><div class="n">3</div><div class="l">Ciudades</div></div>
+    <div class="stat"><div class="n">7</div><div class="l">Lagos</div></div>
+    <div class="stat"><div class="n">690<span style="font-size:.4em">km</span></div><div class="l">Ruta estimada</div></div>
+    <div class="stat"><div class="n">3</div><div class="l">Hoteles</div></div>
+  </div>
+</section>
+
+<!-- ═══════════ ITINERARIO ═══════════ -->
+<section id="itinerario">
+  <div class="sec-eyebrow reveal">Día a día</div>
+  <h2 class="sec-title reveal">El itinerario, sin apuro.</h2>
+  <p class="sec-lede reveal">Cada día es expandible. Tocá para ver horarios, actividades, restaurantes y los "momentos ancla" — esos instantes que vale la pena vivir con intención, no de pasada.</p>
+
+  <div class="timeline">
+
+    <!-- DÍA 1 -->
+    <div class="day">
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-head-left">
+          <div class="day-date">Sábado 18 · Abril</div>
+          <div class="day-title">Bienvenida tranquila a Buenos Aires</div>
+          <div class="day-meta"><span>✈️ Llegada EZE 9:20am</span><span>🌳 Jardín Japonés</span><span>🏠 Descanso</span></div>
+        </div>
+        <div class="day-toggle">+</div>
+      </div>
+      <div class="day-body" id="day-sat18-body"><div class="day-body-inner">
+        <div class="info">💡 Día de bienvenida con recorrido clásico porteño. Ritmo tranquilo, paradas frecuentes, nada de forzar caminatas.</div>
+        <div class="moment" data-moment="sat18-0"><div class="moment-time">9:20am</div><div class="moment-body"><strong>Aterrizaje Delta DL6019</strong> en Ezeiza.<span class="note">Inmigración puede tardar 1–1.5hs. Esperarlos en Llegadas Internacionales.</span></div></div>
+        <div class="moment" data-moment="sat18-1"><div class="moment-time">11:00</div><div class="moment-body"><strong>Comida en casa</strong> y descanso corto.<span class="note">Tiempo para que respiren antes de arrancar el recorrido.</span></div></div>
+        <div class="moment" data-moment="sat18-2"><div class="moment-time">12:30pm</div><div class="moment-body"><strong>Jardín Japonés (Palermo)</strong><span class="note">Senderos pavimentados, bancos, estanque con carpas. Av. Casares 2966.</span><span class="acc-badge">Mamá-friendly <span class="acc-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></span></div></div>
+        <div class="moment" data-moment="sat18-3"><div class="moment-time">~2:00pm</div><div class="moment-body"><strong>🍽️ Almuerzo — Salgado</strong><span class="note">Cerca del Jardín Japonés. Plan B: Las Cuartetas (Corrientes 838, pizza porteña de parado).</span></div></div>
+        <div class="moment" data-moment="sat18-4"><div class="moment-time">~3:30pm</div><div class="moment-body"><strong>Obelisco</strong> · Centro histórico<span class="note">Av. 9 de Julio · foto obligada del ícono porteño.</span></div></div>
+        <div class="moment" data-moment="sat18-5"><div class="moment-time">~4:30pm</div><div class="moment-body"><strong>Palacio Libertad (CCK)</strong> <em style="color:var(--sunset);font-size:0.78em;font-weight:600">· OPCIONAL</em><span class="note">Entrada libre. Arquitectura monumental, vale la foto aunque no entren a recorrer todo.</span></div></div>
+        <div class="moment" data-moment="sat18-6"><div class="moment-time">~6:00pm</div><div class="moment-body"><strong>Puerto Madero</strong> · atardecer<span class="note">Costanera, Puente de la Mujer, caminata tranquila junto al río.</span></div></div>
+        <div class="moment" data-moment="sat18-7"><div class="moment-time">~7:30pm</div><div class="moment-body"><strong>Av. Corrientes</strong> · noche porteña<span class="note">Librerías, luces, ambiente nocturno. Paseo corto antes de volver.</span></div></div>
+        <div class="moment" data-moment="sat18-8"><div class="moment-time">~9:00pm</div><div class="moment-body"><strong>🥟 Cena en casa — Empanadas Mi Gusto</strong><span class="note">Pedir a domicilio. Algo tranquilo antes de dormir.</span></div></div>
+        <div class="warn">🛒 <strong>Ojo:</strong> antes de volver a casa pasar por el mercado y comprar lo necesario para hacer sanguches para el desayuno del lunes (van a arrancar 4:30am).</div>
+        <div class="anchor"><strong>Momento ancla</strong>Atardecer en Puerto Madero — la primera foto de los cuatro juntos con el Puente de la Mujer de fondo.</div>
+      </div></div>
+    </div>
+
+    <!-- DÍA 2 -->
+    <div class="day">
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-head-left">
+          <div class="day-date">Domingo 19 · Abril</div>
+          <div class="day-title">Buenos Aires en bus rojo</div>
+          <div class="day-meta"><span>🚌 Bus turístico</span><span>🎨 San Telmo</span><span>🍽️ El Ferroviario</span></div>
+        </div>
+        <div class="day-toggle">+</div>
+      </div>
+      <div class="day-body"><div class="day-body-inner">
+        <div class="moment"><div class="moment-time">Mañana</div><div class="moment-body"><strong>🫓 Desayuno en casa — arepas</strong><span class="note">Algo casero y tranquilo antes de arrancar el día.</span></div></div>
+        <div class="moment"><div class="moment-time">10:00am</div><div class="moment-body"><strong>Bus Turístico</strong> desde Barrio Chino.<span class="note">Bajadas a criterio de mamá.</span></div></div>
+        <div class="moment"><div class="moment-time">~1:00pm</div><div class="moment-body"><strong>🌭 Almuerzo — La Choripanería</strong><span class="note">Choripán clásico porteño, rápido y económico.</span></div></div>
+        <div class="moment"><div class="moment-time">Mediodía</div><div class="moment-body"><strong>Parada San Telmo</strong><span class="note">Foto con Mafalda. Mercado de artesanías, vinilos, ambiente dominguero.</span></div></div>
+        <div class="moment"><div class="moment-time">Tarde</div><div class="moment-body"><strong>Caminito — La Boca</strong><span class="note">Colores, tango callejero. Poca caminata.</span></div></div>
+        <div class="moment"><div class="moment-time">8:00pm</div><div class="moment-body"><strong>🍽️ Cena: El Ferroviario</strong><span class="note">Reserva confirmada. Parrilla icónica porteña.</span></div></div>
+        <div class="warn">🥪 <strong>Antes de dormir:</strong> preparar los sanguches para el desayuno del lunes. Se come temprano en el auto camino al aeropuerto.</div>
+        <div class="crit">⚠️ Lunes: salida a EZE a las 4:30am. Preparar todo esta noche.</div>
+        <div class="anchor"><strong>Momento ancla</strong>Brindis en El Ferroviario — el "adiós" a Buenos Aires antes de la montaña.</div>
+      </div></div>
+    </div>
+
+    <!-- DÍA 3 -->
+    <div class="day">
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-head-left">
+          <div class="day-date">Lunes 20 · Abril</div>
+          <div class="day-title">Vuelo a Bariloche · San Martín de los Andes</div>
+          <div class="day-meta"><span>✈️ BRC 10:10am</span><span>🚗 RN40 · 200km</span><span>🏔️ SMA</span></div>
+        </div>
+        <div class="day-toggle">+</div>
+      </div>
+      <div class="day-body"><div class="day-body-inner">
+        <div class="crit">⚠️ Vuelo 7:45am. Salir de casa 4:30am. Aeropuerto 5:30am mínimo.</div>
+        <div class="moment"><div class="moment-time">~5:00am</div><div class="moment-body"><strong>🥪 Desayuno en el auto — sanguches</strong><span class="note">Los que se hicieron el domingo. Café para la ruta al aeropuerto.</span></div></div>
+        <div class="moment"><div class="moment-time">10:10am</div><div class="moment-body"><strong>Llegada BRC</strong> + retiro Chevrolet Tracker (Alamo).<span class="note">Verificar: rueda de auxilio, botiquín, documentos.</span></div></div>
+        <div class="moment"><div class="moment-time">11:00</div><div class="moment-body"><strong>Ruta a SMA por RN40</strong> — 200km, ~3hs con paradas.</div></div>
+        <div class="moment"><div class="moment-time">~12:30pm</div><div class="moment-body"><strong>🥟 Almuerzo — parada en VLA</strong><span class="note">Algo del super o unas empanadas en el pueblo. Parada breve para estirar piernas.</span></div></div>
+        <div class="moment"><div class="moment-time">2:00pm</div><div class="moment-body"><strong>Check-in Hotel Antiguos</strong> · 751 Coronel Díaz, SMA.</div></div>
+        <div class="moment"><div class="moment-time">Tarde</div><div class="moment-body"><strong>Costanera del Lago Lácar</strong><span class="note">Paseo tranquilo, calle San Martín peatonal, muelle.</span><span class="acc-badge">Mamá-friendly <span class="acc-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></span></div></div>
+        <div class="moment"><div class="moment-time">Noche</div><div class="moment-body"><strong>🥩 Cena — Las Barricas del Abasto</strong><span class="note">Carnes y vinos, ambiente cálido montañero. Plan B: El Abasto (cordero patagónico).</span></div></div>
+        <div class="anchor"><strong>Momento ancla</strong>La primera mirada al Lago Lácar desde el muelle — sentir que ya están en Patagonia.</div>
+      </div></div>
+    </div>
+
+    <!-- DÍA 4 -->
+    <div class="day">
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-head-left">
+          <div class="day-date">Martes 21 · Abril</div>
+          <div class="day-title">Ruta de los 7 Lagos → Villa La Angostura</div>
+          <div class="day-meta"><span>🏞️ RP65</span><span>🐟 Villa Traful</span><span>🔥 Asadito en cabaña</span></div>
+        </div>
+        <div class="day-toggle">+</div>
+      </div>
+      <div class="day-body"><div class="day-body-inner">
+        <div class="crit">⛽ CRÍTICO: tanque completo en SMA. No hay nafta en toda la ruta de los 7 Lagos ni en Villa Traful.</div>
+        <div class="moment"><div class="moment-time">8:30am</div><div class="moment-body"><strong>🫓 Desayuno — arepas</strong> + carga de nafta en YPF de Av. San Martín.<span class="note">Arepas caseras antes de salir. Tanque completo obligatorio.</span></div></div>
+        <div class="moment"><div class="moment-time">Mañana</div><div class="moment-body"><strong>Paradas 7 Lagos</strong><span class="note">📍 Lago Hermoso · 📍 Lago Falkner (mirador) · 📍 Pichitraful · 📍 Cascada Ñivinco (opcional, 30min caminando).</span></div></div>
+        <div class="moment"><div class="moment-time">1:00pm</div><div class="moment-body"><strong>🐟 Almuerzo en Villa Traful — Peumawe</strong><span class="note">Trucha fresca del lago. Reservar antes de salir de SMA.</span></div></div>
+        <div class="moment"><div class="moment-time">4:30pm</div><div class="moment-body"><strong>Check-in BOG Torres del Bayo</strong> · VLA.</div></div>
+        <div class="moment"><div class="moment-time">Noche</div><div class="moment-body"><strong>🍲 Cena ligera en la posada</strong><span class="note">Algo simple después de un día largo de ruta. Plan B: 🔥 asadito en la parrillera de la cabaña (pasar por automercado antes).</span></div></div>
+        <div class="anchor"><strong>Momento ancla</strong>La llegada a la cabaña al atardecer con el bosque alrededor — el primer silencio patagónico real.</div>
+      </div></div>
+    </div>
+
+    <!-- DÍA 5 -->
+    <div class="day">
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-head-left">
+          <div class="day-date">Miércoles 22 · Abril</div>
+          <div class="day-title">Curanto en Colonia Suiza</div>
+          <div class="day-meta"><span>🥘 Patagonia Mía</span><span>🌊 Bahías VLA</span></div>
+        </div>
+        <div class="day-toggle">+</div>
+      </div>
+      <div class="day-body"><div class="day-body-inner">
+        <div class="moment"><div class="moment-time">8:00am</div><div class="moment-body"><strong>🫓 Desayuno en la cabaña — arepas</strong><span class="note">Antes de salir a Colonia Suiza.</span></div></div>
+        <div class="moment"><div class="moment-time">8:30am</div><div class="moment-body"><strong>Salida a Colonia Suiza</strong> (~80km, 1h).</div></div>
+        <div class="moment"><div class="moment-time">11:30</div><div class="moment-body"><strong>🥘 Curanto en Patagonia Mía</strong><span class="note">Cocido en la tierra con piedras calientes. Hora fija de apertura, reservar antes de salir.</span></div></div>
+        <div class="moment"><div class="moment-time">Tarde</div><div class="moment-body"><strong>Vuelta a VLA por Bahía Mansa y Bahía Brava</strong><span class="note">Costas tranquilas del Nahuel Huapi, poca caminata.</span><span class="acc-badge">Mamá-friendly <span class="acc-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></span></div></div>
+        <div class="moment"><div class="moment-time">Noche</div><div class="moment-body"><strong>🏠 Cena relajada en la cabaña</strong><span class="note">Después del curanto contundente, algo simple en casa. Plan B: Pioneros (cocina de campo, familiar).</span></div></div>
+        <div class="anchor"><strong>Momento ancla</strong>El destapado del curanto — cuando levantan las hojas y sale el vapor. Videito para el recuerdo.</div>
+      </div></div>
+    </div>
+
+    <!-- DÍA 6 -->
+    <div class="day">
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-head-left">
+          <div class="day-date">Jueves 23 · Abril</div>
+          <div class="day-title">Traslado suave a Llao Llao</div>
+          <div class="day-meta"><span>🚗 VLA → Panamericano</span><span>🍺 Cervecería Blest</span></div>
+        </div>
+        <div class="day-toggle">+</div>
+      </div>
+      <div class="day-body"><div class="day-body-inner">
+        <div class="info">💡 <strong>Ajuste estratégico:</strong> día de transición, no de turismo intenso. El Circuito Chico completo se corre al viernes.</div>
+        <div class="moment"><div class="moment-time">8:30am</div><div class="moment-body"><strong>🫓 Desayuno en la cabaña — arepas</strong><span class="note">Último desayuno antes del checkout.</span></div></div>
+        <div class="moment"><div class="moment-time">10:00am</div><div class="moment-body"><strong>Checkout VLA</strong> · carga de nafta · ruta directa al hotel.</div></div>
+        <div class="moment"><div class="moment-time">11:30</div><div class="moment-body"><strong>Dejar maletas en Gran Hotel Panamericano</strong><span class="note">Check-in oficial a las 3pm pero guardan equipaje.</span></div></div>
+        <div class="moment"><div class="moment-time">1:00pm</div><div class="moment-body"><strong>🍺 Almuerzo en Cervecería Blest</strong><span class="note">Km 11.6, craft beer clásica, reservar.</span></div></div>
+        <div class="moment"><div class="moment-time">3:00</div><div class="moment-body"><strong>Check-in + descanso</strong><span class="note">Primera noche con desayuno incluido mañana.</span></div></div>
+        <div class="moment"><div class="moment-time">Atardecer</div><div class="moment-body"><strong>Bar exterior del Llao Llao</strong><span class="note">Tomar algo con vista. El momento postal.</span></div></div>
+        <div class="moment"><div class="moment-time">Noche</div><div class="moment-body"><strong>🥟 Cena — empanaditas o pasta</strong><span class="note">Por definir sobre la marcha. Algo relajado, el día estuvo cargado de traslado.</span></div></div>
+        <div class="anchor"><strong>Momento ancla</strong>Brindis en el bar del Llao Llao al atardecer — los cuatro, sin correr.</div>
+      </div></div>
+    </div>
+
+    <!-- DÍA 7 -->
+    <div class="day">
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-head-left">
+          <div class="day-date">Viernes 24 · Abril</div>
+          <div class="day-title">Circuito Chico completo + Cerro Otto</div>
+          <div class="day-meta"><span>🚠 Teleférico</span><span>📸 Miradores</span></div>
+        </div>
+        <div class="day-toggle">+</div>
+      </div>
+      <div class="day-body"><div class="day-body-inner">
+        <div class="info">💡 <strong>Ajuste estratégico:</strong> este día absorbe lo que antes se amontonaba en el jueves. El Bolsón se descarta (feria cerrada los viernes).</div>
+        <div class="moment"><div class="moment-time">Mañana</div><div class="moment-body"><strong>Desayuno incluido sin apuro</strong></div></div>
+        <div class="moment"><div class="moment-time">10:00am</div><div class="moment-body"><strong>Cascada Inacayal → Mirador Punto Panorámico → Llao Llao (jardines) → Playa Bonita</strong><span class="note">El Circuito Chico a ritmo tranquilo, con banco en cada parada.</span></div></div>
+        <div class="moment"><div class="moment-time">1:00pm</div><div class="moment-body"><strong>🍺 Almuerzo — Cervecería Wesley o Weiss</strong><span class="note">Dos clásicos de Bariloche a pocos km del hotel. Elegir el día según el ánimo.</span></div></div>
+        <div class="moment"><div class="moment-time">3:00</div><div class="moment-body"><strong>🚠 Cerro Otto</strong><span class="note">Teleférico + restaurante giratorio arriba. Vista 360° accesible.</span><span class="acc-badge">Mamá-friendly <span class="acc-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></span></div></div>
+        <div class="moment"><div class="moment-time">Noche</div><div class="moment-body"><strong>🍽️ Cena — por definir</strong><span class="note">Decidir según cansancio y antojo del día.</span></div></div>
+        <div class="anchor"><strong>Momento ancla</strong>Las 360° desde Cerro Otto — toda la cordillera de un vistazo.</div>
+      </div></div>
+    </div>
+
+    <!-- DÍA 8 -->
+    <div class="day">
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-head-left">
+          <div class="day-date">Sábado 25 · Abril</div>
+          <div class="day-title">Último día patagónico · vuelo 9:15pm</div>
+          <div class="day-meta"><span>🍫 Chocolates</span><span>🍦 Jauja</span><span>✈️ BRC→AEP</span></div>
+        </div>
+        <div class="day-toggle">+</div>
+      </div>
+      <div class="day-body"><div class="day-body-inner">
+        <div class="crit">🕖 Entregar auto en BRC a las 7pm. Salir del hotel 6:00pm máximo.</div>
+        <div class="moment"><div class="moment-time">Mañana</div><div class="moment-body"><strong>Desayuno incluido · checkout 11am</strong> (maletas en consigna).</div></div>
+        <div class="moment"><div class="moment-time">11:00</div><div class="moment-body"><strong>Centro de Bariloche</strong><span class="note">Catedral · chocolates (Rapa Nui / Del Turista) · compras en Mitre · helado en Jauja (obligatorio).</span></div></div>
+        <div class="moment"><div class="moment-time">1:30pm</div><div class="moment-body"><strong>🍽️ Almuerzo — centro de Bariloche</strong><span class="note">Elegir sobre la marcha en Mitre: La Fonda del Tío (casera), El Boliche de Alberto (parrilla), Manush (rápido).</span></div></div>
+        <div class="moment"><div class="moment-time">3:30</div><div class="moment-body"><strong>Últimas fotos en Llao Llao</strong> si queda energía.</div></div>
+        <div class="moment"><div class="moment-time">~5:30pm</div><div class="moment-body"><strong>🥪 Cena pa' llevar — sanguchitos</strong><span class="note">Comprar sanguches para comer en el aeropuerto / vuelo. No hay tiempo para cena sentada.</span></div></div>
+        <div class="moment"><div class="moment-time">6:00pm</div><div class="moment-body"><strong>Salida al aeropuerto BRC</strong> (~25km, 30min).</div></div>
+        <div class="moment"><div class="moment-time">9:15pm</div><div class="moment-body"><strong>✈️ BRC → AEP</strong> · Llegada 11:20pm.</div></div>
+        <div class="anchor"><strong>Momento ancla</strong>El último cono de Jauja caminando por Mitre — el sabor que se llevan a casa.</div>
+      </div></div>
+    </div>
+
+    <!-- DÍA 9 -->
+    <div class="day">
+      <div class="day-head" onclick="toggleDay(this)">
+        <div class="day-head-left">
+          <div class="day-date">Domingo 26 · Abril</div>
+          <div class="day-title">Despedida</div>
+          <div class="day-meta"><span>✈️ EZE 1:10pm</span></div>
+        </div>
+        <div class="day-toggle">+</div>
+      </div>
+      <div class="day-body"><div class="day-body-inner">
+        <div class="moment"><div class="moment-time">Mañana</div><div class="moment-body"><strong>Desayuno en casa</strong>, tranquilo.</div></div>
+        <div class="moment"><div class="moment-time">10:30am</div><div class="moment-body"><strong>Salida a Ezeiza</strong>.</div></div>
+        <div class="moment"><div class="moment-time">1:10pm</div><div class="moment-body"><strong>✈️ Delta DL6020 · EZE → Miami</strong><span class="note">Llegada 8:45pm.</span></div></div>
+        <div class="anchor"><strong>Momento ancla</strong>El abrazo largo en la puerta de Migraciones.</div>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ HOSPEDAJES ═══════════ -->
+<section id="hospedajes">
+  <div class="sec-eyebrow reveal">Dónde dormimos</div>
+  <h2 class="sec-title reveal">Tres casas, tres paisajes.</h2>
+  <p class="sec-lede reveal">Cada hotel fue elegido para que la vista cambie cuando te despiertes.</p>
+  <div class="hotels reveal reveal-2">
+    <div class="hotel">
+      <h3>Hotel Antiguos</h3>
+      <div class="loc">San Martín de los Andes</div>
+      <div class="dates"><strong>Lun 20 →  Mar 21</strong> · 1 noche<br>751 Coronel Díaz</div>
+      <div class="feat"><span>Céntrico</span><span>A pie del lago</span></div>
+    </div>
+    <div class="hotel">
+      <h3>BOG Torres del Bayo</h3>
+      <div class="loc">Villa La Angostura</div>
+      <div class="dates"><strong>Mar 21 → Jue 23</strong> · 2 noches<br>670 Osa Mayor</div>
+      <div class="feat"><span>Cabaña</span><span>Parrillera 🪵</span><span>Bosque</span></div>
+    </div>
+    <div class="hotel">
+      <h3>Gran Hotel Panamericano</h3>
+      <div class="loc">Circuito Chico · Llao Llao</div>
+      <div class="dates"><strong>Jue 23 → Sáb 25</strong> · 2 noches<br>Av. Bustillo Km 22.900</div>
+      <div class="feat"><span>Desayuno incluido ✅</span><span>Vista Nahuel Huapi</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ MAPAS ═══════════ -->
+<section id="ruta">
+  <div class="sec-eyebrow reveal">Los mapas del viaje</div>
+  <h2 class="sec-title reveal">Dos ciudades, una cordillera.</h2>
+  <p class="sec-lede reveal">Empezamos caminando Buenos Aires, terminamos bordeando los lagos de la cordillera. Dos geografías, dos ritmos, nueve días.</p>
+
+  <!-- ═══════════ MAPA CABA ═══════════ -->
+  <div class="map-wrap reveal">
+    <div class="map-label">Buenos Aires · Sáb 18 + Dom 19</div>
+    <svg class="map-svg" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="riverGrad" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0" stop-color="#7fa8bd"/>
+          <stop offset="1" stop-color="#4a7c94"/>
+        </linearGradient>
+        <pattern id="dots" patternUnits="userSpaceOnUse" width="18" height="18">
+          <circle cx="1" cy="1" r="0.8" fill="#2d5a3d" opacity="0.15"/>
+        </pattern>
+        <filter id="softShadow"><feGaussianBlur stdDeviation="3"/></filter>
+      </defs>
+
+      <!-- fondo textura -->
+      <rect width="900" height="520" fill="url(#dots)"/>
+
+      <!-- Río de la Plata -->
+      <path d="M 620,0 Q 580,100 600,200 Q 630,280 680,340 Q 720,400 760,460 L 900,520 L 900,0 Z" fill="url(#riverGrad)" opacity="0.85"/>
+      <path d="M 620,0 Q 580,100 600,200 Q 630,280 680,340 Q 720,400 760,460 L 900,520 L 900,0 Z" fill="none" stroke="#3a6a82" stroke-width="1.5" opacity="0.6"/>
+
+      <!-- Olas sutiles -->
+      <g opacity="0.25" stroke="#fff" stroke-width="1" fill="none">
+        <path d="M 680,100 Q 700,95 720,100"/>
+        <path d="M 720,180 Q 740,175 760,180"/>
+        <path d="M 700,260 Q 720,255 740,260"/>
+        <path d="M 740,340 Q 760,335 780,340"/>
+      </g>
+
+      <!-- Barrios (shapes suaves) -->
+      <g opacity="0.4">
+        <ellipse cx="260" cy="200" rx="130" ry="90" fill="#b8c5a8"/>
+        <text x="260" y="170" font-family="Fraunces,serif" font-size="13" font-style="italic" fill="#4a5a3d" text-anchor="middle" opacity="0.9">Palermo</text>
+        <ellipse cx="460" cy="260" rx="100" ry="65" fill="#c8b89a"/>
+        <text x="460" y="265" font-family="Fraunces,serif" font-size="13" font-style="italic" fill="#6a5a3d" text-anchor="middle" opacity="0.9">Centro</text>
+        <ellipse cx="490" cy="360" rx="75" ry="50" fill="#c8a89a"/>
+        <text x="490" y="365" font-family="Fraunces,serif" font-size="12" font-style="italic" fill="#6a4a3d" text-anchor="middle" opacity="0.9">San Telmo</text>
+        <ellipse cx="540" cy="440" rx="70" ry="42" fill="#d8b898"/>
+        <text x="540" y="445" font-family="Fraunces,serif" font-size="12" font-style="italic" fill="#6a4a3d" text-anchor="middle" opacity="0.9">La Boca</text>
+      </g>
+
+      <!-- Ruta dashed -->
+      <path d="M 80,420 Q 180,300 260,200 Q 340,180 460,260 Q 560,300 620,330 Q 560,370 490,360 Q 520,410 540,440 Q 420,440 310,380" fill="none" stroke="#d98851" stroke-width="3" stroke-dasharray="6 6" stroke-linecap="round" opacity="0.8"/>
+
+      <!-- Puntos de interés -->
+      <g font-family="Inter,sans-serif" font-size="12">
+        <!-- EZE -->
+        <circle cx="80" cy="420" r="16" fill="#fff" stroke="#d98851" stroke-width="3"/>
+        <text x="80" y="425" text-anchor="middle" font-size="16">✈️</text>
+        <text x="80" y="458" text-anchor="middle" font-weight="700" fill="#0f2a1d">EZE</text>
+        <text x="80" y="473" text-anchor="middle" font-size="10" fill="#6b6b63">Ezeiza</text>
+
+        <!-- Jardín Japonés -->
+        <circle cx="260" cy="200" r="14" fill="#2d5a3d"/>
+        <text x="260" y="205" text-anchor="middle" font-size="14">🌳</text>
+        <text x="260" y="235" text-anchor="middle" font-weight="700" fill="#0f2a1d">Jardín Japonés</text>
+        <text x="260" y="249" text-anchor="middle" font-size="10" fill="#6b6b63">Sáb · 12:30pm</text>
+
+        <!-- Obelisco / Centro -->
+        <circle cx="460" cy="260" r="13" fill="#2d5a3d"/>
+        <text x="460" y="265" text-anchor="middle" font-size="12">📍</text>
+        <text x="395" y="230" text-anchor="middle" font-weight="700" fill="#0f2a1d">Obelisco</text>
+
+        <!-- San Telmo -->
+        <circle cx="490" cy="360" r="13" fill="#2d5a3d"/>
+        <text x="490" y="365" text-anchor="middle" font-size="12">🎨</text>
+        <text x="425" y="395" text-anchor="middle" font-weight="700" fill="#0f2a1d">San Telmo</text>
+        <text x="425" y="408" text-anchor="middle" font-size="10" fill="#6b6b63">Dom · bus rojo</text>
+
+        <!-- Caminito -->
+        <circle cx="540" cy="440" r="13" fill="#2d5a3d"/>
+        <text x="540" y="445" text-anchor="middle" font-size="12">🎭</text>
+        <text x="610" y="445" text-anchor="start" font-weight="700" fill="#0f2a1d">Caminito</text>
+
+        <!-- Puerto Madero -->
+        <circle cx="620" cy="330" r="13" fill="#2d5a3d"/>
+        <text x="620" y="335" text-anchor="middle" font-size="12">🌉</text>
+        <text x="700" y="320" text-anchor="start" font-weight="700" fill="#0f2a1d">Puerto Madero</text>
+
+        <!-- El Ferroviario -->
+        <circle cx="310" cy="380" r="14" fill="#d98851"/>
+        <text x="310" y="385" text-anchor="middle" font-size="14">🍽️</text>
+        <text x="310" y="415" text-anchor="middle" font-weight="700" fill="#0f2a1d">El Ferroviario</text>
+        <text x="310" y="428" text-anchor="middle" font-size="10" fill="#6b6b63">Dom · cena ✅</text>
+      </g>
+
+      <!-- Compás -->
+      <g transform="translate(820,60)">
+        <circle r="20" fill="#fff" opacity="0.85"/>
+        <path d="M 0,-15 L 5,0 L 0,15 L -5,0 Z" fill="#0f2a1d"/>
+        <text y="-22" text-anchor="middle" font-size="9" font-weight="700" fill="#0f2a1d">N</text>
+      </g>
+
+      <!-- Título río -->
+      <text x="790" y="250" text-anchor="middle" font-family="Fraunces,serif" font-style="italic" font-size="14" fill="#fff" opacity="0.8" transform="rotate(75 790 250)">Río de la Plata</text>
+    </svg>
+    <div class="map-legend">
+      <div class="lg"><span class="dot" style="background:#d98851"></span>Aeropuerto / Reserva confirmada</div>
+      <div class="lg"><span class="dot" style="background:#2d5a3d"></span>Parada del día</div>
+      <div class="lg"><span style="color:#d98851;font-size:1.2em">- -</span>Ruta del fin de semana</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ MAPA PATAGONIA ═══════════ -->
+  <div class="map-wrap reveal" style="margin-top:24px">
+    <div class="map-label">Patagonia · Lun 20 → Sáb 25</div>
+    <svg class="map-svg" viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="skyPat" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#e4f0e7"/>
+          <stop offset="1" stop-color="#f4efe6"/>
+        </linearGradient>
+        <linearGradient id="mountPat" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#3d5a47"/>
+          <stop offset="1" stop-color="#1d3f2c"/>
+        </linearGradient>
+        <linearGradient id="lakePat" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0" stop-color="#7fb8d4"/>
+          <stop offset="1" stop-color="#4a7c94"/>
+        </linearGradient>
+        <pattern id="forestPat" patternUnits="userSpaceOnUse" width="24" height="24">
+          <path d="M 12,4 L 8,14 L 16,14 Z M 12,10 L 6,22 L 18,22 Z" fill="#2d5a3d" opacity="0.2"/>
+        </pattern>
+      </defs>
+
+      <!-- fondo cielo -->
+      <rect width="1000" height="600" fill="url(#skyPat)"/>
+
+      <!-- Bosque textura -->
+      <rect x="0" y="200" width="1000" height="400" fill="url(#forestPat)" opacity="0.4"/>
+
+      <!-- Cordillera del fondo (lejana) -->
+      <path d="M 0,280 L 60,180 L 120,240 L 180,140 L 240,220 L 300,120 L 360,200 L 420,130 L 480,210 L 540,140 L 600,220 L 660,150 L 720,230 L 780,170 L 840,240 L 900,180 L 960,250 L 1000,220 L 1000,600 L 0,600 Z" fill="#6a9378" opacity="0.3"/>
+
+      <!-- Cordillera frente -->
+      <path d="M 0,400 L 40,320 L 80,380 L 140,280 L 200,360 L 260,260 L 320,340 L 380,240 L 440,320 L 500,260 L 560,340 L 620,270 L 680,350 L 740,290 L 800,370 L 860,300 L 920,380 L 980,320 L 1000,360 L 1000,600 L 0,600 Z" fill="url(#mountPat)" opacity="0.85"/>
+
+      <!-- Picos nevados -->
+      <g fill="#fff" opacity="0.7">
+        <path d="M 140,280 L 160,310 L 120,305 Z"/>
+        <path d="M 260,260 L 280,290 L 240,285 Z"/>
+        <path d="M 380,240 L 405,275 L 355,270 Z"/>
+        <path d="M 500,260 L 520,290 L 480,285 Z"/>
+        <path d="M 620,270 L 640,300 L 600,295 Z"/>
+        <path d="M 740,290 L 760,320 L 720,315 Z"/>
+        <path d="M 860,300 L 880,330 L 840,325 Z"/>
+      </g>
+
+      <!-- Lagos: Lácar, Machónico, Falkner, Villarino, Espejo, Correntoso, Nahuel Huapi -->
+      <g>
+        <!-- Lago Lácar (SMA) -->
+        <ellipse cx="150" cy="180" rx="55" ry="20" fill="url(#lakePat)" transform="rotate(-15 150 180)"/>
+        <text x="150" y="146" font-family="Fraunces,serif" font-style="italic" font-size="13" fill="#3a6a82" text-anchor="middle">Lago Lácar</text>
+
+        <!-- Lago Machónico -->
+        <ellipse cx="260" cy="230" rx="28" ry="12" fill="url(#lakePat)" transform="rotate(-20 260 230)"/>
+        <text x="260" y="252" font-family="Fraunces,serif" font-style="italic" font-size="11" fill="#3a6a82" text-anchor="middle">Machónico</text>
+
+        <!-- Lago Falkner -->
+        <ellipse cx="340" cy="200" rx="42" ry="14" fill="url(#lakePat)" transform="rotate(-10 340 200)"/>
+        <text x="340" y="180" font-family="Fraunces,serif" font-style="italic" font-size="12" fill="#3a6a82" text-anchor="middle">Falkner</text>
+
+        <!-- Lago Villarino -->
+        <ellipse cx="415" cy="245" rx="32" ry="11" fill="url(#lakePat)"/>
+        <text x="415" y="266" font-family="Fraunces,serif" font-style="italic" font-size="11" fill="#3a6a82" text-anchor="middle">Villarino</text>
+
+        <!-- Lago Espejo -->
+        <ellipse cx="500" cy="200" rx="38" ry="13" fill="url(#lakePat)" transform="rotate(-5 500 200)"/>
+        <text x="500" y="180" font-family="Fraunces,serif" font-style="italic" font-size="12" fill="#3a6a82" text-anchor="middle">Espejo</text>
+
+        <!-- Lago Correntoso -->
+        <ellipse cx="565" cy="240" rx="30" ry="11" fill="url(#lakePat)"/>
+        <text x="565" y="262" font-family="Fraunces,serif" font-style="italic" font-size="11" fill="#3a6a82" text-anchor="middle">Correntoso</text>
+
+        <!-- Nahuel Huapi (grande) -->
+        <path d="M 620,260 Q 680,240 740,260 Q 800,280 860,300 Q 900,320 870,340 Q 800,350 740,340 Q 660,330 620,310 Q 590,290 620,260 Z" fill="url(#lakePat)"/>
+        <text x="760" y="310" font-family="Fraunces,serif" font-style="italic" font-size="15" fill="#fff" text-anchor="middle" opacity="0.95">Nahuel Huapi</text>
+      </g>
+
+      <!-- Ruta (dashed, con curvas suaves) -->
+      <path d="M 900,480 Q 700,460 500,400 Q 350,320 200,200 L 150,180" fill="none" stroke="#d98851" stroke-width="4" stroke-dasharray="10 8" stroke-linecap="round" opacity="0.4"/>
+      <path d="M 150,180 Q 250,200 340,210 Q 420,230 500,210 Q 565,230 620,280" fill="none" stroke="#d98851" stroke-width="4" stroke-dasharray="10 8" stroke-linecap="round"/>
+      <path d="M 620,280 Q 700,300 800,310" fill="none" stroke="#d98851" stroke-width="4" stroke-dasharray="10 8" stroke-linecap="round"/>
+      <path d="M 800,310 Q 870,380 900,480" fill="none" stroke="#d98851" stroke-width="4" stroke-dasharray="10 8" stroke-linecap="round" opacity="0.5"/>
+
+      <!-- Ciudades con pulse -->
+      <g>
+        <!-- BRC Aeropuerto -->
+        <circle cx="900" cy="480" r="8" fill="#d98851"/>
+        <circle cx="900" cy="480" r="8" fill="none" stroke="#d98851" stroke-width="2" class="pulse"/>
+        <rect x="870" y="495" width="60" height="22" rx="11" fill="#fff" stroke="#d98851" stroke-width="1.5"/>
+        <text x="900" y="511" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#0f2a1d" text-anchor="middle">BRC ✈️</text>
+
+        <!-- SMA -->
+        <circle cx="150" cy="180" r="10" fill="#0f2a1d"/>
+        <circle cx="150" cy="180" r="5" fill="#fff"/>
+        <rect x="100" y="108" width="100" height="26" rx="13" fill="#0f2a1d"/>
+        <text x="150" y="125" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">🏔️ SMA</text>
+        <path d="M 150,134 L 150,170" stroke="#0f2a1d" stroke-width="1.5" stroke-dasharray="2 2"/>
+
+        <!-- VLA -->
+        <circle cx="570" cy="290" r="10" fill="#0f2a1d"/>
+        <circle cx="570" cy="290" r="5" fill="#fff"/>
+        <rect x="510" y="315" width="120" height="26" rx="13" fill="#0f2a1d"/>
+        <text x="570" y="332" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">🌲 Villa La Angostura</text>
+        <path d="M 570,300 L 570,315" stroke="#0f2a1d" stroke-width="1.5" stroke-dasharray="2 2"/>
+
+        <!-- Bariloche / Llao Llao -->
+        <circle cx="800" cy="310" r="11" fill="#0f2a1d"/>
+        <circle cx="800" cy="310" r="11" fill="none" stroke="#d98851" stroke-width="2" class="pulse"/>
+        <circle cx="800" cy="310" r="5" fill="#fff"/>
+        <rect x="745" y="360" width="120" height="26" rx="13" fill="#0f2a1d"/>
+        <text x="805" y="377" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">🏞️ Llao Llao · BRC</text>
+        <path d="M 800,321 L 800,360" stroke="#0f2a1d" stroke-width="1.5" stroke-dasharray="2 2"/>
+      </g>
+
+      <!-- Distancias en ruta -->
+      <g font-family="Inter,sans-serif" font-size="10" fill="#6b6b63" font-style="italic">
+        <text x="490" y="380" text-anchor="middle">~200km RN40</text>
+        <text x="360" y="190" text-anchor="middle">Ruta de los 7 Lagos · 145km</text>
+        <text x="700" y="275" text-anchor="middle">~80km</text>
+      </g>
+
+      <!-- Compás -->
+      <g transform="translate(930,80)">
+        <circle r="26" fill="#fff" opacity="0.9"/>
+        <path d="M 0,-18 L 6,0 L 0,18 L -6,0 Z" fill="#0f2a1d"/>
+        <text y="-26" text-anchor="middle" font-size="10" font-weight="700" fill="#0f2a1d">N</text>
+      </g>
+
+      <!-- Escala -->
+      <g transform="translate(50,540)">
+        <line x1="0" y1="0" x2="100" y2="0" stroke="#0f2a1d" stroke-width="2"/>
+        <line x1="0" y1="-4" x2="0" y2="4" stroke="#0f2a1d" stroke-width="2"/>
+        <line x1="50" y1="-4" x2="50" y2="4" stroke="#0f2a1d" stroke-width="2"/>
+        <line x1="100" y1="-4" x2="100" y2="4" stroke="#0f2a1d" stroke-width="2"/>
+        <text x="0" y="18" font-size="9" fill="#6b6b63">0</text>
+        <text x="50" y="18" font-size="9" fill="#6b6b63" text-anchor="middle">50 km</text>
+        <text x="100" y="18" font-size="9" fill="#6b6b63" text-anchor="middle">100</text>
+      </g>
+
+      <!-- Decoraciones: arbolitos -->
+      <g fill="#2d5a3d" opacity="0.6">
+        <path d="M 80,450 L 72,470 L 88,470 Z M 80,462 L 70,482 L 90,482 Z"/>
+        <path d="M 220,470 L 214,486 L 226,486 Z M 220,480 L 212,498 L 228,498 Z"/>
+        <path d="M 380,460 L 374,476 L 386,476 Z M 380,470 L 372,488 L 388,488 Z"/>
+        <path d="M 460,490 L 454,506 L 466,506 Z M 460,500 L 452,518 L 468,518 Z"/>
+      </g>
+    </svg>
+    <div class="map-legend">
+      <div class="lg"><span class="dot" style="background:#0f2a1d"></span>Hospedajes</div>
+      <div class="lg"><span class="dot" style="background:#d98851"></span>Aeropuerto BRC (ida/vuelta)</div>
+      <div class="lg"><span class="dot" style="background:#7fb8d4"></span>Los 7 lagos</div>
+      <div class="lg"><span style="color:#d98851;font-size:1.2em">- -</span>Ruta del auto · ~690km</div>
+    </div>
+  </div>
+
+  <!-- Stats de ruta -->
+  <div class="stats reveal" style="margin-top:24px">
+    <div class="stat"><div class="n">200<span style="font-size:.4em">km</span></div><div class="l">BRC → SMA</div></div>
+    <div class="stat"><div class="n">145<span style="font-size:.4em">km</span></div><div class="l">7 Lagos</div></div>
+    <div class="stat"><div class="n">~70<span style="font-size:.4em">L</span></div><div class="l">Combustible</div></div>
+    <div class="stat"><div class="n">690<span style="font-size:.4em">km</span></div><div class="l">Total ruta</div></div>
+  </div>
+
+  <div class="crit reveal"><strong>⛽ Regla de oro:</strong> cargar tanque completo en SMA antes de la Ruta de los 7 Lagos. No hay estaciones en 145km.</div>
+</section>
+
+<!-- ═══════════ PLAN B CLIMA ═══════════ -->
+<section>
+  <div class="sec-eyebrow reveal">Si llueve (abril en Patagonia)</div>
+  <h2 class="sec-title reveal">Plan B sin drama.</h2>
+  <p class="sec-lede reveal">Cada día outdoor tiene una alternativa lista. Mirar el cielo en el desayuno, decidir sin discutir.</p>
+  <div class="planb reveal reveal-2">
+    <div class="planb-card">
+      <h4>Ruta de los 7 Lagos</h4>
+      <div class="sunny">☀️ Sol</div>
+      <p>Paradas completas incluyendo Cascada Ñivinco. Fotos sin prisa.</p>
+      <div class="rainy">🌧️ Lluvia</div>
+      <p>Mismo recorrido pero sin caminatas. Paradas de foto desde el auto, almuerzo largo en Peumawe (Villa Traful) con estufa a leña.</p>
+    </div>
+    <div class="planb-card">
+      <h4>Circuito Chico</h4>
+      <div class="sunny">☀️ Sol</div>
+      <p>Miradores + Cerro Otto + jardines de Llao Llao.</p>
+      <div class="rainy">🌧️ Lluvia</div>
+      <p>Museo de la Patagonia + tarde de chocolates en el centro + Cervecería Patagonia bajo techo con vista al lago.</p>
+    </div>
+    <div class="planb-card">
+      <h4>Colonia Suiza</h4>
+      <div class="sunny">☀️ Sol</div>
+      <p>Curanto + paseo por el pueblo + Bahías VLA.</p>
+      <div class="rainy">🌧️ Lluvia</div>
+      <p>Curanto igual (la parrilla está techada) + vuelta directa a la cabaña + mate + siesta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ EQUIPAJE ═══════════ -->
+<section id="equipaje">
+  <div class="sec-eyebrow reveal">Qué llevar</div>
+  <h2 class="sec-title reveal">Lo esencial, por persona.</h2>
+  <p class="sec-lede reveal">Abril en Patagonia: 5°C a 15°C, cambios rápidos de clima, posible escarcha en las mañanas. Vestirse por capas.</p>
+
+  <div class="pack-grid reveal reveal-2">
+    <div class="pack">
+      <h4>🧥 Ropa (todos)</h4>
+      <ul>
+        <li>Campera de abrigo (pluma o técnica)</li>
+        <li>Rompevientos impermeable</li>
+        <li>Polar o buzo de abrigo</li>
+        <li>Guantes livianos + gorro</li>
+        <li>Zapatillas con grip (ripio + humedad)</li>
+        <li>Remeras térmicas (capas)</li>
+        <li>Pantalón cómodo de senderismo</li>
+      </ul>
+    </div>
+    <div class="pack">
+      <h4>♥ Específico Mamá</h4>
+      <ul>
+        <li>Medicación habitual (doble cantidad)</li>
+        <li>Calzado cómodo con buena suela</li>
+        <li>Bastón de trekking liviano</li>
+        <li>Silla plegable de camping (para el baúl)</li>
+        <li>Abrigo extra para las noches</li>
+        <li>Termo + mate o té</li>
+      </ul>
+    </div>
+    <div class="pack">
+      <h4>🎒 Tecnología</h4>
+      <ul>
+        <li>Adaptador enchufe argentino (tipo I)</li>
+        <li>Power bank cargado</li>
+        <li>Cámara + batería extra</li>
+        <li>Cargadores de todos</li>
+        <li>Google Maps offline descargado</li>
+        <li>Maps.me como backup</li>
+      </ul>
+    </div>
+    <div class="pack">
+      <h4>📄 Documentos</h4>
+      <ul>
+        <li>Pasaporte + DNI</li>
+        <li>Contrato Alamo impreso</li>
+        <li>Seguro del vehículo</li>
+        <li>Reservas de hoteles impresas</li>
+        <li>Tarjetas + efectivo USD/ARS</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <h2>"La Patagonia es eso que se te queda adentro."</h2>
+  <p>Nueve días que van a pasar rápido. El plan está para guiarnos, no para atarnos — si algún momento pide quedarse un rato más, nos quedamos.</p>
+  <div class="sig">
+    🏔️ Armado y diseñado por Miko · Abril 2026
+  </div>
+</footer>
+
+<script>
+// Aplicar overrides desde control panel (localStorage)
+(function applyOverrides(){
+  try {
+    const raw = localStorage.getItem('patagonia-data');
+    if(!raw) return;
+    const data = JSON.parse(raw);
+    if(data && data.moments){
+      Object.keys(data.moments).forEach(key => {
+        const el = document.querySelector(`[data-moment="${key}"]`);
+        if(!el) return;
+        const m = data.moments[key];
+        if(m.time) el.querySelector('.moment-time').textContent = m.time;
+        if(m.title){
+          const body = el.querySelector('.moment-body');
+          const strong = body.querySelector('strong');
+          if(strong) strong.textContent = m.title;
+        }
+        if(m.note !== undefined){
+          const note = el.querySelector('.moment-body .note');
+          if(note) note.textContent = m.note;
+        }
+      });
+    }
+  } catch(e){ console.warn('overrides:', e); }
+})();
+
+// Day accordion
+function toggleDay(el){
+  const day = el.parentElement;
+  day.classList.toggle('open');
+}
+// Abrir el primer día por defecto
+document.querySelector('.day').classList.add('open');
+
+// Countdown to April 18, 2026 09:20 (hora AR)
+const target = new Date('2026-04-18T09:20:00-03:00').getTime();
+function tick(){
+  const now = Date.now();
+  const diff = target - now;
+  if(diff < 0){
+    document.getElementById('countdown').innerHTML = '<div style="padding:8px 20px;font-family:Fraunces,serif;font-size:1.2em">✈️ Ya están en camino</div>';
+    return;
+  }
+  const d = Math.floor(diff / (1000*60*60*24));
+  const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+  const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+  document.getElementById('cd-d').textContent = d;
+  document.getElementById('cd-h').textContent = h;
+  document.getElementById('cd-m').textContent = m;
+}
+tick();
+setInterval(tick, 60000);
+
+// Scroll reveal via IntersectionObserver
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('in');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Parallax sutil en el hero
+const hero = document.querySelector('.hero');
+const mountainsBack = document.querySelector('.mountains-back');
+const heroContent = document.querySelector('.hero-content');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if(y > window.innerHeight) return;
+  if(mountainsBack) mountainsBack.style.transform = `translateY(${y * 0.3}px)`;
+  if(heroContent) heroContent.style.transform = `translateY(${y * 0.15}px)`;
+}, { passive: true });
+</script>
+
+</body>
+</html>
