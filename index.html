@@ -413,16 +413,56 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto}
 .planb-card .rainy{color:var(--lake);font-size:0.78em;font-weight:600;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
 .planb-card p{font-size:0.86em;color:#444;line-height:1.5}
 
-/* ═══════════ MAPAS ILUSTRADOS ═══════════ */
+/* ═══════════ MAPAS CARRUSEL ═══════════ */
+.map-carousel{position:relative}
+.map-carousel-track{
+  display:flex;gap:20px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:10px;
+  scrollbar-width:thin;
+  scrollbar-color:var(--sage) transparent;
+}
+.map-carousel-track::-webkit-scrollbar{height:6px}
+.map-carousel-track::-webkit-scrollbar-track{background:transparent}
+.map-carousel-track::-webkit-scrollbar-thumb{background:var(--sage);border-radius:3px}
+.map-carousel-hint{
+  text-align:center;font-size:0.75em;
+  color:var(--muted);margin-top:10px;
+  animation:hintPulse 2s ease-in-out infinite;
+}
+@keyframes hintPulse{0%,100%{opacity:0.5}50%{opacity:1}}
+
 .map-wrap{
   position:relative;
   background:linear-gradient(180deg,#f8f5ec 0%,#efe8d5 100%);
   border:1px solid var(--line);
   border-radius:20px;
   padding:24px;
-  margin:24px 0;
   overflow:hidden;
   box-shadow:0 20px 60px -30px rgba(15,42,29,0.25);
+  flex:0 0 85%;
+  min-width:320px;
+  scroll-snap-align:center;
+  cursor:pointer;
+  transition:transform .3s;
+}
+.map-wrap:hover{transform:scale(1.01)}
+
+/* Mapa fullscreen overlay */
+.map-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(0,0,0,0.85);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;cursor:zoom-out;
+  animation:fadeIn .25s ease;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.map-overlay .map-wrap{
+  flex:none;width:auto;max-width:95vw;max-height:90vh;
+  cursor:default;transform:none;
+  overflow:auto;
 }
 .map-wrap::before{
   content:'';position:absolute;inset:0;
@@ -577,10 +617,10 @@ footer .sig{
   .pack-grid{grid-template-columns:1fr;gap:12px}
   .pack{padding:18px}
 
-  /* Mapas */
-  .map-wrap{padding:20px 14px;border-radius:16px}
-  .map-label{top:14px;left:16px;font-size:0.7em;padding:5px 11px}
-  .map-legend{gap:12px;padding:12px 14px;font-size:0.72em}
+  /* Mapas carousel */
+  .map-wrap{padding:18px 12px;border-radius:14px;flex:0 0 92%}
+  .map-label{top:12px;left:14px;font-size:0.68em;padding:4px 10px}
+  .map-legend{gap:10px;padding:10px 12px;font-size:0.7em}
 
   /* Footer */
   footer{padding:60px 20px 30px}
@@ -616,8 +656,7 @@ footer .sig{
       <a href="#viajeros">Viajeros</a>
       <a href="#itinerario">Itinerario</a>
       <a href="#hospedajes">Hospedajes</a>
-      <a href="#ruta">Ruta</a>
-      <a href="#equipaje">Equipaje</a>
+      <a href="#ruta">Mapas</a>
     </div>
   </div>
 </nav>
@@ -674,7 +713,7 @@ footer .sig{
 
 <!-- ═══════════ VIAJEROS ═══════════ -->
 <section id="viajeros">
-  <div class="sec-eyebrow reveal">Quiénes viajan</div>
+  <h2 class="sec-title reveal">Quiénes viajan</h2>
   <img class="viajeros-img reveal" src="img/viajeros.png" alt="Los viajeros" loading="lazy">
 </section>
 
@@ -844,7 +883,6 @@ footer .sig{
 <!-- ═══════════ HOSPEDAJES ═══════════ -->
 <section id="hospedajes">
   <h2 class="sec-title reveal">Hospedajes</h2>
-  <p class="sec-lede reveal">Cada hotel fue elegido para que la vista cambie cuando te despiertes.</p>
   <div class="hotels reveal reveal-2">
     <div class="hotel">
       <img class="hotel-img" src="img/hotel-antiguos.png" alt="Hotel Antiguos" loading="lazy">
@@ -878,12 +916,13 @@ footer .sig{
 
 <!-- ═══════════ MAPAS ═══════════ -->
 <section id="ruta">
-  <div class="sec-eyebrow reveal">Los mapas del viaje</div>
-  <h2 class="sec-title reveal">Dos ciudades, una cordillera.</h2>
-  <p class="sec-lede reveal">Empezamos caminando Buenos Aires, terminamos bordeando los lagos de la cordillera. Dos geografías, dos ritmos, nueve días.</p>
+  <h2 class="sec-title reveal">Mapas del Viaje</h2>
+
+  <div class="map-carousel reveal">
+    <div class="map-carousel-track">
 
   <!-- ═══════════ MAPA CABA ═══════════ -->
-  <div class="map-wrap reveal">
+  <div class="map-wrap">
     <div class="map-label">Buenos Aires · Sáb 18 + Dom 19</div>
     <svg class="map-svg" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -987,7 +1026,7 @@ footer .sig{
   </div>
 
   <!-- ═══════════ MAPA PATAGONIA ═══════════ -->
-  <div class="map-wrap reveal" style="margin-top:24px">
+  <div class="map-wrap">
     <div class="map-label">Patagonia · Lun 20 → Sáb 25</div>
     <svg class="map-svg" viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -1140,98 +1179,8 @@ footer .sig{
     </div>
   </div>
 
-  <!-- Stats de ruta -->
-  <div class="stats reveal" style="margin-top:24px">
-    <div class="stat"><div class="n">200<span style="font-size:.4em">km</span></div><div class="l">BRC → SMA</div></div>
-    <div class="stat"><div class="n">145<span style="font-size:.4em">km</span></div><div class="l">7 Lagos</div></div>
-    <div class="stat"><div class="n">~70<span style="font-size:.4em">L</span></div><div class="l">Combustible</div></div>
-    <div class="stat"><div class="n">690<span style="font-size:.4em">km</span></div><div class="l">Total ruta</div></div>
-  </div>
-
-  <div class="crit reveal"><strong>⛽ Regla de oro:</strong> cargar tanque completo en SMA antes de la Ruta de los 7 Lagos. No hay estaciones en 145km.</div>
-</section>
-
-<!-- ═══════════ PLAN B CLIMA ═══════════ -->
-<section>
-  <div class="sec-eyebrow reveal">Si llueve (abril en Patagonia)</div>
-  <h2 class="sec-title reveal">Plan B sin drama.</h2>
-  <p class="sec-lede reveal">Cada día outdoor tiene una alternativa lista. Mirar el cielo en el desayuno, decidir sin discutir.</p>
-  <div class="planb reveal reveal-2">
-    <div class="planb-card">
-      <h4>Ruta de los 7 Lagos</h4>
-      <div class="sunny">☀️ Sol</div>
-      <p>Paradas completas incluyendo Cascada Ñivinco. Fotos sin prisa.</p>
-      <div class="rainy">🌧️ Lluvia</div>
-      <p>Mismo recorrido pero sin caminatas. Paradas de foto desde el auto, almuerzo largo en Peumawe (Villa Traful) con estufa a leña.</p>
     </div>
-    <div class="planb-card">
-      <h4>Circuito Chico</h4>
-      <div class="sunny">☀️ Sol</div>
-      <p>Miradores + Cerro Otto + jardines de Llao Llao.</p>
-      <div class="rainy">🌧️ Lluvia</div>
-      <p>Museo de la Patagonia + tarde de chocolates en el centro + Cervecería Patagonia bajo techo con vista al lago.</p>
-    </div>
-    <div class="planb-card">
-      <h4>Colonia Suiza</h4>
-      <div class="sunny">☀️ Sol</div>
-      <p>Curanto + paseo por el pueblo + Bahías VLA.</p>
-      <div class="rainy">🌧️ Lluvia</div>
-      <p>Curanto igual (la parrilla está techada) + vuelta directa a la cabaña + mate + siesta.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ EQUIPAJE ═══════════ -->
-<section id="equipaje">
-  <div class="sec-eyebrow reveal">Qué llevar</div>
-  <h2 class="sec-title reveal">Lo esencial, por persona.</h2>
-  <p class="sec-lede reveal">Abril en Patagonia: 5°C a 15°C, cambios rápidos de clima, posible escarcha en las mañanas. Vestirse por capas.</p>
-
-  <div class="pack-grid reveal reveal-2">
-    <div class="pack">
-      <h4>🧥 Ropa (todos)</h4>
-      <ul>
-        <li>Campera de abrigo (pluma o técnica)</li>
-        <li>Rompevientos impermeable</li>
-        <li>Polar o buzo de abrigo</li>
-        <li>Guantes livianos + gorro</li>
-        <li>Zapatillas con grip (ripio + humedad)</li>
-        <li>Remeras térmicas (capas)</li>
-        <li>Pantalón cómodo de senderismo</li>
-      </ul>
-    </div>
-    <div class="pack">
-      <h4>♥ Específico Mamá</h4>
-      <ul>
-        <li>Medicación habitual (doble cantidad)</li>
-        <li>Calzado cómodo con buena suela</li>
-        <li>Bastón de trekking liviano</li>
-        <li>Silla plegable de camping (para el baúl)</li>
-        <li>Abrigo extra para las noches</li>
-        <li>Termo + mate o té</li>
-      </ul>
-    </div>
-    <div class="pack">
-      <h4>🎒 Tecnología</h4>
-      <ul>
-        <li>Adaptador enchufe argentino (tipo I)</li>
-        <li>Power bank cargado</li>
-        <li>Cámara + batería extra</li>
-        <li>Cargadores de todos</li>
-        <li>Google Maps offline descargado</li>
-        <li>Maps.me como backup</li>
-      </ul>
-    </div>
-    <div class="pack">
-      <h4>📄 Documentos</h4>
-      <ul>
-        <li>Pasaporte + DNI</li>
-        <li>Contrato Alamo impreso</li>
-        <li>Seguro del vehículo</li>
-        <li>Reservas de hoteles impresas</li>
-        <li>Tarjetas + efectivo USD/ARS</li>
-      </ul>
-    </div>
+    <div class="map-carousel-hint reveal">← Desliza para ver más mapas →</div>
   </div>
 </section>
 
@@ -1343,6 +1292,23 @@ window.addEventListener('scroll', () => {
   if(mountainsBack) mountainsBack.style.transform = `translateY(${y * 0.3}px)`;
   if(heroContent) heroContent.style.transform = `translateY(${y * 0.15}px)`;
 }, { passive: true });
+
+// Mapas: tap para expandir fullscreen
+document.querySelectorAll('.map-carousel-track .map-wrap').forEach(map => {
+  map.addEventListener('click', () => {
+    const overlay = document.createElement('div');
+    overlay.className = 'map-overlay';
+    const clone = map.cloneNode(true);
+    overlay.appendChild(clone);
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', e => {
+      if(e.target === overlay) overlay.remove();
+    });
+    document.addEventListener('keydown', function esc(e){
+      if(e.key === 'Escape'){ overlay.remove(); document.removeEventListener('keydown', esc); }
+    });
+  });
+});
 </script>
 
 </body>
