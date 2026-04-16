@@ -671,7 +671,7 @@ section+section::before{
 .resto-tab.active{background:var(--forest);color:var(--white);border-color:var(--forest);box-shadow:0 4px 12px -3px rgba(15,42,29,.35)}
 
 .resto-day{display:none}
-.resto-day.active{display:flex;flex-direction:column;gap:12px}
+.resto-day.active{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 
 .resto-card{
   display:flex;
@@ -683,7 +683,7 @@ section+section::before{
 }
 .resto-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px -10px rgba(15,42,29,.2)}
 .resto-img{
-  width:100px;flex-shrink:0;
+  width:120px;flex-shrink:0;
   object-fit:cover;
   display:block;
 }
@@ -902,7 +902,8 @@ footer .sig{
   .map-label{font-size:0.6em;padding:22px 8px 8px}
 
   /* Restaurantes */
-  .resto-img{width:80px}
+  .resto-day.active{grid-template-columns:1fr}
+  .resto-img{width:100px}
   .resto-info{padding:12px 14px}
   .resto-info h4{font-size:0.95em}
   .resto-meta{font-size:0.74em}
