@@ -267,77 +267,98 @@ section+section::before{
 /* ═══════════ ITINERARY LAYOUT ═══════════ */
 .itin-layout{
   display:grid;
-  grid-template-columns:100px 1fr;
+  grid-template-columns:140px 1fr;
   gap:0;
-  min-height:500px;
+  align-items:start;
 }
 
 /* Left: thumbnail strip */
 .days-strip{
-  display:flex;flex-direction:column;gap:6px;
-  padding-right:16px;
-  border-right:2px solid var(--line);
+  display:flex;flex-direction:column;gap:8px;
+  padding-right:20px;
+  position:sticky;top:80px;
+}
+.day-thumb-row{
+  display:flex;align-items:center;gap:0;
   position:relative;
 }
+.day-thumb-date{
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+  font-size:0.52em;font-weight:700;
+  text-transform:uppercase;letter-spacing:1.5px;
+  color:var(--muted);
+  white-space:nowrap;
+  padding-right:8px;
+  min-width:22px;
+  text-align:center;
+  transition:color .3s;
+}
+.day-thumb-row:hover .day-thumb-date{color:var(--forest)}
+.day-thumb-row.active .day-thumb-date{color:var(--sunset)}
 .day-card{
   position:relative;
-  width:100px;height:70px;
+  width:100px;height:68px;
   border-radius:10px;
   overflow:hidden;
   cursor:pointer;
   background-size:cover;
   background-position:left center;
   flex-shrink:0;
-  transition:all .3s cubic-bezier(.2,.8,.2,1);
+  transition:all .35s cubic-bezier(.2,.8,.2,1);
   border:2px solid transparent;
 }
 .day-card[data-day="1"]{background-position:center}
 .day-card::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(to top, rgba(10,30,20,0.7) 0%, rgba(15,42,29,0.2) 100%);
+  background:rgba(15,42,29,0.25);
   transition:background .3s;
 }
-.day-card-content{
-  position:absolute;bottom:0;left:0;right:0;
-  padding:6px 8px;z-index:1;color:var(--white);
-}
-.day-card .day-date{font-size:0.48em;text-transform:uppercase;letter-spacing:1px;color:#b7e4c7;line-height:1.2}
-.day-card .day-title{display:none}
-.day-card .day-meta{display:none}
+.day-card-content{display:none}
 
-.day-card:hover{
-  width:110px;height:78px;
-  box-shadow:0 8px 20px -8px rgba(15,42,29,.4);
+.day-thumb-row:hover .day-card{
+  width:120px;height:82px;
+  box-shadow:0 10px 24px -8px rgba(15,42,29,.45);
   border-color:var(--sage);
 }
-.day-card:hover::after{background:linear-gradient(to top, rgba(10,30,20,0.85) 0%, rgba(15,42,29,0.15) 100%)}
-.day-card.active{
+.day-thumb-row:hover .day-card::after{background:rgba(15,42,29,0.1)}
+.day-thumb-row.active .day-card{
   border-color:var(--sunset);
-  box-shadow:0 4px 16px -4px rgba(217,136,81,.4);
+  box-shadow:0 6px 18px -4px rgba(217,136,81,.4);
+  width:120px;height:82px;
 }
 
 /* Right: preview + detail panel */
 .day-panel{
   padding-left:24px;
-  position:relative;
+  border-left:2px solid var(--line);
+  position:sticky;top:80px;
+  min-height:400px;
 }
 
 /* Hover preview card */
 .day-preview{
-  padding:24px;
+  padding:28px;
   border-radius:14px;
-  background:var(--white);
-  border:1px solid var(--line);
+  overflow:hidden;
+  position:relative;
+  background-size:cover;background-position:center;
   opacity:0;
-  transition:opacity .25s;
+  transition:opacity .3s;
   pointer-events:none;
+  min-height:200px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+.day-preview::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,30,20,0.88) 0%,rgba(15,42,29,0.4) 60%,rgba(15,42,29,0.2) 100%);
 }
 .day-preview.visible{opacity:1}
-.day-preview .day-date{font-size:0.72em;text-transform:uppercase;letter-spacing:2px;color:var(--sage);font-weight:600;margin-bottom:4px}
-.day-preview .day-title{font-family:'Fraunces',serif;font-size:1.35em;color:var(--forest);font-weight:500;line-height:1.2;margin-bottom:6px}
-.day-preview .day-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:0.82em;color:var(--muted)}
+.day-preview .day-date{position:relative;z-index:1;font-size:0.72em;text-transform:uppercase;letter-spacing:2px;color:#b7e4c7;font-weight:600;margin-bottom:4px}
+.day-preview .day-title{position:relative;z-index:1;font-family:'Fraunces',serif;font-size:1.5em;color:var(--white);font-weight:500;line-height:1.2;margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,0.4)}
+.day-preview .day-meta{position:relative;z-index:1;display:flex;gap:8px;flex-wrap:wrap;font-size:0.82em;color:rgba(255,255,255,0.85)}
 .day-preview .day-meta span{display:inline-flex;align-items:center;gap:4px}
-.day-preview-hint{font-size:0.75em;color:var(--muted);margin-top:12px;font-style:italic}
+.day-preview-hint{position:relative;z-index:1;font-size:0.72em;color:rgba(255,255,255,0.5);margin-top:14px;font-style:italic}
 
 /* Detail panel */
 .day-detail-wrap{margin-top:0}
@@ -355,23 +376,31 @@ section+section::before{
   to{opacity:1;transform:translateX(0)}
 }
 .day-detail-head{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:20px 24px;
-  border-bottom:1px solid var(--line);
-  background:linear-gradient(135deg,rgba(45,90,61,0.06),transparent);
+  display:flex;justify-content:space-between;align-items:flex-end;
+  padding:40px 24px 20px;
+  border-bottom:1px solid rgba(255,255,255,0.15);
+  position:relative;
+  background-size:cover;background-position:center;
+  min-height:140px;
 }
-.day-detail-head-left{flex:1}
-.day-detail-head .day-date{font-size:0.72em;text-transform:uppercase;letter-spacing:2px;color:var(--sage);font-weight:600;margin-bottom:4px}
-.day-detail-head .day-title{font-family:'Fraunces',serif;font-size:1.35em;color:var(--forest);font-weight:500;line-height:1.2}
+.day-detail-head::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,30,20,0.88) 0%,rgba(15,42,29,0.45) 60%,rgba(15,42,29,0.25) 100%);
+  border-radius:14px 14px 0 0;
+}
+.day-detail-head-left{flex:1;position:relative;z-index:1}
+.day-detail-head .day-date{font-size:0.72em;text-transform:uppercase;letter-spacing:2px;color:#b7e4c7;font-weight:600;margin-bottom:4px}
+.day-detail-head .day-title{font-family:'Fraunces',serif;font-size:1.35em;color:var(--white);font-weight:500;line-height:1.2;text-shadow:0 2px 10px rgba(0,0,0,0.4)}
 .day-detail-close{
-  border:0;background:var(--fog);
+  border:0;background:rgba(255,255,255,0.15);
   width:34px;height:34px;border-radius:50%;
   font-size:1.1em;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  color:var(--muted);flex-shrink:0;
-  transition:background .2s,color .2s;
+  color:var(--white);flex-shrink:0;
+  transition:background .2s;
+  position:relative;z-index:1;
 }
-.day-detail-close:hover{background:var(--mist);color:var(--forest)}
+.day-detail-close:hover{background:rgba(255,255,255,0.3)}
 .day-detail-body{padding:20px 24px 24px}
 
 /* Moments inside detail */
@@ -646,19 +675,20 @@ footer .sig{
   .itin-layout{grid-template-columns:1fr;min-height:auto}
   .days-strip{
     flex-direction:row;overflow-x:auto;
-    border-right:none;border-bottom:2px solid var(--line);
     padding-right:0;padding-bottom:12px;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
+    position:static;
   }
   .days-strip::-webkit-scrollbar{display:none}
-  .day-card{width:72px;height:52px;border-radius:8px;flex-shrink:0}
-  .day-card:hover{width:72px;height:52px}
-  .day-card-content{padding:4px 6px}
-  .day-card .day-date{font-size:0.42em}
-  .day-panel{padding-left:0;padding-top:16px}
+  .day-thumb-row{flex-direction:column;gap:2px}
+  .day-thumb-date{writing-mode:horizontal-tb;transform:none;font-size:0.48em;padding:0;min-width:auto}
+  .day-card{width:68px;height:50px;border-radius:8px;flex-shrink:0}
+  .day-thumb-row:hover .day-card{width:68px;height:50px}
+  .day-thumb-row.active .day-card{width:68px;height:50px}
+  .day-panel{padding-left:0;padding-top:16px;border-left:none;position:static}
   .day-preview{display:none!important}
-  .day-detail-head{padding:16px 18px}
+  .day-detail-head{padding:30px 18px 16px;min-height:110px}
   .day-detail-head .day-title{font-size:1.15em}
   .day-detail-body{padding:18px 18px 20px}
 
@@ -716,8 +746,9 @@ footer .sig{
   .nav-brand{font-size:0.85em}
   .hero-content{padding:36px 18px 100px}
   .hero h1{font-size:clamp(1.85em,9.5vw,2.5em)}
-  .day-card{width:64px;height:46px}
-  .day-card:hover{width:64px;height:46px}
+  .day-card{width:58px;height:42px}
+  .day-thumb-row:hover .day-card{width:58px;height:42px}
+  .day-thumb-row.active .day-card{width:58px;height:42px}
   .day-detail-body{padding:16px 16px 18px}
   .day-detail-head .day-title{font-size:1.08em}
   .countdown{padding:12px 14px;gap:8px}
@@ -807,32 +838,41 @@ footer .sig{
 
   <div class="itin-layout reveal reveal-3">
     <div class="days-strip">
-      <div class="day-card" data-day="0" style="background-image:url('img/dia-01-ba-llegada.png');background-color:#1a2e3a">
-        <div class="day-card-content"><div class="day-date">Sáb 18</div><div class="day-title">Bienvenida a Buenos Aires</div><div class="day-meta"><span>✈️ Llegada</span><span>🌳 Jardín Japonés</span></div></div>
+      <div class="day-thumb-row" data-day="0" data-img="img/dia-01-ba-llegada.png" data-title="Bienvenida a Buenos Aires" data-date="Sábado 18 · Abril" data-meta="✈️ Llegada,🌳 Jardín Japonés">
+        <div class="day-thumb-date">Sáb 18</div>
+        <div class="day-card" data-day="0" style="background-image:url('img/dia-01-ba-llegada.png');background-color:#1a2e3a"></div>
       </div>
-      <div class="day-card" data-day="1" style="background-image:url('img/dia-02-ba-bus.png');background-color:#4a2e2e">
-        <div class="day-card-content"><div class="day-date">Dom 19</div><div class="day-title">Buenos Aires en bus rojo</div><div class="day-meta"><span>🚌 Bus turístico</span><span>🎨 San Telmo</span></div></div>
+      <div class="day-thumb-row" data-day="1" data-img="img/dia-02-ba-bus.png" data-title="Buenos Aires en bus rojo" data-date="Domingo 19 · Abril" data-meta="🚌 Bus turístico,🎨 San Telmo">
+        <div class="day-thumb-date">Dom 19</div>
+        <div class="day-card" data-day="1" style="background-image:url('img/dia-02-ba-bus.png');background-color:#4a2e2e"></div>
       </div>
-      <div class="day-card" data-day="2" style="background-image:url('img/dia-03-vuelo-sma.png');background-color:#1d3a2c">
-        <div class="day-card-content"><div class="day-date">Lun 20</div><div class="day-title">Vuelo a Bariloche · SMA</div><div class="day-meta"><span>✈️ BRC</span><span>🚗 RN40</span><span>🏔️ SMA</span></div></div>
+      <div class="day-thumb-row" data-day="2" data-img="img/dia-03-vuelo-sma.png" data-title="Vuelo a Bariloche · SMA" data-date="Lunes 20 · Abril" data-meta="✈️ BRC,🚗 RN40,🏔️ SMA">
+        <div class="day-thumb-date">Lun 20</div>
+        <div class="day-card" data-day="2" style="background-image:url('img/dia-03-vuelo-sma.png');background-color:#1d3a2c"></div>
       </div>
-      <div class="day-card" data-day="3" style="background-image:url('img/dia-04-7lagos.png');background-color:#1a3025">
-        <div class="day-card-content"><div class="day-date">Mar 21</div><div class="day-title">Ruta de los 7 Lagos</div><div class="day-meta"><span>🏞️ RP65</span><span>🐟 Traful</span><span>🔥 Asado</span></div></div>
+      <div class="day-thumb-row" data-day="3" data-img="img/dia-04-7lagos.png" data-title="Ruta de los 7 Lagos" data-date="Martes 21 · Abril" data-meta="🏞️ RP65,🐟 Traful,🔥 Asado">
+        <div class="day-thumb-date">Mar 21</div>
+        <div class="day-card" data-day="3" style="background-image:url('img/dia-04-7lagos.png');background-color:#1a3025"></div>
       </div>
-      <div class="day-card" data-day="4" style="background-image:url('img/dia-05-curanto.png');background-color:#2a3a2a">
-        <div class="day-card-content"><div class="day-date">Mié 22</div><div class="day-title">Curanto en Colonia Suiza</div><div class="day-meta"><span>🥘 Patagonia Mía</span><span>🌊 Bahías</span></div></div>
+      <div class="day-thumb-row" data-day="4" data-img="img/dia-05-curanto.png" data-title="Curanto en Colonia Suiza" data-date="Miércoles 22 · Abril" data-meta="🥘 Patagonia Mía,🌊 Bahías">
+        <div class="day-thumb-date">Mié 22</div>
+        <div class="day-card" data-day="4" style="background-image:url('img/dia-05-curanto.png');background-color:#2a3a2a"></div>
       </div>
-      <div class="day-card" data-day="5" style="background-image:url('img/dia-06-llaollao.png');background-color:#1a2530">
-        <div class="day-card-content"><div class="day-date">Jue 23</div><div class="day-title">Traslado a Llao Llao</div><div class="day-meta"><span>🚗 VLA → Hotel</span><span>🍺 Blest</span></div></div>
+      <div class="day-thumb-row" data-day="5" data-img="img/dia-06-llaollao.png" data-title="Traslado a Llao Llao" data-date="Jueves 23 · Abril" data-meta="🚗 VLA → Hotel,🍺 Blest">
+        <div class="day-thumb-date">Jue 23</div>
+        <div class="day-card" data-day="5" style="background-image:url('img/dia-06-llaollao.png');background-color:#1a2530"></div>
       </div>
-      <div class="day-card" data-day="6" style="background-image:url('img/dia-07-circuito.png');background-color:#0f1a25">
-        <div class="day-card-content"><div class="day-date">Vie 24</div><div class="day-title">Circuito Chico + Cerro Otto</div><div class="day-meta"><span>🚠 Teleférico</span><span>📸 Miradores</span></div></div>
+      <div class="day-thumb-row" data-day="6" data-img="img/dia-07-circuito.png" data-title="Circuito Chico + Cerro Otto" data-date="Viernes 24 · Abril" data-meta="🚠 Teleférico,📸 Miradores">
+        <div class="day-thumb-date">Vie 24</div>
+        <div class="day-card" data-day="6" style="background-image:url('img/dia-07-circuito.png');background-color:#0f1a25"></div>
       </div>
-      <div class="day-card" data-day="7" style="background-image:url('img/dia-08-ultimo.png');background-color:#2a3020">
-        <div class="day-card-content"><div class="day-date">Sáb 25</div><div class="day-title">Último día · vuelo 9:15pm</div><div class="day-meta"><span>🍫 Chocolates</span><span>🍦 Jauja</span><span>✈️ BRC</span></div></div>
+      <div class="day-thumb-row" data-day="7" data-img="img/dia-08-ultimo.png" data-title="Último día · vuelo 9:15pm" data-date="Sábado 25 · Abril" data-meta="🍫 Chocolates,🍦 Jauja,✈️ BRC">
+        <div class="day-thumb-date">Sáb 25</div>
+        <div class="day-card" data-day="7" style="background-image:url('img/dia-08-ultimo.png');background-color:#2a3020"></div>
       </div>
-      <div class="day-card" data-day="8" style="background-image:url('img/dia-09-despedida.png');background-color:#2a2018">
-        <div class="day-card-content"><div class="day-date">Dom 26</div><div class="day-title">Despedida</div><div class="day-meta"><span>✈️ EZE → Miami</span></div></div>
+      <div class="day-thumb-row" data-day="8" data-img="img/dia-09-despedida.png" data-title="Despedida" data-date="Domingo 26 · Abril" data-meta="✈️ EZE → Miami">
+        <div class="day-thumb-date">Dom 26</div>
+        <div class="day-card" data-day="8" style="background-image:url('img/dia-09-despedida.png');background-color:#2a2018"></div>
       </div>
     </div>
 
@@ -1136,49 +1176,57 @@ footer .sig{
 })();
 
 // Itinerary: hover preview + click detail
-const cards = document.querySelectorAll('.day-card');
+const thumbRows = document.querySelectorAll('.day-thumb-row');
 const details = document.querySelectorAll('.day-detail');
 const preview = document.getElementById('day-preview');
 const previewDate = document.getElementById('preview-date');
 const previewTitle = document.getElementById('preview-title');
 const previewMeta = document.getElementById('preview-meta');
 
-cards.forEach(card => {
-  card.addEventListener('mouseenter', () => {
+thumbRows.forEach(row => {
+  row.addEventListener('mouseenter', () => {
     if(document.querySelector('.day-detail.active')) return;
-    const c = card.querySelector('.day-card-content');
-    previewDate.textContent = c.querySelector('.day-date').textContent;
-    previewTitle.textContent = c.querySelector('.day-title').textContent;
-    const meta = c.querySelector('.day-meta');
-    previewMeta.innerHTML = meta ? meta.innerHTML : '';
+    previewDate.textContent = row.dataset.date;
+    previewTitle.textContent = row.dataset.title;
+    previewMeta.innerHTML = row.dataset.meta.split(',').map(m => '<span>'+m+'</span>').join('');
+    preview.style.backgroundImage = "url('" + row.dataset.img + "')";
     preview.classList.add('visible');
   });
-  card.addEventListener('mouseleave', () => {
+  row.addEventListener('mouseleave', () => {
     if(!document.querySelector('.day-detail.active')) preview.classList.remove('visible');
   });
-  card.addEventListener('click', () => selectDay(card));
+  row.addEventListener('click', () => selectDay(row));
 });
 
-function selectDay(card){
-  const idx = card.dataset.day;
-  const isActive = card.classList.contains('active');
+// Set detail head backgrounds from thumbnail images
+thumbRows.forEach(row => {
+  const idx = row.dataset.day;
+  const detail = document.querySelector('[data-detail="'+idx+'"]');
+  if(detail){
+    const head = detail.querySelector('.day-detail-head');
+    if(head) head.style.backgroundImage = "url('" + row.dataset.img + "')";
+  }
+});
 
-  cards.forEach(c => c.classList.remove('active'));
+function selectDay(row){
+  const idx = row.dataset.day;
+  const isActive = row.classList.contains('active');
+
+  thumbRows.forEach(r => r.classList.remove('active'));
   details.forEach(d => d.classList.remove('active'));
   preview.classList.remove('visible');
 
   if(!isActive){
-    card.classList.add('active');
-    const detail = document.querySelector(`[data-detail="${idx}"]`);
+    row.classList.add('active');
+    const detail = document.querySelector('[data-detail="'+idx+'"]');
     if(detail){
       detail.classList.add('active');
-      setTimeout(() => detail.scrollIntoView({ behavior:'smooth', block:'nearest' }), 80);
     }
   }
 }
 
 function closeDetail(){
-  cards.forEach(c => c.classList.remove('active'));
+  thumbRows.forEach(r => r.classList.remove('active'));
   details.forEach(d => d.classList.remove('active'));
   preview.classList.remove('visible');
 }
