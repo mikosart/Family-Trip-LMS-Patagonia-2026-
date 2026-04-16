@@ -709,6 +709,8 @@ section+section::before{
   transition:background .2s;
 }
 .resto-ig:hover,.resto-ig:active{background:rgba(58,106,130,0.18)}
+.resto-optional{opacity:0.7;border-style:dashed}
+.resto-optional .resto-info h4::after{content:' · opcional';font-family:'Inter',sans-serif;font-size:0.65em;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;vertical-align:middle;margin-left:6px}
 
 /* ═══════════ DATOS CURIOSOS ═══════════ */
 .datos-list{display:flex;flex-direction:column;gap:8px}
@@ -1257,11 +1259,11 @@ footer .sig{
             <span>📍 Palermo, cerca del Jardín Japonés</span>
             <span>🕐 Almuerzo ~2:00pm</span>
           </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=salgado%20alimentos%20palermo" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+          <a class="resto-ig" href="https://www.instagram.com/salgadoalimentos/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon warm">E</div>
+        <div class="resto-icon warm">MG</div>
         <div class="resto-info">
           <h4>Empanadas Mi Gusto</h4>
           <div class="resto-meta">
@@ -1269,7 +1271,7 @@ footer .sig{
             <span>📍 Delivery a casa</span>
             <span>🕐 Cena ~8:00pm</span>
           </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=empanadas%20mi%20gusto" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+          <a class="resto-ig" href="https://www.instagram.com/migustoar/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
         </div>
       </div>
     </div>
@@ -1285,7 +1287,7 @@ footer .sig{
             <span>📍 Costanera Sur / San Telmo</span>
             <span>🕐 Almuerzo ~1:00pm</span>
           </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=la%20choriperia%20buenos%20aires" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+          <a class="resto-ig" href="https://www.instagram.com/choripaneriaalpaso/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
         </div>
       </div>
       <div class="resto-card">
@@ -1297,7 +1299,7 @@ footer .sig{
             <span>📍 Reserva confirmada</span>
             <span>🕐 Cena 8:00pm</span>
           </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=el%20ferroviario%20parrilla" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+          <a class="resto-ig" href="https://www.instagram.com/elferroviariook/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
         </div>
       </div>
     </div>
@@ -1313,7 +1315,7 @@ footer .sig{
             <span>📍 San Martín de los Andes</span>
             <span>🕐 Cena</span>
           </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=las%20barricas%20del%20abasto%20san%20martin%20de%20los%20andes" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+          <a class="resto-ig" href="https://www.instagram.com/lasbarricasdelabasto/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
         </div>
       </div>
     </div>
@@ -1329,7 +1331,7 @@ footer .sig{
             <span>📍 Villa Traful</span>
             <span>🕐 Almuerzo 1:00pm · Reservar antes de salir</span>
           </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=peumawe%20villa%20traful" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+          <a class="resto-ig" href="https://www.instagram.com/peumawe/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
         </div>
       </div>
     </div>
@@ -1337,15 +1339,27 @@ footer .sig{
     <!-- Mié 22 -->
     <div class="resto-day" data-rday="22">
       <div class="resto-card">
-        <div class="resto-icon warm">PM</div>
+        <div class="resto-icon warm">EG</div>
         <div class="resto-info">
-          <h4>Patagonia Mía</h4>
+          <h4>El Gringo Curanto</h4>
           <div class="resto-meta">
             <span>🍽️ Curanto — asado bajo tierra con piedras</span>
             <span>📍 Colonia Suiza</span>
             <span>🕐 Almuerzo 11:30am · Hora fija, reservar</span>
           </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=patagonia%20mia%20colonia%20suiza" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+          <a class="resto-ig" href="https://www.instagram.com/curantos_el_gringo/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+      <div class="resto-card resto-optional">
+        <div class="resto-icon wine">Pi</div>
+        <div class="resto-info">
+          <h4>Pioneros Parrilla Patagónica</h4>
+          <div class="resto-meta">
+            <span>🍽️ Cocina de campo, parrilla</span>
+            <span>📍 Villa La Angostura</span>
+            <span>🕐 Cena</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/pioneros.parrilla/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
         </div>
       </div>
     </div>
@@ -1361,19 +1375,7 @@ footer .sig{
             <span>📍 Km 24.7 Av. Bustillo, Bariloche</span>
             <span>🕐 Almuerzo 1:00pm · Reservar</span>
           </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=cerveceria%20patagonia%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
-        </div>
-      </div>
-      <div class="resto-card">
-        <div class="resto-icon lake">CB</div>
-        <div class="resto-info">
-          <h4>Cervecería Blest</h4>
-          <div class="resto-meta">
-            <span>🍽️ Cervecería artesanal clásica · Alternativa</span>
-            <span>📍 Km 11.6 Av. Bustillo, Bariloche</span>
-            <span>🕐 Almuerzo alternativo</span>
-          </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=cerveceria%20blest%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+          <a class="resto-ig" href="https://www.instagram.com/patagonia.bariloche/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
         </div>
       </div>
       <div class="resto-card">
@@ -1385,19 +1387,43 @@ footer .sig{
             <span>📍 Zona Llao Llao, Bariloche</span>
             <span>🕐 Merienda · Atardecer</span>
           </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=casa%20de%20te%20enya%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+          <a class="resto-ig" href="https://www.instagram.com/casadeteorigenenya/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon wine">SW</div>
+        <div class="resto-icon wine">FW</div>
         <div class="resto-info">
-          <h4>Stag / Familia Weiss</h4>
+          <h4>Familia Weiss</h4>
           <div class="resto-meta">
-            <span>🍽️ Empanadas y pastas, elegir según ánimo</span>
+            <span>🍽️ Ahumados, fondues y pastas</span>
             <span>📍 Centro de Bariloche</span>
             <span>🕐 Cena</span>
           </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=familia%20weiss%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+          <a class="resto-ig" href="https://www.instagram.com/familia.weiss.bariloche/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+      <div class="resto-card resto-optional">
+        <div class="resto-icon lake">CB</div>
+        <div class="resto-info">
+          <h4>Cervecería Blest</h4>
+          <div class="resto-meta">
+            <span>🍽️ Cervecería artesanal clásica</span>
+            <span>📍 Km 11.6 Av. Bustillo, Bariloche</span>
+            <span>🕐 Para probar cerveza</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/cervezablest/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+      <div class="resto-card resto-optional">
+        <div class="resto-icon wine">St</div>
+        <div class="resto-info">
+          <h4>Stag</h4>
+          <div class="resto-meta">
+            <span>🍽️ Restaurante con ambiente de cervecería</span>
+            <span>📍 Centro de Bariloche</span>
+            <span>🕐 Cena alternativa</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/stagbariloche/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
         </div>
       </div>
     </div>
@@ -1405,39 +1431,63 @@ footer .sig{
     <!-- Vie 24 -->
     <div class="resto-day" data-rday="24">
       <div class="resto-card">
-        <div class="resto-icon lake">WM</div>
+        <div class="resto-icon lake">W</div>
         <div class="resto-info">
-          <h4>Cervecería Wesley / Manush</h4>
+          <h4>Wesley Tap Garden</h4>
           <div class="resto-meta">
-            <span>🍽️ Carnes y pastas, cervecerías clásicas</span>
+            <span>🍽️ Cervecería con cocina, tap garden</span>
             <span>📍 Circuito Chico, Bariloche</span>
             <span>🕐 Almuerzo 1:00pm</span>
           </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=manush%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+          <a class="resto-ig" href="https://www.instagram.com/wesleybrewery/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon sweet">RM</div>
+        <div class="resto-icon sweet">R</div>
         <div class="resto-info">
-          <h4>Rapanui / Mamushka</h4>
+          <h4>Rapanui</h4>
           <div class="resto-meta">
             <span>🍽️ Helados y chocolates artesanales</span>
             <span>📍 Calle Mitre, Centro</span>
             <span>🕐 Merienda 5:30pm</span>
           </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=rapanui%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+          <a class="resto-ig" href="https://www.instagram.com/rapanui.bistro/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+      <div class="resto-card">
+        <div class="resto-icon sweet">M</div>
+        <div class="resto-info">
+          <h4>Mamuschka</h4>
+          <div class="resto-meta">
+            <span>🍽️ Chocolatería artesanal</span>
+            <span>📍 Calle Mitre, Centro</span>
+            <span>🕐 Merienda 5:30pm</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/mamuschkachocolate/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
         </div>
       </div>
       <div class="resto-card">
         <div class="resto-icon wine">K1</div>
         <div class="resto-info">
-          <h4>Km 1</h4>
+          <h4>Kilómetro Uno Resto</h4>
           <div class="resto-meta">
             <span>🍽️ Carnes y pastas, ambiente acogedor</span>
             <span>📍 Bariloche</span>
             <span>🕐 Cena</span>
           </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=km%201%20bariloche%20restaurante" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+          <a class="resto-ig" href="https://www.instagram.com/km1brc/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+      <div class="resto-card resto-optional">
+        <div class="resto-icon lake">Ma</div>
+        <div class="resto-info">
+          <h4>Manush</h4>
+          <div class="resto-meta">
+            <span>🍽️ Cervecería artesanal</span>
+            <span>📍 Bariloche</span>
+            <span>🕐 Para probar cerveza</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/cervezamanush/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
         </div>
       </div>
     </div>
@@ -1453,19 +1503,7 @@ footer .sig{
             <span>📍 Calle Mitre, Centro de Bariloche</span>
             <span>🕐 Almuerzo 1:30pm</span>
           </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=la%20fonda%20del%20tio%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
-        </div>
-      </div>
-      <div class="resto-card">
-        <div class="resto-icon sweet">J</div>
-        <div class="resto-info">
-          <h4>Jauja</h4>
-          <div class="resto-meta">
-            <span>🍽️ Heladería artesanal legendaria</span>
-            <span>📍 Calle Mitre, Bariloche</span>
-            <span>🕐 Merienda 3:30pm</span>
-          </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=jauja%20helados%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+          <a class="resto-ig" href="https://www.instagram.com/lafondadeltio/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
         </div>
       </div>
       <div class="resto-card">
@@ -1477,7 +1515,7 @@ footer .sig{
             <span>📍 Centro de Bariloche</span>
             <span>🕐 Cena temprana ~5:00pm · Reservar</span>
           </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=la%20terraza%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+          <a class="resto-ig" href="https://www.instagram.com/terraza.brc/" target="_blank" rel="noopener">📷 Ver en Instagram</a>
         </div>
       </div>
     </div>
