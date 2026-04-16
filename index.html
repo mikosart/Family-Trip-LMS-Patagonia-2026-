@@ -246,11 +246,11 @@ nav{
 .hero-boxes .countdown+.countdown{margin:0}
 
 /* ═══════════ SECTIONS ═══════════ */
-section{padding:80px 24px;max-width:1100px;margin:0 auto}
+section{padding:50px 24px;max-width:1100px;margin:0 auto}
 section+section::before{
   content:'';display:block;
   width:120px;height:2px;
-  margin:0 auto 60px;
+  margin:0 auto 36px;
   background:linear-gradient(90deg,transparent,var(--sage),transparent);
   border-radius:2px;
 }
@@ -646,6 +646,102 @@ section+section::before{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3 7l3 3 5-6' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
+/* ═══════════ RESTAURANTES ═══════════ */
+.resto-tabs{
+  display:flex;gap:6px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  padding:4px 0 12px;
+  -webkit-overflow-scrolling:touch;
+}
+.resto-tabs::-webkit-scrollbar{display:none}
+.resto-tab{
+  padding:8px 16px;
+  font-size:0.8em;font-weight:600;
+  white-space:nowrap;
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  background:var(--white);
+  color:var(--muted);
+  cursor:pointer;
+  transition:all .25s;
+  flex-shrink:0;
+}
+.resto-tab:hover{color:var(--forest);border-color:var(--sage)}
+.resto-tab.active{background:var(--forest);color:var(--white);border-color:var(--forest);box-shadow:0 4px 12px -3px rgba(15,42,29,.35)}
+
+.resto-day{display:none}
+.resto-day.active{display:flex;flex-direction:column;gap:12px}
+
+.resto-card{
+  display:flex;
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+  transition:transform .3s, box-shadow .3s;
+}
+.resto-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px -10px rgba(15,42,29,.2)}
+.resto-icon{
+  width:90px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:2em;
+  background:linear-gradient(135deg,rgba(15,42,29,0.06),rgba(106,147,120,0.1));
+}
+.resto-info{padding:16px 18px;flex:1;min-width:0}
+.resto-info h4{font-family:'DM Serif Display',serif;font-size:1.05em;color:var(--forest);margin-bottom:4px}
+.resto-meta{font-size:0.78em;color:var(--muted);line-height:1.6;margin-bottom:8px}
+.resto-meta span{display:block}
+.resto-ig{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:0.75em;font-weight:600;
+  color:var(--lake);
+  text-decoration:none;
+  padding:5px 12px;
+  border-radius:8px;
+  background:rgba(58,106,130,0.08);
+  transition:background .2s;
+}
+.resto-ig:hover,.resto-ig:active{background:rgba(58,106,130,0.18)}
+
+/* ═══════════ DATOS CURIOSOS ═══════════ */
+.datos-list{display:flex;flex-direction:column;gap:8px}
+.dato{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+}
+.dato-header{
+  display:flex;align-items:center;gap:12px;
+  padding:16px 20px;
+  cursor:pointer;
+  font-weight:500;
+  font-size:0.92em;
+  color:var(--forest);
+  transition:background .2s;
+  user-select:none;
+}
+.dato-header:hover{background:rgba(106,147,120,0.06)}
+.dato-header .dato-emoji{font-size:1.3em;flex-shrink:0}
+.dato-header .dato-arrow{
+  margin-left:auto;
+  font-size:0.7em;color:var(--muted);
+  transition:transform .3s;
+  flex-shrink:0;
+}
+.dato.open .dato-header .dato-arrow{transform:rotate(180deg)}
+.dato-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .35s ease, padding .35s ease;
+  padding:0 20px;
+  font-size:0.88em;color:#444;line-height:1.6;
+}
+.dato.open .dato-body{
+  max-height:500px;
+  padding:0 20px 18px;
+}
+
 /* ═══════════ FOOTER ═══════════ */
 footer{
   background:
@@ -673,8 +769,8 @@ footer .sig{
 }
 
 @media(max-width:720px){
-  section{padding:56px 18px;overflow-x:hidden}
-  .sec-lede{margin-bottom:28px}
+  section{padding:36px 18px;overflow-x:hidden}
+  .sec-lede{margin-bottom:20px}
 
   /* Nav más compacto */
   .nav-wrap{padding:12px 18px}
@@ -804,12 +900,24 @@ footer .sig{
   .map-wrap{flex:0 0 260px;width:260px;height:180px;border-radius:12px}
   .map-label{font-size:0.6em;padding:22px 8px 8px}
 
+  /* Restaurantes */
+  .resto-icon{width:70px;font-size:1.6em}
+  .resto-info{padding:12px 14px}
+  .resto-info h4{font-size:0.95em}
+  .resto-meta{font-size:0.74em}
+  .resto-ig{font-size:0.72em;padding:4px 10px}
+
+  /* Datos curiosos */
+  .dato-header{padding:14px 16px;font-size:0.88em}
+  .dato-body{font-size:0.84em}
+  .dato.open .dato-body{padding:0 16px 16px}
+
   /* Footer */
   footer{padding:60px 20px 30px}
 }
 
 @media(max-width:420px){
-  section{padding:48px 16px}
+  section{padding:30px 16px}
   .nav-brand{font-size:0.85em}
   .hero-content{padding:36px 18px 100px}
   .hero h1{font-size:clamp(1.85em,9.5vw,2.5em)}
@@ -833,8 +941,10 @@ footer .sig{
       <a href="#viajeros">Viajeros</a>
       <a href="#itinerario">Itinerario</a>
       <a href="#hospedajes">Hospedajes</a>
+      <a href="#restaurantes">Comer</a>
       <a href="#ruta">Mapas</a>
       <a href="#equipaje">Check List</a>
+      <a href="#datos">Datos</a>
     </div>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Menú">
       <span></span><span></span><span></span>
@@ -846,8 +956,10 @@ footer .sig{
   <a href="#viajeros">Viajeros</a>
   <a href="#itinerario">Itinerario</a>
   <a href="#hospedajes">Hospedajes</a>
+  <a href="#restaurantes">Dónde Comer</a>
   <a href="#ruta">Mapas</a>
   <a href="#equipaje">Check List</a>
+  <a href="#datos">Datos del Viaje</a>
 </div>
 
 <!-- ═══════════ HERO ═══════════ -->
@@ -1112,6 +1224,272 @@ footer .sig{
   </div>
 </section>
 
+<!-- ═══════════ RESTAURANTES ═══════════ -->
+<section id="restaurantes">
+  <h2 class="sec-title reveal">Dónde Comer</h2>
+
+  <div class="resto-tabs reveal" id="resto-tabs">
+    <button class="resto-tab active" data-rday="18">Sáb 18</button>
+    <button class="resto-tab" data-rday="19">Dom 19</button>
+    <button class="resto-tab" data-rday="20">Lun 20</button>
+    <button class="resto-tab" data-rday="21">Mar 21</button>
+    <button class="resto-tab" data-rday="22">Mié 22</button>
+    <button class="resto-tab" data-rday="23">Jue 23</button>
+    <button class="resto-tab" data-rday="24">Vie 24</button>
+    <button class="resto-tab" data-rday="25">Sáb 25</button>
+  </div>
+
+  <div class="reveal">
+    <!-- Sáb 18 -->
+    <div class="resto-day active" data-rday="18">
+      <div class="resto-card">
+        <div class="resto-icon">🍝</div>
+        <div class="resto-info">
+          <h4>Salgado Alimentos</h4>
+          <div class="resto-meta">
+            <span>🍽️ Pastas artesanales</span>
+            <span>📍 Palermo, cerca del Jardín Japonés</span>
+            <span>🕐 Almuerzo ~2:00pm</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=salgado%20alimentos%20palermo" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+      <div class="resto-card">
+        <div class="resto-icon">🍕</div>
+        <div class="resto-info">
+          <h4>Las Cuartetas</h4>
+          <div class="resto-meta">
+            <span>🍽️ Pizza porteña clásica · Plan B</span>
+            <span>📍 Corrientes 838, Centro</span>
+            <span>🕐 Almuerzo alternativo</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=las%20cuartetas%20pizzeria%20buenos%20aires" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+      <div class="resto-card">
+        <div class="resto-icon">🥟</div>
+        <div class="resto-info">
+          <h4>Empanadas Mi Gusto</h4>
+          <div class="resto-meta">
+            <span>🍽️ Empanadas a domicilio</span>
+            <span>📍 Delivery a casa</span>
+            <span>🕐 Cena ~8:00pm</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=empanadas%20mi%20gusto" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dom 19 -->
+    <div class="resto-day" data-rday="19">
+      <div class="resto-card">
+        <div class="resto-icon">🌭</div>
+        <div class="resto-info">
+          <h4>La Choripanería</h4>
+          <div class="resto-meta">
+            <span>🍽️ Choripán clásico porteño</span>
+            <span>📍 Costanera Sur / San Telmo</span>
+            <span>🕐 Almuerzo ~1:00pm</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=la%20choriperia%20buenos%20aires" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+      <div class="resto-card">
+        <div class="resto-icon">🥩</div>
+        <div class="resto-info">
+          <h4>El Ferroviario</h4>
+          <div class="resto-meta">
+            <span>🍽️ Parrilla icónica porteña</span>
+            <span>📍 Reserva confirmada</span>
+            <span>🕐 Cena 8:00pm</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=el%20ferroviario%20parrilla" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lun 20 -->
+    <div class="resto-day" data-rday="20">
+      <div class="resto-card">
+        <div class="resto-icon">🥩</div>
+        <div class="resto-info">
+          <h4>Las Barricas del Abasto</h4>
+          <div class="resto-meta">
+            <span>🍽️ Carnes y pastas, ambiente montañero</span>
+            <span>📍 San Martín de los Andes</span>
+            <span>🕐 Cena</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=las%20barricas%20del%20abasto%20san%20martin%20de%20los%20andes" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mar 21 -->
+    <div class="resto-day" data-rday="21">
+      <div class="resto-card">
+        <div class="resto-icon">🍖</div>
+        <div class="resto-info">
+          <h4>Peumawe</h4>
+          <div class="resto-meta">
+            <span>🍽️ Carnes y pastas caseras con vista al lago</span>
+            <span>📍 Villa Traful</span>
+            <span>🕐 Almuerzo 1:00pm · Reservar antes de salir</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=peumawe%20villa%20traful" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mié 22 -->
+    <div class="resto-day" data-rday="22">
+      <div class="resto-card">
+        <div class="resto-icon">🥘</div>
+        <div class="resto-info">
+          <h4>Patagonia Mía</h4>
+          <div class="resto-meta">
+            <span>🍽️ Curanto — asado bajo tierra con piedras</span>
+            <span>📍 Colonia Suiza</span>
+            <span>🕐 Almuerzo 11:30am · Hora fija, reservar</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=patagonia%20mia%20colonia%20suiza" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jue 23 -->
+    <div class="resto-day" data-rday="23">
+      <div class="resto-card">
+        <div class="resto-icon">🍺</div>
+        <div class="resto-info">
+          <h4>Cervecería Patagonia</h4>
+          <div class="resto-meta">
+            <span>🍽️ Hamburguesas y craft beer</span>
+            <span>📍 Km 24.7 Av. Bustillo, Bariloche</span>
+            <span>🕐 Almuerzo 1:00pm · Reservar</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=cerveceria%20patagonia%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+      <div class="resto-card">
+        <div class="resto-icon">🍺</div>
+        <div class="resto-info">
+          <h4>Cervecería Blest</h4>
+          <div class="resto-meta">
+            <span>🍽️ Cervecería artesanal clásica · Alternativa</span>
+            <span>📍 Km 11.6 Av. Bustillo, Bariloche</span>
+            <span>🕐 Almuerzo alternativo</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=cerveceria%20blest%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+      <div class="resto-card">
+        <div class="resto-icon">🍰</div>
+        <div class="resto-info">
+          <h4>Casa de Té Enya</h4>
+          <div class="resto-meta">
+            <span>🍽️ Té y dulces con vista al atardecer</span>
+            <span>📍 Zona Llao Llao, Bariloche</span>
+            <span>🕐 Merienda · Atardecer</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=casa%20de%20te%20enya%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+      <div class="resto-card">
+        <div class="resto-icon">🥟</div>
+        <div class="resto-info">
+          <h4>Stag / Familia Weiss</h4>
+          <div class="resto-meta">
+            <span>🍽️ Empanadas y pastas, elegir según ánimo</span>
+            <span>📍 Centro de Bariloche</span>
+            <span>🕐 Cena</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=familia%20weiss%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vie 24 -->
+    <div class="resto-day" data-rday="24">
+      <div class="resto-card">
+        <div class="resto-icon">🍺</div>
+        <div class="resto-info">
+          <h4>Cervecería Wesley / Manush</h4>
+          <div class="resto-meta">
+            <span>🍽️ Carnes y pastas, cervecerías clásicas</span>
+            <span>📍 Circuito Chico, Bariloche</span>
+            <span>🕐 Almuerzo 1:00pm</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=manush%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+      <div class="resto-card">
+        <div class="resto-icon">🍦</div>
+        <div class="resto-info">
+          <h4>Rapanui / Mamushka</h4>
+          <div class="resto-meta">
+            <span>🍽️ Helados y chocolates artesanales</span>
+            <span>📍 Calle Mitre, Centro</span>
+            <span>🕐 Merienda 5:30pm</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=rapanui%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+      <div class="resto-card">
+        <div class="resto-icon">🥩</div>
+        <div class="resto-info">
+          <h4>Km 1</h4>
+          <div class="resto-meta">
+            <span>🍽️ Carnes y pastas, ambiente acogedor</span>
+            <span>📍 Bariloche</span>
+            <span>🕐 Cena</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=km%201%20bariloche%20restaurante" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sáb 25 -->
+    <div class="resto-day" data-rday="25">
+      <div class="resto-card">
+        <div class="resto-icon">🍽️</div>
+        <div class="resto-info">
+          <h4>La Fonda del Tío</h4>
+          <div class="resto-meta">
+            <span>🍽️ Carnes y pastas caseras</span>
+            <span>📍 Calle Mitre, Centro de Bariloche</span>
+            <span>🕐 Almuerzo 1:30pm</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=la%20fonda%20del%20tio%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+      <div class="resto-card">
+        <div class="resto-icon">🍦</div>
+        <div class="resto-info">
+          <h4>Jauja</h4>
+          <div class="resto-meta">
+            <span>🍽️ Heladería artesanal legendaria</span>
+            <span>📍 Calle Mitre, Bariloche</span>
+            <span>🕐 Merienda 3:30pm</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=jauja%20helados%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+      <div class="resto-card">
+        <div class="resto-icon">🥩</div>
+        <div class="resto-info">
+          <h4>La Terraza</h4>
+          <div class="resto-meta">
+            <span>🍽️ Carnes y pastas</span>
+            <span>📍 Centro de Bariloche</span>
+            <span>🕐 Cena temprana ~5:00pm · Reservar</span>
+          </div>
+          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=la%20terraza%20bariloche" target="_blank" rel="noopener">📷 Ver en Instagram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════ MAPAS ═══════════ -->
 <section id="ruta">
   <h2 class="sec-title reveal">Mapas del Viaje</h2>
@@ -1203,6 +1581,85 @@ footer .sig{
         <li>Reservas de hoteles impresas</li>
         <li>Tarjetas + efectivo USD/ARS</li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DATOS CURIOSOS ═══════════ -->
+<section id="datos">
+  <h2 class="sec-title reveal">Datos del Viaje</h2>
+
+  <div class="datos-list reveal">
+    <div class="dato">
+      <div class="dato-header">
+        <span class="dato-emoji">🌸</span>
+        Jardín Japonés de Buenos Aires
+        <span class="dato-arrow">▼</span>
+      </div>
+      <div class="dato-body">Es el jardín japonés más grande fuera de Japón. Fue un regalo de la comunidad japonesa a Argentina en 1967. Tiene un lago con carpas koi que pueden vivir más de 50 años, y un puente rojo curvo que simboliza el camino al paraíso. Es uno de los lugares más tranquilos de toda la ciudad.</div>
+    </div>
+
+    <div class="dato">
+      <div class="dato-header">
+        <span class="dato-emoji">🏞️</span>
+        Los 7 Lagos y el orden del recorrido
+        <span class="dato-arrow">▼</span>
+      </div>
+      <div class="dato-body">La Ruta de los 7 Lagos (RP40/RP65) conecta San Martín de los Andes con Villa La Angostura en 107 km. Los lagos en el orden que los vamos a ver: <strong>Lácar</strong> (al salir de SMA), <strong>Machónico</strong>, <strong>Hermoso</strong>, <strong>Villarino</strong>, <strong>Falkner</strong>, <strong>Correntoso</strong> y <strong>Espejo</strong> (al llegar a VLA). En otoño los bosques de lengas se ponen rojos y naranjas — vamos justo en la mejor época.</div>
+    </div>
+
+    <div class="dato">
+      <div class="dato-header">
+        <span class="dato-emoji">🥘</span>
+        ¿Qué es el Curanto?
+        <span class="dato-arrow">▼</span>
+      </div>
+      <div class="dato-body">El curanto es una técnica de cocción mapuche milenaria. Se cava un pozo en la tierra, se llena de piedras volcánicas calentadas al rojo vivo, y encima se apilan capas de carnes, embutidos, papas, batatas y verduras. Todo se tapa con hojas de nalca (una planta gigante) y tierra. Se cocina durante horas bajo tierra. En Colonia Suiza es tradición de los miércoles — nosotros vamos un miércoles.</div>
+    </div>
+
+    <div class="dato">
+      <div class="dato-header">
+        <span class="dato-emoji">🏔️</span>
+        Cerro Campanario: el mejor mirador del mundo
+        <span class="dato-arrow">▼</span>
+      </div>
+      <div class="dato-body">National Geographic lo eligió como una de las 10 mejores vistas del planeta. Desde la cima (1.050m) se ven el Lago Nahuel Huapi, el Lago Moreno, la Isla Victoria, la Península de Llao Llao y la Cordillera de los Andes. Se sube en aerosilla en 7 minutos — perfecto para mamá, sin trekking.</div>
+    </div>
+
+    <div class="dato">
+      <div class="dato-header">
+        <span class="dato-emoji">🍫</span>
+        Bariloche: la capital del chocolate
+        <span class="dato-arrow">▼</span>
+      </div>
+      <div class="dato-body">Bariloche tiene más de 30 chocolaterías artesanales. La tradición comenzó con inmigrantes suizos e italianos en los años 40. Rapanui, Mamushka y Del Turista son las más famosas, pero hay decenas de locales pequeños en la calle Mitre. En Semana Santa hacen un huevo de Pascua gigante de más de 8 metros de alto.</div>
+    </div>
+
+    <div class="dato">
+      <div class="dato-header">
+        <span class="dato-emoji">🌲</span>
+        Colonia Suiza y los pioneros
+        <span class="dato-arrow">▼</span>
+      </div>
+      <div class="dato-body">Colonia Suiza fue fundada en 1895 por familias suizas y alemanas que llegaron buscando un paisaje similar al de los Alpes. Las casas conservan la arquitectura alpina original. Cada miércoles y domingo hacen una feria artesanal con el curanto como plato estrella. El pueblo tiene menos de 200 habitantes permanentes.</div>
+    </div>
+
+    <div class="dato">
+      <div class="dato-header">
+        <span class="dato-emoji">🚌</span>
+        El Bus Rojo de Buenos Aires
+        <span class="dato-arrow">▼</span>
+      </div>
+      <div class="dato-body">El bus turístico de BA es de dos pisos al estilo londinense. El recorrido completo pasa por 25 paradas: desde La Boca y San Telmo hasta Palermo y Recoleta. Podés bajarte y subirte cuantas veces quieras con el mismo ticket. Desde el segundo piso (descubierto) se ven los edificios y el cielo de Buenos Aires como no se ve desde abajo.</div>
+    </div>
+
+    <div class="dato">
+      <div class="dato-header">
+        <span class="dato-emoji">🐟</span>
+        Villa Traful: el pueblo escondido
+        <span class="dato-arrow">▼</span>
+      </div>
+      <div class="dato-body">Villa Traful tiene menos de 500 habitantes y no tiene semáforos, bancos ni cajeros automáticos. El lago Traful es tan cristalino que en algunos puntos se puede ver el fondo a 20 metros de profundidad. Hay un bosque sumergido visible desde la costa: árboles enteros que quedaron bajo el agua después de un desmoronamiento hace décadas.</div>
     </div>
   </div>
 </section>
@@ -1358,6 +1815,24 @@ document.querySelectorAll('.map-carousel-track .map-wrap').forEach(map => {
 // Auto-select first day so panel is never empty
 const firstDay = document.querySelector('.day-thumb-row[data-day="0"]');
 if(firstDay) selectDay(firstDay);
+
+// Restaurantes: tab switching
+document.querySelectorAll('.resto-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.resto-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.resto-day').forEach(d => d.classList.remove('active'));
+    tab.classList.add('active');
+    const day = document.querySelector('.resto-day[data-rday="'+tab.dataset.rday+'"]');
+    if(day) day.classList.add('active');
+  });
+});
+
+// Datos curiosos: acordeón
+document.querySelectorAll('.dato-header').forEach(header => {
+  header.addEventListener('click', () => {
+    header.parentElement.classList.toggle('open');
+  });
+});
 
 // Check list interactivo con persistencia
 document.querySelectorAll('.pack li').forEach((li, i) => {
