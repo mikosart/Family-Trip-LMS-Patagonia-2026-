@@ -285,12 +285,12 @@ section+section::before{
 .day-thumb-date{
   writing-mode:vertical-rl;
   transform:rotate(180deg);
-  font-size:0.52em;font-weight:700;
-  text-transform:uppercase;letter-spacing:1.5px;
+  font-size:0.68em;font-weight:700;
+  text-transform:uppercase;letter-spacing:2px;
   color:var(--muted);
   white-space:nowrap;
-  padding-right:8px;
-  min-width:22px;
+  padding-right:10px;
+  min-width:26px;
   text-align:center;
   transition:color .3s;
 }
@@ -341,13 +341,15 @@ section+section::before{
   padding:28px;
   border-radius:14px;
   overflow:hidden;
-  position:relative;
+  position:absolute;
+  left:0;right:0;
   background-size:cover;background-position:center;
   opacity:0;
-  transition:opacity .3s;
+  transition:opacity .3s, top .25s ease;
   pointer-events:none;
   min-height:200px;
   display:flex;flex-direction:column;justify-content:flex-end;
+  z-index:5;
 }
 .day-preview::before{
   content:'';position:absolute;inset:0;
@@ -632,7 +634,7 @@ section+section::before{
 footer{
   background:
     linear-gradient(180deg,rgba(15,42,29,0.85) 0%,rgba(10,30,20,0.9) 100%),
-    url('img/dia-09-despedida.png') center/cover no-repeat;
+    url('img/dia-09-despedida.webp') center/cover no-repeat;
   color:#b7e4c7;
   padding:100px 24px 50px;
   text-align:center;
@@ -838,41 +840,41 @@ footer .sig{
 
   <div class="itin-layout reveal reveal-3">
     <div class="days-strip">
-      <div class="day-thumb-row" data-day="0" data-img="img/dia-01-ba-llegada.png" data-title="Bienvenida a Buenos Aires" data-date="Sábado 18 · Abril" data-meta="✈️ Llegada,🌳 Jardín Japonés">
+      <div class="day-thumb-row" data-day="0" data-img="img/dia-01-ba-llegada.webp" data-title="Bienvenida a Buenos Aires" data-date="Sábado 18 · Abril" data-meta="✈️ Llegada,🌳 Jardín Japonés">
         <div class="day-thumb-date">Sáb 18</div>
-        <div class="day-card" data-day="0" style="background-image:url('img/dia-01-ba-llegada.png');background-color:#1a2e3a"></div>
+        <div class="day-card" data-day="0" style="background-image:url('img/dia-01-ba-llegada.webp');background-color:#1a2e3a"></div>
       </div>
-      <div class="day-thumb-row" data-day="1" data-img="img/dia-02-ba-bus.png" data-title="Buenos Aires en bus rojo" data-date="Domingo 19 · Abril" data-meta="🚌 Bus turístico,🎨 San Telmo">
+      <div class="day-thumb-row" data-day="1" data-img="img/dia-02-ba-bus.jpg" data-title="Buenos Aires en bus rojo" data-date="Domingo 19 · Abril" data-meta="🚌 Bus turístico,🎨 San Telmo">
         <div class="day-thumb-date">Dom 19</div>
-        <div class="day-card" data-day="1" style="background-image:url('img/dia-02-ba-bus.png');background-color:#4a2e2e"></div>
+        <div class="day-card" data-day="1" style="background-image:url('img/dia-02-ba-bus.jpg');background-color:#4a2e2e"></div>
       </div>
-      <div class="day-thumb-row" data-day="2" data-img="img/dia-03-vuelo-sma.png" data-title="Vuelo a Bariloche · SMA" data-date="Lunes 20 · Abril" data-meta="✈️ BRC,🚗 RN40,🏔️ SMA">
+      <div class="day-thumb-row" data-day="2" data-img="img/dia-03-vuelo-sma.jpg" data-title="Vuelo a Bariloche · SMA" data-date="Lunes 20 · Abril" data-meta="✈️ BRC,🚗 RN40,🏔️ SMA">
         <div class="day-thumb-date">Lun 20</div>
-        <div class="day-card" data-day="2" style="background-image:url('img/dia-03-vuelo-sma.png');background-color:#1d3a2c"></div>
+        <div class="day-card" data-day="2" style="background-image:url('img/dia-03-vuelo-sma.jpg');background-color:#1d3a2c"></div>
       </div>
-      <div class="day-thumb-row" data-day="3" data-img="img/dia-04-7lagos.png" data-title="Ruta de los 7 Lagos" data-date="Martes 21 · Abril" data-meta="🏞️ RP65,🐟 Traful,🔥 Asado">
+      <div class="day-thumb-row" data-day="3" data-img="img/dia-04-7lagos.jpg" data-title="Ruta de los 7 Lagos" data-date="Martes 21 · Abril" data-meta="🏞️ RP65,🐟 Traful,🔥 Asado">
         <div class="day-thumb-date">Mar 21</div>
-        <div class="day-card" data-day="3" style="background-image:url('img/dia-04-7lagos.png');background-color:#1a3025"></div>
+        <div class="day-card" data-day="3" style="background-image:url('img/dia-04-7lagos.jpg');background-color:#1a3025"></div>
       </div>
-      <div class="day-thumb-row" data-day="4" data-img="img/dia-05-curanto.png" data-title="Curanto en Colonia Suiza" data-date="Miércoles 22 · Abril" data-meta="🥘 Patagonia Mía,🌊 Bahías">
+      <div class="day-thumb-row" data-day="4" data-img="img/dia-05-curanto.jpg" data-title="Curanto en Colonia Suiza" data-date="Miércoles 22 · Abril" data-meta="🥘 Patagonia Mía,🌊 Bahías">
         <div class="day-thumb-date">Mié 22</div>
-        <div class="day-card" data-day="4" style="background-image:url('img/dia-05-curanto.png');background-color:#2a3a2a"></div>
+        <div class="day-card" data-day="4" style="background-image:url('img/dia-05-curanto.jpg');background-color:#2a3a2a"></div>
       </div>
-      <div class="day-thumb-row" data-day="5" data-img="img/dia-06-llaollao.png" data-title="Traslado a Llao Llao" data-date="Jueves 23 · Abril" data-meta="🚗 VLA → Hotel,🍺 Blest">
+      <div class="day-thumb-row" data-day="5" data-img="img/dia-06-llaollao.jpg" data-title="Traslado a Llao Llao" data-date="Jueves 23 · Abril" data-meta="🚗 VLA → Hotel,🍺 Blest">
         <div class="day-thumb-date">Jue 23</div>
-        <div class="day-card" data-day="5" style="background-image:url('img/dia-06-llaollao.png');background-color:#1a2530"></div>
+        <div class="day-card" data-day="5" style="background-image:url('img/dia-06-llaollao.jpg');background-color:#1a2530"></div>
       </div>
-      <div class="day-thumb-row" data-day="6" data-img="img/dia-07-circuito.png" data-title="Circuito Chico + Cerro Otto" data-date="Viernes 24 · Abril" data-meta="🚠 Teleférico,📸 Miradores">
+      <div class="day-thumb-row" data-day="6" data-img="img/dia-07-circuito.jpg" data-title="Circuito Chico + Cerro Otto" data-date="Viernes 24 · Abril" data-meta="🚠 Teleférico,📸 Miradores">
         <div class="day-thumb-date">Vie 24</div>
-        <div class="day-card" data-day="6" style="background-image:url('img/dia-07-circuito.png');background-color:#0f1a25"></div>
+        <div class="day-card" data-day="6" style="background-image:url('img/dia-07-circuito.jpg');background-color:#0f1a25"></div>
       </div>
-      <div class="day-thumb-row" data-day="7" data-img="img/dia-08-ultimo.png" data-title="Último día · vuelo 9:15pm" data-date="Sábado 25 · Abril" data-meta="🍫 Chocolates,🍦 Jauja,✈️ BRC">
+      <div class="day-thumb-row" data-day="7" data-img="img/dia-08-ultimo.jpg" data-title="Último día · vuelo 9:15pm" data-date="Sábado 25 · Abril" data-meta="🍫 Chocolates,🍦 Jauja,✈️ BRC">
         <div class="day-thumb-date">Sáb 25</div>
-        <div class="day-card" data-day="7" style="background-image:url('img/dia-08-ultimo.png');background-color:#2a3020"></div>
+        <div class="day-card" data-day="7" style="background-image:url('img/dia-08-ultimo.jpg');background-color:#2a3020"></div>
       </div>
-      <div class="day-thumb-row" data-day="8" data-img="img/dia-09-despedida.png" data-title="Despedida" data-date="Domingo 26 · Abril" data-meta="✈️ EZE → Miami">
+      <div class="day-thumb-row" data-day="8" data-img="img/dia-09-despedida.webp" data-title="Despedida" data-date="Domingo 26 · Abril" data-meta="✈️ EZE → Miami">
         <div class="day-thumb-date">Dom 26</div>
-        <div class="day-card" data-day="8" style="background-image:url('img/dia-09-despedida.png');background-color:#2a2018"></div>
+        <div class="day-card" data-day="8" style="background-image:url('img/dia-09-despedida.webp');background-color:#2a2018"></div>
       </div>
     </div>
 
@@ -1183,6 +1185,8 @@ const previewDate = document.getElementById('preview-date');
 const previewTitle = document.getElementById('preview-title');
 const previewMeta = document.getElementById('preview-meta');
 
+const dayPanel = document.querySelector('.day-panel');
+
 thumbRows.forEach(row => {
   row.addEventListener('mouseenter', () => {
     if(document.querySelector('.day-detail.active')) return;
@@ -1190,6 +1194,9 @@ thumbRows.forEach(row => {
     previewTitle.textContent = row.dataset.title;
     previewMeta.innerHTML = row.dataset.meta.split(',').map(m => '<span>'+m+'</span>').join('');
     preview.style.backgroundImage = "url('" + row.dataset.img + "')";
+    const panelRect = dayPanel.getBoundingClientRect();
+    const rowRect = row.getBoundingClientRect();
+    preview.style.top = (rowRect.top - panelRect.top) + 'px';
     preview.classList.add('visible');
   });
   row.addEventListener('mouseleave', () => {
