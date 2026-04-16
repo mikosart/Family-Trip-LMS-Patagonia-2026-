@@ -267,8 +267,8 @@ section+section::before{
 /* ═══════════ ITINERARY LAYOUT ═══════════ */
 .itin-layout{
   display:grid;
-  grid-template-columns:140px 1fr;
-  gap:0;
+  grid-template-columns:150px 1fr;
+  gap:20px;
   align-items:start;
 }
 
@@ -330,8 +330,8 @@ section+section::before{
 
 /* Right: preview + detail panel */
 .day-panel{
-  padding-left:24px;
-  border-left:2px solid var(--line);
+  padding-left:28px;
+  border-left:none;
   position:sticky;top:80px;
   min-height:400px;
 }
@@ -1196,7 +1196,9 @@ thumbRows.forEach(row => {
     preview.style.backgroundImage = "url('" + row.dataset.img + "')";
     const panelRect = dayPanel.getBoundingClientRect();
     const rowRect = row.getBoundingClientRect();
-    preview.style.top = (rowRect.top - panelRect.top) + 'px';
+    const rowCenter = rowRect.top + rowRect.height / 2 - panelRect.top;
+    const previewH = preview.offsetHeight || 200;
+    preview.style.top = Math.max(0, rowCenter - previewH / 2) + 'px';
     preview.classList.add('visible');
   });
   row.addEventListener('mouseleave', () => {
