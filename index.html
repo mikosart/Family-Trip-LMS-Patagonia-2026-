@@ -685,9 +685,15 @@ section+section::before{
 .resto-icon{
   width:90px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
-  font-size:2em;
-  background:linear-gradient(135deg,rgba(15,42,29,0.06),rgba(106,147,120,0.1));
+  font-family:'DM Serif Display',serif;
+  font-size:1.8em;font-weight:400;
+  color:var(--white);
+  background:linear-gradient(135deg,var(--forest),var(--moss));
 }
+.resto-icon.warm{background:linear-gradient(135deg,#8b4513,var(--sunset))}
+.resto-icon.lake{background:linear-gradient(135deg,var(--lake),#5a9ab5)}
+.resto-icon.wine{background:linear-gradient(135deg,#6b3a5d,#a06080)}
+.resto-icon.sweet{background:linear-gradient(135deg,#b85c38,#e8a87c)}
 .resto-info{padding:16px 18px;flex:1;min-width:0}
 .resto-info h4{font-family:'DM Serif Display',serif;font-size:1.05em;color:var(--forest);margin-bottom:4px}
 .resto-meta{font-size:0.78em;color:var(--muted);line-height:1.6;margin-bottom:8px}
@@ -901,7 +907,7 @@ footer .sig{
   .map-label{font-size:0.6em;padding:22px 8px 8px}
 
   /* Restaurantes */
-  .resto-icon{width:70px;font-size:1.6em}
+  .resto-icon{width:70px;font-size:1.4em}
   .resto-info{padding:12px 14px}
   .resto-info h4{font-size:0.95em}
   .resto-meta{font-size:0.74em}
@@ -941,7 +947,7 @@ footer .sig{
       <a href="#viajeros">Viajeros</a>
       <a href="#itinerario">Itinerario</a>
       <a href="#hospedajes">Hospedajes</a>
-      <a href="#restaurantes">Comer</a>
+      <a href="#restaurantes">Restaurantes</a>
       <a href="#ruta">Mapas</a>
       <a href="#equipaje">Check List</a>
       <a href="#datos">Datos</a>
@@ -956,7 +962,7 @@ footer .sig{
   <a href="#viajeros">Viajeros</a>
   <a href="#itinerario">Itinerario</a>
   <a href="#hospedajes">Hospedajes</a>
-  <a href="#restaurantes">Dónde Comer</a>
+  <a href="#restaurantes">Restaurantes</a>
   <a href="#ruta">Mapas</a>
   <a href="#equipaje">Check List</a>
   <a href="#datos">Datos del Viaje</a>
@@ -1226,7 +1232,7 @@ footer .sig{
 
 <!-- ═══════════ RESTAURANTES ═══════════ -->
 <section id="restaurantes">
-  <h2 class="sec-title reveal">Dónde Comer</h2>
+  <h2 class="sec-title reveal">Restaurantes</h2>
 
   <div class="resto-tabs reveal" id="resto-tabs">
     <button class="resto-tab active" data-rday="18">Sáb 18</button>
@@ -1243,7 +1249,7 @@ footer .sig{
     <!-- Sáb 18 -->
     <div class="resto-day active" data-rday="18">
       <div class="resto-card">
-        <div class="resto-icon">🍝</div>
+        <div class="resto-icon warm">S</div>
         <div class="resto-info">
           <h4>Salgado Alimentos</h4>
           <div class="resto-meta">
@@ -1255,19 +1261,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon">🍕</div>
-        <div class="resto-info">
-          <h4>Las Cuartetas</h4>
-          <div class="resto-meta">
-            <span>🍽️ Pizza porteña clásica · Plan B</span>
-            <span>📍 Corrientes 838, Centro</span>
-            <span>🕐 Almuerzo alternativo</span>
-          </div>
-          <a class="resto-ig" href="https://www.instagram.com/explore/search/keyword/?q=las%20cuartetas%20pizzeria%20buenos%20aires" target="_blank" rel="noopener">📷 Ver en Instagram</a>
-        </div>
-      </div>
-      <div class="resto-card">
-        <div class="resto-icon">🥟</div>
+        <div class="resto-icon warm">E</div>
         <div class="resto-info">
           <h4>Empanadas Mi Gusto</h4>
           <div class="resto-meta">
@@ -1283,7 +1277,7 @@ footer .sig{
     <!-- Dom 19 -->
     <div class="resto-day" data-rday="19">
       <div class="resto-card">
-        <div class="resto-icon">🌭</div>
+        <div class="resto-icon warm">C</div>
         <div class="resto-info">
           <h4>La Choripanería</h4>
           <div class="resto-meta">
@@ -1295,7 +1289,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon">🥩</div>
+        <div class="resto-icon wine">F</div>
         <div class="resto-info">
           <h4>El Ferroviario</h4>
           <div class="resto-meta">
@@ -1311,7 +1305,7 @@ footer .sig{
     <!-- Lun 20 -->
     <div class="resto-day" data-rday="20">
       <div class="resto-card">
-        <div class="resto-icon">🥩</div>
+        <div class="resto-icon wine">B</div>
         <div class="resto-info">
           <h4>Las Barricas del Abasto</h4>
           <div class="resto-meta">
@@ -1327,7 +1321,7 @@ footer .sig{
     <!-- Mar 21 -->
     <div class="resto-day" data-rday="21">
       <div class="resto-card">
-        <div class="resto-icon">🍖</div>
+        <div class="resto-icon">P</div>
         <div class="resto-info">
           <h4>Peumawe</h4>
           <div class="resto-meta">
@@ -1343,7 +1337,7 @@ footer .sig{
     <!-- Mié 22 -->
     <div class="resto-day" data-rday="22">
       <div class="resto-card">
-        <div class="resto-icon">🥘</div>
+        <div class="resto-icon warm">PM</div>
         <div class="resto-info">
           <h4>Patagonia Mía</h4>
           <div class="resto-meta">
@@ -1359,7 +1353,7 @@ footer .sig{
     <!-- Jue 23 -->
     <div class="resto-day" data-rday="23">
       <div class="resto-card">
-        <div class="resto-icon">🍺</div>
+        <div class="resto-icon lake">CP</div>
         <div class="resto-info">
           <h4>Cervecería Patagonia</h4>
           <div class="resto-meta">
@@ -1371,7 +1365,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon">🍺</div>
+        <div class="resto-icon lake">CB</div>
         <div class="resto-info">
           <h4>Cervecería Blest</h4>
           <div class="resto-meta">
@@ -1383,7 +1377,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon">🍰</div>
+        <div class="resto-icon sweet">E</div>
         <div class="resto-info">
           <h4>Casa de Té Enya</h4>
           <div class="resto-meta">
@@ -1395,7 +1389,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon">🥟</div>
+        <div class="resto-icon wine">SW</div>
         <div class="resto-info">
           <h4>Stag / Familia Weiss</h4>
           <div class="resto-meta">
@@ -1411,7 +1405,7 @@ footer .sig{
     <!-- Vie 24 -->
     <div class="resto-day" data-rday="24">
       <div class="resto-card">
-        <div class="resto-icon">🍺</div>
+        <div class="resto-icon lake">WM</div>
         <div class="resto-info">
           <h4>Cervecería Wesley / Manush</h4>
           <div class="resto-meta">
@@ -1423,7 +1417,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon">🍦</div>
+        <div class="resto-icon sweet">RM</div>
         <div class="resto-info">
           <h4>Rapanui / Mamushka</h4>
           <div class="resto-meta">
@@ -1435,7 +1429,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon">🥩</div>
+        <div class="resto-icon wine">K1</div>
         <div class="resto-info">
           <h4>Km 1</h4>
           <div class="resto-meta">
@@ -1451,7 +1445,7 @@ footer .sig{
     <!-- Sáb 25 -->
     <div class="resto-day" data-rday="25">
       <div class="resto-card">
-        <div class="resto-icon">🍽️</div>
+        <div class="resto-icon warm">FT</div>
         <div class="resto-info">
           <h4>La Fonda del Tío</h4>
           <div class="resto-meta">
@@ -1463,7 +1457,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon">🍦</div>
+        <div class="resto-icon sweet">J</div>
         <div class="resto-info">
           <h4>Jauja</h4>
           <div class="resto-meta">
@@ -1475,7 +1469,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon">🥩</div>
+        <div class="resto-icon wine">LT</div>
         <div class="resto-info">
           <h4>La Terraza</h4>
           <div class="resto-meta">
