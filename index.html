@@ -1275,27 +1275,19 @@ thumbRows.forEach(row => {
   }
 });
 
-let skipScrollOnSelect = false;
 function selectDay(row){
   const idx = row.dataset.day;
-  if(row.classList.contains('active')) return; // already selected, do nothing
+  if(row.classList.contains('active')) return;
 
   thumbRows.forEach(r => r.classList.remove('active'));
   details.forEach(d => d.classList.remove('active'));
 
   row.classList.add('active');
   const detail = document.querySelector('[data-detail="'+idx+'"]');
-  if(detail){
-    detail.classList.add('active');
-    // Mobile: scroll detail into view (skip on initial load)
-    if(isMobile() && !skipScrollOnSelect){
-      setTimeout(() => {
-        detail.scrollIntoView({behavior:'smooth',block:'nearest'});
-      }, 80);
-    }
-  }
-  // Scroll the tab strip to center the active tab
-  if(isMobile() && !skipScrollOnSelect){
+  if(detail) detail.classList.add('active');
+
+  // Center the active tab in the strip
+  if(isMobile()){
     const strip = document.querySelector('.days-strip');
     if(strip){
       const scrollLeft = row.offsetLeft - strip.offsetWidth/2 + row.offsetWidth/2;
@@ -1364,10 +1356,8 @@ document.querySelectorAll('.map-carousel-track .map-wrap').forEach(map => {
 });
 
 // Auto-select first day so panel is never empty
-skipScrollOnSelect = true;
 const firstDay = document.querySelector('.day-thumb-row[data-day="0"]');
 if(firstDay) selectDay(firstDay);
-skipScrollOnSelect = false;
 
 // Check list interactivo con persistencia
 document.querySelectorAll('.pack li').forEach((li, i) => {
