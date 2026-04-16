@@ -577,19 +577,54 @@ section+section::before{
 /* Mapa fullscreen overlay */
 .map-overlay{
   position:fixed;inset:0;z-index:200;
-  background:rgba(0,0,0,0.85);
+  background:rgba(0,0,0,0.9);
   display:flex;align-items:center;justify-content:center;
-  padding:20px;cursor:zoom-out;
   animation:fadeIn .25s ease;
+  touch-action:pan-y;
 }
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.map-overlay .map-wrap{
-  flex:none;width:auto;max-width:95vw;max-height:90vh;
-  height:auto;
-  cursor:default;transform:none;
-  overflow:auto;
+.map-overlay-track{
+  display:flex;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  height:100%;width:100%;
 }
-.map-overlay .map-img{height:auto;max-height:85vh;object-fit:contain}
+.map-overlay-slide{
+  flex:0 0 100%;width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+}
+.map-overlay-slide .map-wrap{
+  flex:none;width:auto;max-width:95vw;max-height:90vh;
+  height:auto;cursor:default;transform:none;overflow:auto;
+}
+.map-overlay-slide .map-img{height:auto;max-height:85vh;object-fit:contain}
+.map-overlay-close{
+  position:fixed;top:16px;right:16px;z-index:201;
+  background:rgba(255,255,255,0.15);border:none;
+  width:40px;height:40px;border-radius:50%;
+  color:#fff;font-size:1.4em;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;
+}
+.map-overlay-close:hover{background:rgba(255,255,255,0.3)}
+.map-overlay-nav{
+  position:fixed;top:50%;z-index:201;
+  transform:translateY(-50%);
+  background:rgba(255,255,255,0.12);border:none;
+  width:44px;height:44px;border-radius:50%;
+  color:#fff;font-size:1.2em;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s, opacity .2s;
+}
+.map-overlay-nav:hover{background:rgba(255,255,255,0.25)}
+.map-overlay-nav.prev{left:12px}
+.map-overlay-nav.next{right:12px}
+.map-overlay-nav.hidden{opacity:0;pointer-events:none}
+.map-overlay-counter{
+  position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+  z-index:201;color:rgba(255,255,255,0.6);
+  font-size:0.78em;font-weight:500;letter-spacing:1px;
+}
 .map-wrap::before{
   content:'';position:absolute;inset:0;
   background-image:
@@ -1821,21 +1856,91 @@ window.addEventListener('scroll', () => {
   if(heroContent) heroContent.style.transform = `translateY(${y * 0.15}px)`;
 }, { passive: true });
 
-// Mapas: tap para expandir fullscreen
-document.querySelectorAll('.map-carousel-track .map-wrap').forEach(map => {
-  map.addEventListener('click', () => {
-    const overlay = document.createElement('div');
-    overlay.className = 'map-overlay';
-    const clone = map.cloneNode(true);
-    overlay.appendChild(clone);
-    document.body.appendChild(overlay);
-    overlay.addEventListener('click', e => {
-      if(e.target === overlay) overlay.remove();
-    });
-    document.addEventListener('keydown', function esc(e){
-      if(e.key === 'Escape'){ overlay.remove(); document.removeEventListener('keydown', esc); }
-    });
+// Mapas: fullscreen carousel with swipe
+const allMaps = document.querySelectorAll('.map-carousel-track .map-wrap');
+function openMapOverlay(startIdx){
+  const overlay = document.createElement('div');
+  overlay.className = 'map-overlay';
+
+  const track = document.createElement('div');
+  track.className = 'map-overlay-track';
+  allMaps.forEach(m => {
+    const slide = document.createElement('div');
+    slide.className = 'map-overlay-slide';
+    slide.appendChild(m.cloneNode(true));
+    track.appendChild(slide);
   });
+  overlay.appendChild(track);
+
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'map-overlay-close';
+  closeBtn.innerHTML = '&times;';
+  overlay.appendChild(closeBtn);
+
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'map-overlay-nav prev';
+  prevBtn.innerHTML = '‹';
+  overlay.appendChild(prevBtn);
+
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'map-overlay-nav next';
+  nextBtn.innerHTML = '›';
+  overlay.appendChild(nextBtn);
+
+  const counter = document.createElement('div');
+  counter.className = 'map-overlay-counter';
+  overlay.appendChild(counter);
+
+  let current = startIdx;
+  const total = allMaps.length;
+
+  function goTo(i){
+    current = Math.max(0, Math.min(i, total - 1));
+    track.style.transform = `translateX(-${current * 100}%)`;
+    counter.textContent = (current + 1) + ' / ' + total;
+    prevBtn.classList.toggle('hidden', current === 0);
+    nextBtn.classList.toggle('hidden', current === total - 1);
+  }
+  goTo(current);
+
+  closeBtn.addEventListener('click', () => { overlay.remove(); document.body.style.overflow = ''; });
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+  overlay.addEventListener('click', e => { if(e.target === overlay) { overlay.remove(); document.body.style.overflow = ''; }});
+
+  // Swipe
+  let sx = 0, moving = false;
+  overlay.addEventListener('touchstart', e => { sx = e.touches[0].clientX; moving = true; }, {passive:true});
+  overlay.addEventListener('touchmove', e => {
+    if(!moving) return;
+    const dx = e.touches[0].clientX - sx;
+    track.style.transition = 'none';
+    track.style.transform = `translateX(calc(-${current * 100}% + ${dx}px))`;
+  }, {passive:true});
+  overlay.addEventListener('touchend', e => {
+    if(!moving) return;
+    moving = false;
+    track.style.transition = '';
+    const dx = e.changedTouches[0].clientX - sx;
+    if(dx < -50) goTo(current + 1);
+    else if(dx > 50) goTo(current - 1);
+    else goTo(current);
+  });
+
+  // Keyboard
+  function onKey(e){
+    if(e.key === 'Escape'){ overlay.remove(); document.body.style.overflow = ''; document.removeEventListener('keydown', onKey); }
+    if(e.key === 'ArrowLeft') goTo(current - 1);
+    if(e.key === 'ArrowRight') goTo(current + 1);
+  }
+  document.addEventListener('keydown', onKey);
+
+  document.body.style.overflow = 'hidden';
+  document.body.appendChild(overlay);
+}
+
+allMaps.forEach((map, i) => {
+  map.addEventListener('click', () => openMapOverlay(i));
 });
 
 // Auto-select first day so panel is never empty
