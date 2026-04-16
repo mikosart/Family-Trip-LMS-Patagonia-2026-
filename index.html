@@ -213,14 +213,6 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto}
 }
 .tcard:hover{transform:translateY(-6px);box-shadow:0 20px 40px -18px rgba(15,42,29,.3);border-color:var(--sage)}
 .tcard:hover::before{transform:scaleX(1)}
-.tcard-avatar{
-  width:52px;height:52px;border-radius:50%;
-  background:linear-gradient(135deg,var(--moss),var(--sage));
-  color:var(--white);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Fraunces',serif;font-size:1.4em;font-weight:600;
-  margin-bottom:14px;
-}
 .tcard h3{font-family:'Fraunces',serif;font-size:1.2em;color:var(--forest);margin-bottom:4px}
 .tcard .role{font-size:0.78em;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
 .tcard p{font-size:0.88em;color:#444}
@@ -244,60 +236,83 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto}
 }
 .stat .l{font-size:0.72em;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-top:6px}
 
-/* ═══════════ TIMELINE ═══════════ */
-.timeline{position:relative;padding-left:30px}
-.timeline::before{
-  content:'';position:absolute;left:8px;top:8px;bottom:8px;
-  width:2px;background:linear-gradient(180deg,var(--moss),var(--sage),transparent);
+/* ═══════════ DAYS GRID ═══════════ */
+.days-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
 }
-.day{
+.day-card{
   position:relative;
+  border-radius:16px;
+  overflow:hidden;
+  cursor:pointer;
+  aspect-ratio:1;
+  background-size:cover;
+  background-position:center;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+}
+.day-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(10,30,20,0.92) 0%, rgba(15,42,29,0.45) 45%, rgba(15,42,29,0.15) 100%);
+  transition:background .3s;
+}
+.day-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px -15px rgba(15,42,29,.45)}
+.day-card:hover::after{background:linear-gradient(to top, rgba(10,30,20,0.95) 0%, rgba(15,42,29,0.35) 50%, rgba(15,42,29,0.1) 100%)}
+.day-card.active{outline:3px solid var(--sunset);outline-offset:-3px}
+.day-card-content{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:18px;z-index:1;color:var(--white);
+}
+.day-card-num{
+  font-family:'Fraunces',serif;font-size:2.2em;font-weight:300;
+  opacity:0.4;line-height:1;margin-bottom:4px;
+}
+.day-card .day-date{font-size:0.62em;text-transform:uppercase;letter-spacing:1.5px;color:#b7e4c7;margin-bottom:3px}
+.day-card .day-title{font-family:'Fraunces',serif;font-size:1em;font-weight:500;line-height:1.2;color:var(--white)}
+.day-card .day-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;font-size:0.68em;opacity:0.8}
+.day-card .day-meta span{display:inline-flex;align-items:center;gap:3px}
+
+/* Detail panel below grid */
+.day-detail-wrap{margin-top:20px}
+.day-detail{
+  display:none;
   background:var(--white);
   border:1px solid var(--line);
   border-radius:16px;
-  margin-bottom:16px;
   overflow:hidden;
-  transition:box-shadow .25s;
+  animation:detailIn .35s ease;
 }
-.day::before{
-  content:'';position:absolute;left:-30px;top:28px;
-  width:18px;height:18px;border-radius:50%;
-  background:var(--fog);
-  border:3px solid var(--moss);
-  z-index:2;
+.day-detail.active{display:block}
+@keyframes detailIn{
+  from{opacity:0;transform:translateY(-12px)}
+  to{opacity:1;transform:translateY(0)}
 }
-.day:hover{box-shadow:0 12px 30px -15px rgba(15,42,29,.2)}
-.day-head{
+.day-detail-head{
+  display:flex;justify-content:space-between;align-items:center;
   padding:20px 24px;
-  cursor:pointer;
-  display:flex;justify-content:space-between;align-items:center;gap:20px;
-  user-select:none;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(135deg,rgba(45,90,61,0.06),transparent);
 }
-.day-head-left{flex:1}
-.day-date{font-size:0.72em;text-transform:uppercase;letter-spacing:2px;color:var(--sage);font-weight:600;margin-bottom:4px}
-.day-title{font-family:'Fraunces',serif;font-size:1.4em;color:var(--forest);font-weight:500;line-height:1.2}
-.day-meta{font-size:0.82em;color:var(--muted);margin-top:6px;display:flex;gap:14px;flex-wrap:wrap}
-.day-meta span{display:inline-flex;align-items:center;gap:5px}
-.day-toggle{
+.day-detail-head-left{flex:1}
+.day-detail-head .day-date{font-size:0.72em;text-transform:uppercase;letter-spacing:2px;color:var(--sage);font-weight:600;margin-bottom:4px}
+.day-detail-head .day-title{font-family:'Fraunces',serif;font-size:1.35em;color:var(--forest);font-weight:500;line-height:1.2}
+.day-detail-close{
+  border:0;background:var(--fog);
   width:34px;height:34px;border-radius:50%;
-  background:var(--fog);
+  font-size:1.1em;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  color:var(--moss);font-size:1.3em;font-weight:300;
-  transition:transform .3s;flex-shrink:0;
+  color:var(--muted);flex-shrink:0;
+  transition:background .2s,color .2s;
 }
-.day.open .day-toggle{transform:rotate(45deg)}
-.day-body{
-  max-height:0;overflow:hidden;
-  transition:max-height .5s ease;
-}
-.day.open .day-body{max-height:3000px}
-.day-body-inner{padding:0 24px 24px;border-top:1px solid var(--line);padding-top:20px}
+.day-detail-close:hover{background:var(--mist);color:var(--forest)}
+.day-detail-body{padding:20px 24px 24px}
 
+/* Moments inside detail */
 .moment{
   display:flex;gap:14px;
   padding:9px 0;
   border-bottom:1px dashed rgba(224,218,203,0.55);
-  transition:opacity .3s, max-height .3s;
 }
 .moment:last-child{border-bottom:none}
 .moment-time{
@@ -316,53 +331,6 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto}
   transition:background .2s;
 }
 .moment-body .note a:hover,.moment-body .note a:active{background:rgba(58,106,130,0.18)}
-
-/* Momentos clave (comida) — resaltados */
-.moment.is-food{
-  background:linear-gradient(90deg,rgba(217,136,81,0.09),rgba(217,136,81,0) 60%);
-  border-left:3px solid var(--sunset);
-  padding-left:12px;margin-left:-12px;
-  border-radius:6px 0 0 6px;
-}
-.moment.is-food .moment-body strong{color:#b5632f}
-
-/* Filtro de día: Resumen / Completo */
-.day-filter{
-  display:inline-flex;gap:2px;
-  margin:0 0 14px;
-  padding:3px;
-  background:var(--fog);
-  border:1px solid var(--line);
-  border-radius:999px;
-}
-.day-filter button{
-  border:0;background:transparent;
-  padding:6px 14px;border-radius:999px;
-  font:600 0.68em 'Inter',sans-serif;
-  color:var(--muted);cursor:pointer;
-  text-transform:uppercase;letter-spacing:1.2px;
-  transition:all .25s;
-}
-.day-filter button.active{
-  background:var(--white);color:var(--forest);
-  box-shadow:0 2px 6px -2px rgba(15,42,29,0.2);
-}
-.day-filter button:not(.active):hover{color:var(--forest)}
-
-/* Modo resumen: ocultar momentos no clave */
-.day.is-summary .moment:not(.is-key){
-  display:none;
-}
-
-.anchor{
-  background:linear-gradient(90deg,rgba(217,136,81,.08),transparent);
-  border-left:3px solid var(--sunset);
-  padding:12px 14px;
-  border-radius:6px;
-  margin:12px 0;
-  font-size:0.88em;
-}
-.anchor strong{color:var(--sunset);display:block;margin-bottom:3px;font-size:0.78em;text-transform:uppercase;letter-spacing:1.5px}
 
 .warn,.info,.ok{
   border-radius:8px;padding:11px 14px;margin:10px 0;
@@ -554,34 +522,24 @@ footer .sig{
   .cd-num{font-size:1.5em}
   .cd-lbl{font-size:0.6em;letter-spacing:1px}
 
-  /* Timeline */
-  .timeline{padding-left:20px}
-  .day{margin-bottom:14px;border-radius:14px}
-  .day::before{left:-20px;top:24px;width:12px;height:12px;border-width:2px}
-  .day-head{padding:16px 18px;gap:12px}
-  .day-date{font-size:0.68em;letter-spacing:1.5px}
-  .day-title{font-size:1.15em}
-  .day-meta{font-size:0.76em;gap:10px;margin-top:5px}
-  .day-toggle{width:30px;height:30px;font-size:1.15em}
-  .day-body-inner{padding:18px 18px 20px}
+  /* Days grid */
+  .days-grid{grid-template-columns:repeat(3,1fr);gap:10px}
+  .day-card{aspect-ratio:auto;min-height:160px}
+  .day-card-content{padding:14px}
+  .day-card-num{font-size:1.6em}
+  .day-card .day-date{font-size:0.56em}
+  .day-card .day-title{font-size:0.88em}
+  .day-card .day-meta{font-size:0.62em;gap:4px}
+  .day-detail-head{padding:16px 18px}
+  .day-detail-head .day-title{font-size:1.15em}
+  .day-detail-body{padding:18px 18px 20px}
 
-  /* Momentos: stack vertical para ganar ancho */
+  /* Moments: stack vertical */
   .moment{flex-direction:column;gap:3px;padding:9px 0}
-  .moment.is-food{padding-left:10px;margin-left:-10px}
-  .moment-time{
-    min-width:0;padding-top:0;
-    font-size:0.62em;
-    letter-spacing:1.2px;
-  }
+  .moment-time{min-width:0;padding-top:0;font-size:0.62em;letter-spacing:1.2px}
   .moment-body{font-size:0.93em;line-height:1.5}
   .moment-body .note{font-size:0.84em;line-height:1.45}
-  .moment-body .note a{
-    display:inline-block;
-    padding:4px 9px;margin:3px 3px 0 0;
-    background:rgba(58,106,130,0.1);
-  }
-  .day-filter{margin-bottom:12px}
-  .day-filter button{padding:7px 13px;font-size:0.66em}
+  .moment-body .note a{display:inline-block;padding:4px 9px;margin:3px 3px 0 0;background:rgba(58,106,130,0.1)}
 
   /* Cajitas de aviso */
   .warn,.info,.ok,.crit{font-size:0.82em;padding:10px 12px}
@@ -631,10 +589,14 @@ footer .sig{
   .nav-brand{font-size:0.85em}
   .hero-content{padding:36px 18px 100px}
   .hero h1{font-size:clamp(1.85em,9.5vw,2.5em)}
-  .day-head{padding:14px 16px}
-  .day-body-inner{padding:16px 16px 18px}
-  .day-title{font-size:1.08em}
-  .day-meta{font-size:0.72em;gap:8px}
+  .days-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+  .day-card{min-height:130px}
+  .day-card-content{padding:10px}
+  .day-card-num{font-size:1.3em}
+  .day-card .day-title{font-size:0.78em}
+  .day-card .day-meta{display:none}
+  .day-detail-body{padding:16px 16px 18px}
+  .day-detail-head .day-title{font-size:1.08em}
   .countdown{padding:12px 14px;gap:8px}
   .cd-num{font-size:1.35em}
   .stats{grid-template-columns:1fr}
@@ -706,28 +668,28 @@ footer .sig{
   <p class="sec-lede reveal">El viaje se arma alrededor del ritmo tranquilo de mamá. Todo lo que figura acá fue elegido para que nadie quede fuera, aun cuando cada uno tiene energías distintas.</p>
   <div class="travelers reveal reveal-2">
     <div class="tcard">
-      <div class="tcard-avatar">M</div>
+
       <h3>Miko</h3>
       <div class="role">Organizador · Conductor</div>
       <p>Arma logística, maneja el auto y conoce la ruta. Le ilusiona mostrarles la Patagonia tal como la vivió.</p>
       <div class="energy"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div>
     </div>
     <div class="tcard">
-      <div class="tcard-avatar">R</div>
+
       <h3>Ryna</h3>
       <div class="role">Compañera · DJ del camino</div>
       <p>Viene a disfrutar del paisaje, la calma y los silencios largos entre montañas. La compañera perfecta para los tramos de ruta — y la que arma la playlist que nos va a acompañar.</p>
       <div class="energy"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
     </div>
     <div class="tcard">
-      <div class="tcard-avatar">D</div>
+
       <h3>Daniel</h3>
       <div class="role">Copiloto · Fotógrafo</div>
       <p>El experto en fotografía del grupo. Ojo entrenado, paciencia para esperar la luz justa y el encargado de que este viaje quede registrado como merece.</p>
       <div class="energy"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
     </div>
     <div class="tcard">
-      <div class="tcard-avatar">♥</div>
+
       <h3>Mamá</h3>
       <div class="role">Corazón del viaje</div>
       <p>Ritmo tranquilo, caminatas cortas, banco cerca. El plan se diseñó para que disfrute todo sin forzarse.</p>
@@ -751,21 +713,44 @@ footer .sig{
 <section id="itinerario">
   <div class="sec-eyebrow reveal">Día a día</div>
   <h2 class="sec-title reveal">El itinerario, sin apuro.</h2>
-  <p class="sec-lede reveal">Cada día es expandible. Tocá para ver horarios, actividades, restaurantes y los "momentos ancla" — esos instantes que vale la pena vivir con intención, no de pasada.</p>
+  <p class="sec-lede reveal">Tocá cualquier día para ver el detalle completo: horarios, restaurantes y actividades.</p>
 
-  <div class="timeline">
+  <div class="days-grid reveal reveal-3">
+    <div class="day-card" data-day="0" style="background-image:url('https://images.unsplash.com/photo-1589909202802-8f4aadce1849?w=500&h=500&fit=crop&q=75');background-color:#1a2e3a">
+      <div class="day-card-content"><div class="day-card-num">01</div><div class="day-date">Sábado 18 · Abril</div><div class="day-title">Bienvenida a Buenos Aires</div><div class="day-meta"><span>✈️ Llegada</span><span>🌳 Jardín Japonés</span></div></div>
+    </div>
+    <div class="day-card" data-day="1" style="background-image:url('https://images.unsplash.com/photo-1612294037637-ec328d0e075e?w=500&h=500&fit=crop&q=75');background-color:#4a2e2e">
+      <div class="day-card-content"><div class="day-card-num">02</div><div class="day-date">Domingo 19 · Abril</div><div class="day-title">Buenos Aires en bus rojo</div><div class="day-meta"><span>🚌 Bus turístico</span><span>🎨 San Telmo</span></div></div>
+    </div>
+    <div class="day-card" data-day="2" style="background-image:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=500&h=500&fit=crop&q=75');background-color:#1d3a2c">
+      <div class="day-card-content"><div class="day-card-num">03</div><div class="day-date">Lunes 20 · Abril</div><div class="day-title">Vuelo a Bariloche · SMA</div><div class="day-meta"><span>✈️ BRC</span><span>🚗 RN40</span><span>🏔️ SMA</span></div></div>
+    </div>
+    <div class="day-card" data-day="3" style="background-image:url('https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=500&h=500&fit=crop&q=75');background-color:#1a3025">
+      <div class="day-card-content"><div class="day-card-num">04</div><div class="day-date">Martes 21 · Abril</div><div class="day-title">Ruta de los 7 Lagos</div><div class="day-meta"><span>🏞️ RP65</span><span>🐟 Traful</span><span>🔥 Asado</span></div></div>
+    </div>
+    <div class="day-card" data-day="4" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=500&fit=crop&q=75');background-color:#2a3a2a">
+      <div class="day-card-content"><div class="day-card-num">05</div><div class="day-date">Miércoles 22 · Abril</div><div class="day-title">Curanto en Colonia Suiza</div><div class="day-meta"><span>🥘 Patagonia Mía</span><span>🌊 Bahías</span></div></div>
+    </div>
+    <div class="day-card" data-day="5" style="background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=500&h=500&fit=crop&q=75');background-color:#1a2530">
+      <div class="day-card-content"><div class="day-card-num">06</div><div class="day-date">Jueves 23 · Abril</div><div class="day-title">Traslado a Llao Llao</div><div class="day-meta"><span>🚗 VLA → Hotel</span><span>🍺 Blest</span></div></div>
+    </div>
+    <div class="day-card" data-day="6" style="background-image:url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=500&h=500&fit=crop&q=75');background-color:#0f1a25">
+      <div class="day-card-content"><div class="day-card-num">07</div><div class="day-date">Viernes 24 · Abril</div><div class="day-title">Circuito Chico + Cerro Otto</div><div class="day-meta"><span>🚠 Teleférico</span><span>📸 Miradores</span></div></div>
+    </div>
+    <div class="day-card" data-day="7" style="background-image:url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=500&h=500&fit=crop&q=75');background-color:#2a3020">
+      <div class="day-card-content"><div class="day-card-num">08</div><div class="day-date">Sábado 25 · Abril</div><div class="day-title">Último día · vuelo 9:15pm</div><div class="day-meta"><span>🍫 Chocolates</span><span>🍦 Jauja</span><span>✈️ BRC</span></div></div>
+    </div>
+    <div class="day-card" data-day="8" style="background-image:url('https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=500&h=500&fit=crop&q=75');background-color:#2a2018">
+      <div class="day-card-content"><div class="day-card-num">09</div><div class="day-date">Domingo 26 · Abril</div><div class="day-title">Despedida</div><div class="day-meta"><span>✈️ EZE → Miami</span></div></div>
+    </div>
+  </div>
 
-    <!-- DÍA 1 -->
-    <div class="day">
-      <div class="day-head" onclick="toggleDay(this)">
-        <div class="day-head-left">
-          <div class="day-date">Sábado 18 · Abril</div>
-          <div class="day-title">Bienvenida tranquila a Buenos Aires</div>
-          <div class="day-meta"><span>✈️ Llegada EZE 9:20am</span><span>🌳 Jardín Japonés</span><span>🏠 Descanso</span></div>
-        </div>
-        <div class="day-toggle">+</div>
-      </div>
-      <div class="day-body" id="day-sat18-body"><div class="day-body-inner">
+  <!-- Detail panels -->
+  <div class="day-detail-wrap" id="day-detail-wrap">
+
+    <div class="day-detail" data-detail="0">
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Sábado 18 · Abril</div><div class="day-title">Bienvenida tranquila a Buenos Aires</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-body">
         <div class="info">💡 Día de bienvenida con recorrido clásico porteño. Ritmo tranquilo, paradas frecuentes, nada de forzar caminatas.</div>
         <div class="moment" data-moment="sat18-0"><div class="moment-time">9:20am</div><div class="moment-body"><strong>Aterrizaje Delta DL6019</strong> en Ezeiza.<span class="note">Inmigración puede tardar 1–1.5hs. Esperarlos en Llegadas Internacionales.</span></div></div>
         <div class="moment" data-moment="sat18-1"><div class="moment-time">11:00</div><div class="moment-body"><strong>Comida en casa</strong> y descanso corto.<span class="note">Tiempo para que respiren antes de arrancar el recorrido.</span></div></div>
@@ -777,21 +762,12 @@ footer .sig{
         <div class="moment" data-moment="sat18-7"><div class="moment-time">~7:30pm</div><div class="moment-body"><strong>Av. Corrientes</strong> · noche porteña<span class="note">Librerías, luces, ambiente nocturno. Paseo corto antes de volver.</span></div></div>
         <div class="moment" data-moment="sat18-8"><div class="moment-time">~9:00pm</div><div class="moment-body"><strong>🥟 Cena en casa — Empanadas Mi Gusto</strong><span class="note">Pedir a domicilio. Algo tranquilo antes de dormir. · <a href="https://www.instagram.com/explore/search/keyword/?q=empanadas%20mi%20gusto" target="_blank" rel="noopener">📷 IG</a></span></div></div>
         <div class="warn">🛒 <strong>Ojo:</strong> antes de volver a casa pasar por el mercado y comprar lo necesario para hacer sanguches para el desayuno del lunes (van a arrancar 4:30am).</div>
-        <div class="anchor"><strong>Momento ancla</strong>Atardecer en Puerto Madero — la primera foto de los cuatro juntos con el Puente de la Mujer de fondo.</div>
-      </div></div>
+      </div>
     </div>
 
-    <!-- DÍA 2 -->
-    <div class="day">
-      <div class="day-head" onclick="toggleDay(this)">
-        <div class="day-head-left">
-          <div class="day-date">Domingo 19 · Abril</div>
-          <div class="day-title">Buenos Aires en bus rojo</div>
-          <div class="day-meta"><span>🚌 Bus turístico</span><span>🎨 San Telmo</span><span>🍽️ El Ferroviario</span></div>
-        </div>
-        <div class="day-toggle">+</div>
-      </div>
-      <div class="day-body"><div class="day-body-inner">
+    <div class="day-detail" data-detail="1">
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Domingo 19 · Abril</div><div class="day-title">Buenos Aires en bus rojo</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-body">
         <div class="moment"><div class="moment-time">Mañana</div><div class="moment-body"><strong>🫓 Desayuno en casa — arepas</strong><span class="note">Algo casero y tranquilo antes de arrancar el día.</span></div></div>
         <div class="moment"><div class="moment-time">10:00am</div><div class="moment-body"><strong>Bus Turístico</strong> desde Barrio Chino.<span class="note">Bajadas a criterio de mamá.</span></div></div>
         <div class="moment"><div class="moment-time">~1:00pm</div><div class="moment-body"><strong>🌭 Almuerzo — La Choripanería</strong><span class="note">Choripán clásico porteño, rápido y económico. · <a href="https://www.instagram.com/explore/search/keyword/?q=la%20choriperia%20buenos%20aires" target="_blank" rel="noopener">📷 IG</a></span></div></div>
@@ -800,21 +776,12 @@ footer .sig{
         <div class="moment"><div class="moment-time">8:00pm</div><div class="moment-body"><strong>🍽️ Cena: El Ferroviario</strong><span class="note">Reserva confirmada. Parrilla icónica porteña. · <a href="https://www.instagram.com/explore/search/keyword/?q=el%20ferroviario%20parrilla" target="_blank" rel="noopener">📷 IG</a></span></div></div>
         <div class="warn">🥪 <strong>Antes de dormir:</strong> preparar los sanguches para el desayuno del lunes. Se come temprano en el auto camino al aeropuerto.</div>
         <div class="crit">⚠️ Lunes: salida a EZE a las 4:30am. Preparar todo esta noche.</div>
-        <div class="anchor"><strong>Momento ancla</strong>Brindis en El Ferroviario — el "adiós" a Buenos Aires antes de la montaña.</div>
-      </div></div>
+      </div>
     </div>
 
-    <!-- DÍA 3 -->
-    <div class="day">
-      <div class="day-head" onclick="toggleDay(this)">
-        <div class="day-head-left">
-          <div class="day-date">Lunes 20 · Abril</div>
-          <div class="day-title">Vuelo a Bariloche · San Martín de los Andes</div>
-          <div class="day-meta"><span>✈️ BRC 10:10am</span><span>🚗 RN40 · 200km</span><span>🏔️ SMA</span></div>
-        </div>
-        <div class="day-toggle">+</div>
-      </div>
-      <div class="day-body"><div class="day-body-inner">
+    <div class="day-detail" data-detail="2">
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Lunes 20 · Abril</div><div class="day-title">Vuelo a Bariloche · San Martín de los Andes</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-body">
         <div class="crit">⚠️ Vuelo 7:45am. Salir de casa 4:30am. Aeropuerto 5:30am mínimo.</div>
         <div class="moment"><div class="moment-time">~5:00am</div><div class="moment-body"><strong>🥪 Desayuno en el auto — sanguches</strong><span class="note">Los que se hicieron el domingo. Café para la ruta al aeropuerto.</span></div></div>
         <div class="moment"><div class="moment-time">10:10am</div><div class="moment-body"><strong>Llegada BRC</strong> + retiro Chevrolet Tracker (Alamo).<span class="note">Verificar: rueda de auxilio, botiquín, documentos.</span></div></div>
@@ -823,62 +790,35 @@ footer .sig{
         <div class="moment"><div class="moment-time">2:00pm</div><div class="moment-body"><strong>Check-in Hotel Antiguos</strong> · 751 Coronel Díaz, SMA.</div></div>
         <div class="moment"><div class="moment-time">Tarde</div><div class="moment-body"><strong>Costanera del Lago Lácar</strong><span class="note">Paseo tranquilo, calle San Martín peatonal, muelle.</span><span class="acc-badge">Mamá-friendly <span class="acc-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></span></div></div>
         <div class="moment"><div class="moment-time">Noche</div><div class="moment-body"><strong>🥩 Cena — Las Barricas del Abasto</strong><span class="note">Carnes y pastas, ambiente cálido montañero. Plan B: El Abasto (cordero patagónico). · <a href="https://www.instagram.com/explore/search/keyword/?q=las%20barricas%20del%20abasto%20san%20martin%20de%20los%20andes" target="_blank" rel="noopener">📷 IG</a></span></div></div>
-        <div class="anchor"><strong>Momento ancla</strong>La primera mirada al Lago Lácar desde el muelle — sentir que ya están en Patagonia.</div>
-      </div></div>
+      </div>
     </div>
 
-    <!-- DÍA 4 -->
-    <div class="day">
-      <div class="day-head" onclick="toggleDay(this)">
-        <div class="day-head-left">
-          <div class="day-date">Martes 21 · Abril</div>
-          <div class="day-title">Ruta de los 7 Lagos → Villa La Angostura</div>
-          <div class="day-meta"><span>🏞️ RP65</span><span>🐟 Villa Traful</span><span>🔥 Asadito en cabaña</span></div>
-        </div>
-        <div class="day-toggle">+</div>
-      </div>
-      <div class="day-body"><div class="day-body-inner">
+    <div class="day-detail" data-detail="3">
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Martes 21 · Abril</div><div class="day-title">Ruta de los 7 Lagos → Villa La Angostura</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-body">
         <div class="crit">⛽ CRÍTICO: tanque completo en SMA. No hay nafta en toda la ruta de los 7 Lagos ni en Villa Traful.</div>
         <div class="moment"><div class="moment-time">8:30am</div><div class="moment-body"><strong>🫓 Desayuno — arepas</strong> + carga de nafta en YPF de Av. San Martín.<span class="note">Arepas caseras antes de salir. Tanque completo obligatorio.</span></div></div>
         <div class="moment"><div class="moment-time">Mañana</div><div class="moment-body"><strong>Paradas 7 Lagos</strong><span class="note">📍 Lago Hermoso · 📍 Lago Falkner (mirador) · 📍 Pichitraful · 📍 Cascada Ñivinco (opcional, 30min caminando).</span></div></div>
         <div class="moment"><div class="moment-time">1:00pm</div><div class="moment-body"><strong>🍖 Almuerzo en Villa Traful — Peumawe</strong><span class="note">Carnes y pastas caseras con vista al lago. Reservar antes de salir de SMA. · <a href="https://www.instagram.com/explore/search/keyword/?q=peumawe%20villa%20traful" target="_blank" rel="noopener">📷 IG</a></span></div></div>
         <div class="moment"><div class="moment-time">4:30pm</div><div class="moment-body"><strong>Check-in BOG Torres del Bayo</strong> · VLA.</div></div>
         <div class="moment"><div class="moment-time">Noche</div><div class="moment-body"><strong>🔥 Cena casera — asadito en la cabaña</strong><span class="note">Pasar por automercado antes del check-in para comprar lo necesario. Usar la parrillera propia del BOG Torres del Bayo.</span></div></div>
-        <div class="anchor"><strong>Momento ancla</strong>La llegada a la cabaña al atardecer con el bosque alrededor — el primer silencio patagónico real.</div>
-      </div></div>
+      </div>
     </div>
 
-    <!-- DÍA 5 -->
-    <div class="day">
-      <div class="day-head" onclick="toggleDay(this)">
-        <div class="day-head-left">
-          <div class="day-date">Miércoles 22 · Abril</div>
-          <div class="day-title">Curanto en Colonia Suiza</div>
-          <div class="day-meta"><span>🥘 Patagonia Mía</span><span>🌊 Bahías VLA</span></div>
-        </div>
-        <div class="day-toggle">+</div>
-      </div>
-      <div class="day-body"><div class="day-body-inner">
+    <div class="day-detail" data-detail="4">
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Miércoles 22 · Abril</div><div class="day-title">Curanto en Colonia Suiza</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-body">
         <div class="moment"><div class="moment-time">8:00am</div><div class="moment-body"><strong>🫓 Desayuno en la cabaña — arepas</strong><span class="note">Antes de salir a Colonia Suiza.</span></div></div>
         <div class="moment"><div class="moment-time">8:30am</div><div class="moment-body"><strong>Salida a Colonia Suiza</strong> (~80km, 1h).</div></div>
         <div class="moment"><div class="moment-time">11:30</div><div class="moment-body"><strong>🥘 Curanto en Patagonia Mía</strong><span class="note">Asado bajo tierra con piedras calientes. Hora fija de apertura, reservar antes de salir. · <a href="https://www.instagram.com/explore/search/keyword/?q=patagonia%20mia%20colonia%20suiza" target="_blank" rel="noopener">📷 IG</a></span></div></div>
         <div class="moment"><div class="moment-time">Tarde</div><div class="moment-body"><strong>Vuelta a VLA por Bahía Mansa y Bahía Brava</strong><span class="note">Costas tranquilas del Nahuel Huapi, poca caminata.</span><span class="acc-badge">Mamá-friendly <span class="acc-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></span></div></div>
         <div class="moment"><div class="moment-time">Noche</div><div class="moment-body"><strong>🥪 Cena casera — sandwichitos o sobras del asado</strong><span class="note">Después del curanto contundente, algo simple en la cabaña. Plan B: Pioneros (cocina de campo, familiar).</span></div></div>
-        <div class="anchor"><strong>Momento ancla</strong>El destapado del curanto — cuando levantan las hojas y sale el vapor. Videito para el recuerdo.</div>
-      </div></div>
+      </div>
     </div>
 
-    <!-- DÍA 6 -->
-    <div class="day">
-      <div class="day-head" onclick="toggleDay(this)">
-        <div class="day-head-left">
-          <div class="day-date">Jueves 23 · Abril</div>
-          <div class="day-title">Traslado suave a Llao Llao</div>
-          <div class="day-meta"><span>🚗 VLA → Panamericano</span><span>🍺 Cervecería Blest</span></div>
-        </div>
-        <div class="day-toggle">+</div>
-      </div>
-      <div class="day-body"><div class="day-body-inner">
+    <div class="day-detail" data-detail="5">
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Jueves 23 · Abril</div><div class="day-title">Traslado suave a Llao Llao</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-body">
         <div class="info">💡 <strong>Ajuste estratégico:</strong> día de transición, no de turismo intenso. El Circuito Chico completo se corre al viernes.</div>
         <div class="moment"><div class="moment-time">8:30am</div><div class="moment-body"><strong>🫓 Desayuno en la cabaña — arepas</strong><span class="note">Último desayuno antes del checkout.</span></div></div>
         <div class="moment"><div class="moment-time">10:00am</div><div class="moment-body"><strong>Checkout VLA</strong> · carga de nafta · ruta directa al hotel.</div></div>
@@ -888,21 +828,12 @@ footer .sig{
         <div class="moment"><div class="moment-time">5:00pm</div><div class="moment-body"><strong>🍰 Merienda — Casa de Té Enya</strong><span class="note">Dulces y té en una casita clásica de Colonia Suiza / Llao Llao. · <a href="https://www.instagram.com/explore/search/keyword/?q=casa%20de%20te%20enya%20bariloche" target="_blank" rel="noopener">📷 IG</a></span></div></div>
         <div class="moment"><div class="moment-time">Atardecer</div><div class="moment-body"><strong>Bar exterior del Llao Llao</strong><span class="note">Tomar algo con vista. El momento postal.</span></div></div>
         <div class="moment"><div class="moment-time">Noche</div><div class="moment-body"><strong>🥟 Cena — Stag o Familia Weiss</strong><span class="note">Empanadas y pastas en el centro. Elegir según ánimo. · <a href="https://www.instagram.com/explore/search/keyword/?q=stag%20restaurante%20bariloche" target="_blank" rel="noopener">📷 Stag</a> · <a href="https://www.instagram.com/explore/search/keyword/?q=familia%20weiss%20bariloche" target="_blank" rel="noopener">📷 Weiss</a></span></div></div>
-        <div class="anchor"><strong>Momento ancla</strong>Brindis en el bar del Llao Llao al atardecer — los cuatro, sin correr.</div>
-      </div></div>
+      </div>
     </div>
 
-    <!-- DÍA 7 -->
-    <div class="day">
-      <div class="day-head" onclick="toggleDay(this)">
-        <div class="day-head-left">
-          <div class="day-date">Viernes 24 · Abril</div>
-          <div class="day-title">Circuito Chico completo + Cerro Otto</div>
-          <div class="day-meta"><span>🚠 Teleférico</span><span>📸 Miradores</span></div>
-        </div>
-        <div class="day-toggle">+</div>
-      </div>
-      <div class="day-body"><div class="day-body-inner">
+    <div class="day-detail" data-detail="6">
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Viernes 24 · Abril</div><div class="day-title">Circuito Chico completo + Cerro Otto</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-body">
         <div class="info">💡 <strong>Ajuste estratégico:</strong> este día absorbe lo que antes se amontonaba en el jueves. El Bolsón se descarta (feria cerrada los viernes).</div>
         <div class="moment"><div class="moment-time">Mañana</div><div class="moment-body"><strong>Desayuno incluido sin apuro</strong></div></div>
         <div class="moment"><div class="moment-time">10:00am</div><div class="moment-body"><strong>Cascada Inacayal → Mirador Punto Panorámico → Llao Llao (jardines) → Playa Bonita</strong><span class="note">El Circuito Chico a ritmo tranquilo, con banco en cada parada.</span></div></div>
@@ -910,21 +841,12 @@ footer .sig{
         <div class="moment"><div class="moment-time">3:00</div><div class="moment-body"><strong>🚠 Cerro Otto</strong><span class="note">Teleférico + restaurante giratorio arriba. Vista 360° accesible.</span><span class="acc-badge">Mamá-friendly <span class="acc-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></span></div></div>
         <div class="moment"><div class="moment-time">5:30pm</div><div class="moment-body"><strong>🍦 Merienda — Rapanui o Mamushka</strong><span class="note">Helados y chocolates, ritual obligado en Bariloche. · <a href="https://www.instagram.com/explore/search/keyword/?q=rapanui%20bariloche" target="_blank" rel="noopener">📷 Rapanui</a> · <a href="https://www.instagram.com/explore/search/keyword/?q=chocolates%20mamushka%20bariloche" target="_blank" rel="noopener">📷 Mamushka</a></span></div></div>
         <div class="moment"><div class="moment-time">Noche</div><div class="moment-body"><strong>🥩 Cena — Km 1</strong><span class="note">Carnes y pastas, ambiente acogedor. · <a href="https://www.instagram.com/explore/search/keyword/?q=km%201%20bariloche%20restaurante" target="_blank" rel="noopener">📷 IG</a></span></div></div>
-        <div class="anchor"><strong>Momento ancla</strong>Las 360° desde Cerro Otto — toda la cordillera de un vistazo.</div>
-      </div></div>
+      </div>
     </div>
 
-    <!-- DÍA 8 -->
-    <div class="day">
-      <div class="day-head" onclick="toggleDay(this)">
-        <div class="day-head-left">
-          <div class="day-date">Sábado 25 · Abril</div>
-          <div class="day-title">Último día patagónico · vuelo 9:15pm</div>
-          <div class="day-meta"><span>🍫 Chocolates</span><span>🍦 Jauja</span><span>✈️ BRC→AEP</span></div>
-        </div>
-        <div class="day-toggle">+</div>
-      </div>
-      <div class="day-body"><div class="day-body-inner">
+    <div class="day-detail" data-detail="7">
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Sábado 25 · Abril</div><div class="day-title">Último día patagónico · vuelo 9:15pm</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-body">
         <div class="crit">🕖 Entregar auto en BRC a las 7pm. Salir del hotel 6:00pm máximo.</div>
         <div class="moment"><div class="moment-time">Mañana</div><div class="moment-body"><strong>Desayuno incluido · checkout 11am</strong> (maletas en consigna).</div></div>
         <div class="moment"><div class="moment-time">11:00</div><div class="moment-body"><strong>Centro de Bariloche</strong><span class="note">Catedral · chocolates (Rapa Nui / Del Turista) · compras en Mitre · helado en Jauja (obligatorio).</span></div></div>
@@ -933,28 +855,18 @@ footer .sig{
         <div class="moment"><div class="moment-time">~5:00pm</div><div class="moment-body"><strong>🥩 Cena temprana — La Terraza</strong><span class="note">Carnes y pastas, cena rápida antes de salir al aeropuerto. Reservar para 5pm. · <a href="https://www.instagram.com/explore/search/keyword/?q=la%20terraza%20bariloche" target="_blank" rel="noopener">📷 IG</a></span></div></div>
         <div class="moment"><div class="moment-time">6:00pm</div><div class="moment-body"><strong>Salida al aeropuerto BRC</strong> (~25km, 30min).</div></div>
         <div class="moment"><div class="moment-time">9:15pm</div><div class="moment-body"><strong>✈️ BRC → AEP</strong> · Llegada 11:20pm.</div></div>
-        <div class="anchor"><strong>Momento ancla</strong>El último cono de Jauja caminando por Mitre — el sabor que se llevan a casa.</div>
-      </div></div>
+      </div>
     </div>
 
-    <!-- DÍA 9 -->
-    <div class="day">
-      <div class="day-head" onclick="toggleDay(this)">
-        <div class="day-head-left">
-          <div class="day-date">Domingo 26 · Abril</div>
-          <div class="day-title">Despedida</div>
-          <div class="day-meta"><span>✈️ EZE 1:10pm</span></div>
-        </div>
-        <div class="day-toggle">+</div>
-      </div>
-      <div class="day-body"><div class="day-body-inner">
+    <div class="day-detail" data-detail="8">
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Domingo 26 · Abril</div><div class="day-title">Despedida</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-body">
         <div class="moment"><div class="moment-time">Mañana</div><div class="moment-body"><strong>🫓 Desayuno en casa</strong>, tranquilo.</div></div>
         <div class="moment"><div class="moment-time">10:30am</div><div class="moment-body"><strong>Salida a Ezeiza</strong>.</div></div>
         <div class="moment"><div class="moment-time">1:10pm</div><div class="moment-body"><strong>✈️ Delta DL6020 · EZE → Miami</strong><span class="note">Llegada 8:45pm.</span></div></div>
         <div class="moment"><div class="moment-time">Vuelo</div><div class="moment-body"><strong>🍝 Almuerzo a bordo — pastas</strong><span class="note">El servicio de Delta suele incluir opción de pasta.</span></div></div>
         <div class="moment"><div class="moment-time">Noche</div><div class="moment-body"><strong>🥟 Cena en casa — empanadas</strong><span class="note">Cierre patagónico ya en Miami, recuperando el sabor del viaje.</span></div></div>
-        <div class="anchor"><strong>Momento ancla</strong>El abrazo largo en la puerta de Migraciones.</div>
-      </div></div>
+      </div>
     </div>
 
   </div>
@@ -1382,52 +1294,36 @@ footer .sig{
   } catch(e){ console.warn('overrides:', e); }
 })();
 
-// Day accordion
-function toggleDay(el){
-  const day = el.parentElement;
-  day.classList.toggle('open');
+// Day grid: select card → show detail below grid
+const cards = document.querySelectorAll('.day-card');
+const details = document.querySelectorAll('.day-detail');
+
+cards.forEach(card => {
+  card.addEventListener('click', () => selectDay(card));
+});
+
+function selectDay(card){
+  const idx = card.dataset.day;
+  const isActive = card.classList.contains('active');
+
+  cards.forEach(c => c.classList.remove('active'));
+  details.forEach(d => d.classList.remove('active'));
+
+  if(!isActive){
+    card.classList.add('active');
+    const detail = document.querySelector(`[data-detail="${idx}"]`);
+    if(detail){
+      detail.classList.add('active');
+      setTimeout(() => detail.scrollIntoView({ behavior:'smooth', block:'nearest' }), 80);
+    }
+  }
 }
-// Abrir el primer día por defecto
-document.querySelector('.day').classList.add('open');
 
-// Compactar días: marcar momentos clave + agregar filtro Resumen/Completo
-(function setupDayFilters(){
-  const FOOD_RX = /desayuno|almuerzo|cena|merienda|brindis|🍽️|🥟|🍖|🥩|🍺|🍔|🍰|🍦|🥘|🥪|🫓|🐟|🌭|🍲|🧉|🍫/i;
-  const KEY_RX  = /vuelo|aterriz|check-?in|checkout|salida|llegada|retiro|entrega|aeropuerto|✈️|🚠|⛽|🔥|teleférico|cerro otto|curanto/i;
-
-  document.querySelectorAll('.day').forEach(day => {
-    const body = day.querySelector('.day-body-inner');
-    if(!body) return;
-
-    const moments = body.querySelectorAll('.moment');
-    moments.forEach(m => {
-      const text = m.textContent;
-      if(FOOD_RX.test(text)){
-        m.classList.add('is-key','is-food');
-      } else if(KEY_RX.test(text)){
-        m.classList.add('is-key');
-      }
-    });
-
-    // Si no hay momentos, no hace falta filtro
-    if(!moments.length) return;
-
-    const filter = document.createElement('div');
-    filter.className = 'day-filter';
-    filter.innerHTML = '<button type="button" data-mode="summary">✨ Resumen</button><button type="button" data-mode="full" class="active">Completo</button>';
-    const firstMoment = body.querySelector('.moment');
-    body.insertBefore(filter, firstMoment);
-
-    filter.addEventListener('click', e => {
-      const btn = e.target.closest('button');
-      if(!btn) return;
-      e.stopPropagation();
-      filter.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      day.classList.toggle('is-summary', btn.dataset.mode === 'summary');
-    });
-  });
-})();
+function closeDetail(){
+  cards.forEach(c => c.classList.remove('active'));
+  details.forEach(d => d.classList.remove('active'));
+  document.querySelector('.days-grid').scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
 
 // Countdown to April 18, 2026 09:20 (hora AR)
 const target = new Date('2026-04-18T09:20:00-03:00').getTime();
