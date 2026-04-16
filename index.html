@@ -281,6 +281,7 @@ section+section::before{
 .day-thumb-row{
   display:flex;align-items:center;gap:0;
   position:relative;
+  justify-content:flex-end;
 }
 .day-thumb-date{
   writing-mode:vertical-rl;
@@ -294,8 +295,8 @@ section+section::before{
   text-align:center;
   transition:color .3s;
 }
-.day-thumb-row:hover .day-thumb-date{color:var(--forest)}
-.day-thumb-row.active .day-thumb-date{color:var(--sunset)}
+.day-thumb-row:hover .day-thumb-date{color:var(--forest);font-size:0.8em;letter-spacing:2.5px}
+.day-thumb-row.active .day-thumb-date{color:var(--sunset);font-size:0.8em;letter-spacing:2.5px}
 .day-card{
   position:relative;
   width:100px;height:68px;
