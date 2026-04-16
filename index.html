@@ -682,18 +682,11 @@ section+section::before{
   transition:transform .3s, box-shadow .3s;
 }
 .resto-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px -10px rgba(15,42,29,.2)}
-.resto-icon{
-  width:90px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'DM Serif Display',serif;
-  font-size:1.8em;font-weight:400;
-  color:var(--white);
-  background:linear-gradient(135deg,var(--forest),var(--moss));
+.resto-img{
+  width:100px;flex-shrink:0;
+  object-fit:cover;
+  display:block;
 }
-.resto-icon.warm{background:linear-gradient(135deg,#8b4513,var(--sunset))}
-.resto-icon.lake{background:linear-gradient(135deg,var(--lake),#5a9ab5)}
-.resto-icon.wine{background:linear-gradient(135deg,#6b3a5d,#a06080)}
-.resto-icon.sweet{background:linear-gradient(135deg,#b85c38,#e8a87c)}
 .resto-info{padding:16px 18px;flex:1;min-width:0}
 .resto-info h4{font-family:'DM Serif Display',serif;font-size:1.05em;color:var(--forest);margin-bottom:4px}
 .resto-meta{font-size:0.78em;color:var(--muted);line-height:1.6;margin-bottom:8px}
@@ -909,7 +902,7 @@ footer .sig{
   .map-label{font-size:0.6em;padding:22px 8px 8px}
 
   /* Restaurantes */
-  .resto-icon{width:70px;font-size:1.4em}
+  .resto-img{width:80px}
   .resto-info{padding:12px 14px}
   .resto-info h4{font-size:0.95em}
   .resto-meta{font-size:0.74em}
@@ -1251,7 +1244,7 @@ footer .sig{
     <!-- Sáb 18 -->
     <div class="resto-day active" data-rday="18">
       <div class="resto-card">
-        <div class="resto-icon warm">S</div>
+        <img class="resto-img" src="img/resto-salgado.png" alt="Salgado Alimentos" loading="lazy">
         <div class="resto-info">
           <h4>Salgado Alimentos</h4>
           <div class="resto-meta">
@@ -1263,7 +1256,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon warm">MG</div>
+        <img class="resto-img" src="img/resto-migusto.png" alt="Mi Gusto" loading="lazy">
         <div class="resto-info">
           <h4>Empanadas Mi Gusto</h4>
           <div class="resto-meta">
@@ -1279,7 +1272,7 @@ footer .sig{
     <!-- Dom 19 -->
     <div class="resto-day" data-rday="19">
       <div class="resto-card">
-        <div class="resto-icon warm">C</div>
+        <img class="resto-img" src="img/resto-choripaneria.png" alt="La Choripanería" loading="lazy">
         <div class="resto-info">
           <h4>La Choripanería</h4>
           <div class="resto-meta">
@@ -1291,7 +1284,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon wine">F</div>
+        <img class="resto-img" src="img/resto-ferroviario.png" alt="El Ferroviario" loading="lazy">
         <div class="resto-info">
           <h4>El Ferroviario</h4>
           <div class="resto-meta">
@@ -1307,7 +1300,7 @@ footer .sig{
     <!-- Lun 20 -->
     <div class="resto-day" data-rday="20">
       <div class="resto-card">
-        <div class="resto-icon wine">B</div>
+        <img class="resto-img" src="img/resto-barricas.png" alt="Las Barricas del Abasto" loading="lazy">
         <div class="resto-info">
           <h4>Las Barricas del Abasto</h4>
           <div class="resto-meta">
@@ -1323,7 +1316,7 @@ footer .sig{
     <!-- Mar 21 -->
     <div class="resto-day" data-rday="21">
       <div class="resto-card">
-        <div class="resto-icon">P</div>
+        <img class="resto-img" src="img/resto-peumawe.png" alt="Peumawe" loading="lazy">
         <div class="resto-info">
           <h4>Peumawe</h4>
           <div class="resto-meta">
@@ -1339,7 +1332,7 @@ footer .sig{
     <!-- Mié 22 -->
     <div class="resto-day" data-rday="22">
       <div class="resto-card">
-        <div class="resto-icon warm">EG</div>
+        <img class="resto-img" src="img/resto-gringo.png" alt="El Gringo Curanto" loading="lazy">
         <div class="resto-info">
           <h4>El Gringo Curanto</h4>
           <div class="resto-meta">
@@ -1351,7 +1344,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card resto-optional">
-        <div class="resto-icon wine">Pi</div>
+        <img class="resto-img" src="img/resto-pioneros.png" alt="Pioneros" loading="lazy">
         <div class="resto-info">
           <h4>Pioneros Parrilla Patagónica</h4>
           <div class="resto-meta">
@@ -1367,7 +1360,7 @@ footer .sig{
     <!-- Jue 23 -->
     <div class="resto-day" data-rday="23">
       <div class="resto-card">
-        <div class="resto-icon lake">CP</div>
+        <img class="resto-img" src="img/resto-patagonia.png" alt="Cervecería Patagonia" loading="lazy">
         <div class="resto-info">
           <h4>Cervecería Patagonia</h4>
           <div class="resto-meta">
@@ -1379,7 +1372,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon sweet">E</div>
+        <img class="resto-img" src="img/resto-enya.png" alt="Casa de Té Enya" loading="lazy">
         <div class="resto-info">
           <h4>Casa de Té Enya</h4>
           <div class="resto-meta">
@@ -1391,7 +1384,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon wine">FW</div>
+        <img class="resto-img" src="img/resto-weiss.png" alt="Familia Weiss" loading="lazy">
         <div class="resto-info">
           <h4>Familia Weiss</h4>
           <div class="resto-meta">
@@ -1403,7 +1396,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card resto-optional">
-        <div class="resto-icon lake">CB</div>
+        <img class="resto-img" src="img/resto-blest.png" alt="Cervecería Blest" loading="lazy">
         <div class="resto-info">
           <h4>Cervecería Blest</h4>
           <div class="resto-meta">
@@ -1415,7 +1408,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card resto-optional">
-        <div class="resto-icon wine">St</div>
+        <img class="resto-img" src="img/resto-stag.png" alt="Stag" loading="lazy">
         <div class="resto-info">
           <h4>Stag</h4>
           <div class="resto-meta">
@@ -1431,7 +1424,7 @@ footer .sig{
     <!-- Vie 24 -->
     <div class="resto-day" data-rday="24">
       <div class="resto-card">
-        <div class="resto-icon lake">W</div>
+        <img class="resto-img" src="img/resto-wesley.png" alt="Wesley Tap Garden" loading="lazy">
         <div class="resto-info">
           <h4>Wesley Tap Garden</h4>
           <div class="resto-meta">
@@ -1443,7 +1436,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon sweet">R</div>
+        <img class="resto-img" src="img/resto-rapanui.png" alt="Rapanui" loading="lazy">
         <div class="resto-info">
           <h4>Rapanui</h4>
           <div class="resto-meta">
@@ -1455,7 +1448,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon sweet">M</div>
+        <img class="resto-img" src="img/resto-mamuschka.png" alt="Mamuschka" loading="lazy">
         <div class="resto-info">
           <h4>Mamuschka</h4>
           <div class="resto-meta">
@@ -1467,7 +1460,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon wine">K1</div>
+        <img class="resto-img" src="img/resto-km1.png" alt="Kilómetro Uno" loading="lazy">
         <div class="resto-info">
           <h4>Kilómetro Uno Resto</h4>
           <div class="resto-meta">
@@ -1479,7 +1472,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card resto-optional">
-        <div class="resto-icon lake">Ma</div>
+        <img class="resto-img" src="img/resto-manush.png" alt="Manush" loading="lazy">
         <div class="resto-info">
           <h4>Manush</h4>
           <div class="resto-meta">
@@ -1495,7 +1488,7 @@ footer .sig{
     <!-- Sáb 25 -->
     <div class="resto-day" data-rday="25">
       <div class="resto-card">
-        <div class="resto-icon warm">FT</div>
+        <img class="resto-img" src="img/resto-fonda.png" alt="La Fonda del Tío" loading="lazy">
         <div class="resto-info">
           <h4>La Fonda del Tío</h4>
           <div class="resto-meta">
@@ -1507,7 +1500,7 @@ footer .sig{
         </div>
       </div>
       <div class="resto-card">
-        <div class="resto-icon wine">LT</div>
+        <img class="resto-img" src="img/resto-terraza.png" alt="La Terraza" loading="lazy">
         <div class="resto-info">
           <h4>La Terraza</h4>
           <div class="resto-meta">
