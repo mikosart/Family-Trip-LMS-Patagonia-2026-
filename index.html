@@ -8,7 +8,7 @@
 <meta name="description" content="Nueve días recorriendo San Martín de los Andes, Villa La Angostura y Bariloche. Un viaje en familia, pensado con calma." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --forest:#0f2a1d;
@@ -69,7 +69,7 @@ body::before{
   0%,100%{opacity:0.5}
   50%{opacity:0.9}
 }
-.serif{font-family:'Fraunces',Georgia,serif;font-weight:400;letter-spacing:-0.02em}
+.serif{font-family:'DM Serif Display',Georgia,serif;font-weight:400;letter-spacing:-0.02em}
 
 /* ═══════════ NAV ═══════════ */
 nav{
@@ -84,11 +84,62 @@ nav{
   padding:14px 24px;
   display:flex;justify-content:space-between;align-items:center;gap:20px;
 }
-.nav-brand{font-family:'Fraunces',serif;font-weight:600;font-size:1.05em;color:var(--forest)}
+.nav-brand{font-family:'DM Serif Display',serif;font-weight:600;font-size:1.05em;color:var(--forest)}
 .nav-links{display:flex;gap:22px;font-size:0.85em}
 .nav-links a{color:var(--muted);text-decoration:none;transition:color .2s}
 .nav-links a:hover{color:var(--forest)}
-@media(max-width:720px){.nav-links{display:none}}
+
+/* Hamburger */
+.nav-hamburger{
+  display:none;
+  background:none;border:none;cursor:pointer;
+  width:36px;height:36px;
+  flex-direction:column;justify-content:center;align-items:center;gap:5px;
+  padding:4px;
+  z-index:201;
+}
+.nav-hamburger span{
+  display:block;width:22px;height:2px;
+  background:var(--forest);border-radius:2px;
+  transition:transform .3s, opacity .3s;
+}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.nav-mobile-overlay{
+  position:fixed;inset:0;z-index:199;
+  background:rgba(15,42,29,0.5);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  opacity:0;pointer-events:none;
+  transition:opacity .3s;
+}
+.nav-mobile-overlay.open{opacity:1;pointer-events:auto}
+
+.nav-mobile-menu{
+  position:fixed;top:0;right:0;z-index:200;
+  width:min(280px,80vw);height:100dvh;
+  background:var(--fog);
+  padding:80px 28px 40px;
+  display:flex;flex-direction:column;gap:8px;
+  transform:translateX(100%);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  box-shadow:-10px 0 40px rgba(0,0,0,0.15);
+}
+.nav-mobile-menu.open{transform:translateX(0)}
+.nav-mobile-menu a{
+  color:var(--forest);text-decoration:none;
+  font-size:1.05em;font-weight:500;
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+  transition:color .2s, padding-left .2s;
+}
+.nav-mobile-menu a:hover,.nav-mobile-menu a:active{color:var(--sunset);padding-left:8px}
+
+@media(max-width:720px){
+  .nav-links{display:none}
+  .nav-hamburger{display:flex}
+}
 
 /* ═══════════ HERO ═══════════ */
 .hero{
@@ -147,7 +198,7 @@ nav{
   color:var(--sage);font-weight:600;margin-bottom:18px;
 }
 .hero h1{
-  font-family:'Fraunces',serif;
+  font-family:'DM Serif Display',serif;
   font-size:clamp(2.4em,6.5vw,5em);
   font-weight:300;
   line-height:1.02;
@@ -173,7 +224,7 @@ nav{
   box-shadow:0 20px 60px -20px rgba(0,0,0,0.6);
 }
 .cd-box{text-align:center}
-.cd-num{font-family:'Fraunces',serif;font-size:1.8em;font-weight:600;line-height:1}
+.cd-num{font-family:'DM Serif Display',serif;font-size:1.8em;font-weight:600;line-height:1}
 .cd-lbl{font-size:0.65em;text-transform:uppercase;letter-spacing:1.5px;opacity:0.7;margin-top:4px}
 .hero-boxes{
   display:inline-flex;align-items:center;flex-wrap:wrap;
@@ -208,7 +259,7 @@ section+section::before{
   color:var(--sage);margin-bottom:14px;
 }
 .sec-title{
-  font-family:'Fraunces',serif;
+  font-family:'DM Serif Display',serif;
   font-size:clamp(1.8em,4vw,2.8em);
   font-weight:400;
   color:var(--forest);
@@ -217,6 +268,7 @@ section+section::before{
   line-height:1.1;
 }
 .sec-lede{font-size:1.05em;color:var(--muted);max-width:58ch;margin-bottom:40px}
+.days-strip-wrap{position:relative}
 
 /* ═══════════ VIAJEROS ═══════════ */
 .viajeros-img{
@@ -241,7 +293,7 @@ section+section::before{
 }
 .tcard:hover{transform:translateY(-6px);box-shadow:0 20px 40px -18px rgba(15,42,29,.3);border-color:var(--sage)}
 .tcard:hover::before{transform:scaleX(1)}
-.tcard h3{font-family:'Fraunces',serif;font-size:1.2em;color:var(--forest);margin-bottom:4px}
+.tcard h3{font-family:'DM Serif Display',serif;font-size:1.2em;color:var(--forest);margin-bottom:4px}
 .tcard .role{font-size:0.78em;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
 .tcard p{font-size:0.88em;color:#444}
 .tcard .energy{display:flex;gap:3px;margin-top:10px}
@@ -258,7 +310,7 @@ section+section::before{
 }
 .stat{background:var(--white);padding:28px 20px;text-align:center;transition:background .3s}
 .stat:hover{background:#fafaf4}
-.stat .n{font-family:'Fraunces',serif;font-size:2.6em;font-weight:600;color:var(--forest);line-height:1;
+.stat .n{font-family:'DM Serif Display',serif;font-size:2.6em;font-weight:600;color:var(--forest);line-height:1;
   background:linear-gradient(135deg,var(--forest) 0%,var(--moss) 50%,var(--sage) 100%);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
 }
@@ -267,10 +319,11 @@ section+section::before{
 /* ═══════════ ITINERARY LAYOUT ═══════════ */
 .itin-layout{
   display:grid;
-  grid-template-columns:150px 1fr;
+  grid-template-columns:160px 1fr;
   gap:20px;
   align-items:start;
 }
+.days-strip-wrap{display:contents}
 
 /* Left: thumbnail strip */
 .days-strip{
@@ -329,39 +382,12 @@ section+section::before{
   width:120px;height:82px;
 }
 
-/* Right: preview + detail panel */
+/* Right: detail panel */
 .day-panel{
   padding-left:28px;
   border-left:none;
   position:sticky;top:80px;
-  min-height:400px;
 }
-
-/* Hover preview card */
-.day-preview{
-  padding:28px;
-  border-radius:14px;
-  overflow:hidden;
-  position:absolute;
-  left:0;right:0;
-  background-size:cover;background-position:center;
-  opacity:0;
-  transition:opacity .3s, top .25s ease;
-  pointer-events:none;
-  min-height:200px;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  z-index:5;
-}
-.day-preview::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(10,30,20,0.88) 0%,rgba(15,42,29,0.4) 60%,rgba(15,42,29,0.2) 100%);
-}
-.day-preview.visible{opacity:1}
-.day-preview .day-date{position:relative;z-index:1;font-size:0.72em;text-transform:uppercase;letter-spacing:2px;color:#b7e4c7;font-weight:600;margin-bottom:4px}
-.day-preview .day-title{position:relative;z-index:1;font-family:'Fraunces',serif;font-size:1.5em;color:var(--white);font-weight:500;line-height:1.2;margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,0.4)}
-.day-preview .day-meta{position:relative;z-index:1;display:flex;gap:8px;flex-wrap:wrap;font-size:0.82em;color:rgba(255,255,255,0.85)}
-.day-preview .day-meta span{display:inline-flex;align-items:center;gap:4px}
-.day-preview-hint{position:relative;z-index:1;font-size:0.72em;color:rgba(255,255,255,0.5);margin-top:14px;font-style:italic}
 
 /* Detail panel */
 .day-detail-wrap{margin-top:0}
@@ -379,12 +405,11 @@ section+section::before{
   to{opacity:1;transform:translateX(0)}
 }
 .day-detail-head{
-  display:flex;justify-content:space-between;align-items:flex-end;
   padding:40px 24px 20px;
-  border-bottom:1px solid rgba(255,255,255,0.15);
   position:relative;
   background-size:cover;background-position:center;
   min-height:140px;
+  display:flex;align-items:flex-end;
 }
 .day-detail-head::before{
   content:'';position:absolute;inset:0;
@@ -393,17 +418,7 @@ section+section::before{
 }
 .day-detail-head-left{flex:1;position:relative;z-index:1}
 .day-detail-head .day-date{font-size:0.72em;text-transform:uppercase;letter-spacing:2px;color:#b7e4c7;font-weight:600;margin-bottom:4px}
-.day-detail-head .day-title{font-family:'Fraunces',serif;font-size:1.35em;color:var(--white);font-weight:500;line-height:1.2;text-shadow:0 2px 10px rgba(0,0,0,0.4)}
-.day-detail-close{
-  border:0;background:rgba(255,255,255,0.15);
-  width:34px;height:34px;border-radius:50%;
-  font-size:1.1em;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--white);flex-shrink:0;
-  transition:background .2s;
-  position:relative;z-index:1;
-}
-.day-detail-close:hover{background:rgba(255,255,255,0.3)}
+.day-detail-head .day-title{font-family:'DM Serif Display',serif;font-size:1.35em;color:var(--white);line-height:1.2;text-shadow:0 2px 10px rgba(0,0,0,0.4)}
 .day-detail-body{padding:20px 24px 24px}
 
 /* Moments inside detail */
@@ -463,7 +478,7 @@ section+section::before{
   width:100%;height:260px;object-fit:cover;display:block;
 }
 .hotel-info{padding:20px 22px 22px}
-.hotel h3{font-family:'Fraunces',serif;font-size:1.2em;color:var(--forest);margin-bottom:6px}
+.hotel h3{font-family:'DM Serif Display',serif;font-size:1.2em;color:var(--forest);margin-bottom:6px}
 .hotel .loc{font-size:0.8em;color:var(--muted);margin-bottom:10px}
 .hotel .dates{font-size:0.85em;color:#444;margin-bottom:10px}
 .hotel .feat{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
@@ -490,13 +505,13 @@ section+section::before{
 }
 .budget-row .name{font-weight:500;font-size:0.95em}
 .budget-row .sub{font-size:0.78em;color:var(--muted)}
-.budget-row .val{font-family:'Fraunces',serif;font-size:1.15em;font-weight:600;color:var(--forest)}
+.budget-row .val{font-family:'DM Serif Display',serif;font-size:1.15em;font-weight:600;color:var(--forest)}
 .budget-total{
   margin-top:18px;padding-top:20px;border-top:2px solid var(--forest);
   display:flex;justify-content:space-between;align-items:center;
 }
 .budget-total .lbl{font-size:0.78em;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted)}
-.budget-total .amt{font-family:'Fraunces',serif;font-size:2em;font-weight:600;color:var(--forest)}
+.budget-total .amt{font-family:'DM Serif Display',serif;font-size:2em;font-weight:600;color:var(--forest)}
 
 /* ═══════════ PLAN B CLIMA ═══════════ */
 .planb{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
@@ -504,7 +519,7 @@ section+section::before{
   background:var(--white);border:1px solid var(--line);
   border-radius:14px;padding:20px;
 }
-.planb-card h4{font-family:'Fraunces',serif;color:var(--forest);margin-bottom:4px;font-size:1.05em}
+.planb-card h4{font-family:'DM Serif Display',serif;color:var(--forest);margin-bottom:4px;font-size:1.05em}
 .planb-card .sunny{color:var(--sunset);font-size:0.78em;font-weight:600;margin-bottom:10px}
 .planb-card .rainy{color:var(--lake);font-size:0.78em;font-weight:600;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
 .planb-card p{font-size:0.86em;color:#444;line-height:1.5}
@@ -611,7 +626,7 @@ section+section::before{
   background:var(--white);border:1px solid var(--line);
   border-radius:14px;padding:20px;
 }
-.pack h4{font-family:'Fraunces',serif;color:var(--forest);margin-bottom:12px;font-size:1.05em}
+.pack h4{font-family:'DM Serif Display',serif;color:var(--forest);margin-bottom:12px;font-size:1.05em}
 .pack ul{list-style:none}
 .pack li{
   font-size:0.86em;padding:6px 0 6px 22px;
@@ -643,7 +658,7 @@ footer{
   position:relative;
 }
 footer h2{
-  font-family:'Fraunces',serif;
+  font-family:'DM Serif Display',serif;
   font-size:clamp(1.8em,4vw,2.6em);
   font-weight:300;
   color:var(--white);
@@ -670,27 +685,67 @@ footer .sig{
   .hero-content{padding:44px 20px 120px}
   .hero h1{font-size:clamp(2em,9vw,3em);max-width:none;margin-bottom:16px}
   .hero-sub{font-size:0.98em;margin-bottom:26px}
+  .hero-boxes{
+    flex-direction:column;width:100%;
+    border-radius:12px;
+  }
+  .hero-boxes .hero-stats{border-left:none;border-top:1px solid rgba(255,255,255,0.15)}
   .countdown{gap:10px;padding:14px 16px;flex-wrap:wrap;justify-content:center}
   .cd-num{font-size:1.5em}
   .cd-lbl{font-size:0.6em;letter-spacing:1px}
 
-  /* Itinerary: horizontal thumbnails on mobile */
+  /* Itinerary mobile: tab strip instead of thumbnails */
   .itin-layout{grid-template-columns:1fr;min-height:auto}
+  .days-strip-wrap{display:block;position:relative}
+  .days-strip-wrap::before,.days-strip-wrap::after{
+    content:'';position:absolute;top:0;bottom:0;width:24px;
+    z-index:3;pointer-events:none;
+  }
+  .days-strip-wrap::before{left:0;background:linear-gradient(to right,var(--fog),transparent)}
+  .days-strip-wrap::after{right:0;background:linear-gradient(to left,var(--fog),transparent)}
+
   .days-strip{
     flex-direction:row;overflow-x:auto;
-    padding-right:0;padding-bottom:12px;
+    padding:4px 16px 4px;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
     position:static;
+    gap:6px;
   }
   .days-strip::-webkit-scrollbar{display:none}
-  .day-thumb-row{flex-direction:column;gap:2px}
-  .day-thumb-date{writing-mode:horizontal-tb;transform:none;font-size:0.48em;padding:0;min-width:auto}
-  .day-card{width:68px;height:50px;border-radius:8px;flex-shrink:0}
-  .day-thumb-row:hover .day-card{width:68px;height:50px}
-  .day-thumb-row.active .day-card{width:68px;height:50px}
-  .day-panel{padding-left:0;padding-top:16px;border-left:none;position:static}
-  .day-preview{display:none!important}
+
+  .day-thumb-row{
+    flex-direction:column;gap:0;
+    align-items:center;
+    flex-shrink:0;
+    cursor:pointer;
+  }
+  /* Hide photo thumbnails on mobile — use text tabs */
+  .day-card{display:none}
+  .day-thumb-date{
+    writing-mode:horizontal-tb;transform:none;
+    font-size:0.78em;font-weight:600;
+    padding:8px 14px;min-width:auto;
+    letter-spacing:0.5px;
+    white-space:nowrap;
+    background:var(--white);
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    color:var(--muted);
+    transition:all .25s;
+  }
+  .day-thumb-row:hover .day-thumb-date{
+    color:var(--forest);border-color:var(--sage);
+    font-size:0.78em;letter-spacing:0.5px;
+  }
+  .day-thumb-row.active .day-thumb-date{
+    background:var(--forest);color:var(--white);
+    border-color:var(--forest);
+    font-size:0.78em;letter-spacing:0.5px;
+    box-shadow:0 4px 12px -3px rgba(15,42,29,.35);
+  }
+
+  .day-panel{padding-left:0;padding-top:12px;border-left:none;position:static;min-height:0}
   .day-detail-head{padding:30px 18px 16px;min-height:110px}
   .day-detail-head .day-title{font-size:1.15em}
   .day-detail-body{padding:18px 18px 20px}
@@ -718,7 +773,9 @@ footer .sig{
 
   /* Hoteles */
   .hotels{grid-template-columns:1fr;gap:14px}
-  .hotel{padding:20px}
+  .hotel{padding:0}
+  .hotel-img{height:160px}
+  .hotel-info{padding:16px 18px 18px}
 
   /* Presupuesto */
   .budget{padding:22px 18px}
@@ -749,9 +806,7 @@ footer .sig{
   .nav-brand{font-size:0.85em}
   .hero-content{padding:36px 18px 100px}
   .hero h1{font-size:clamp(1.85em,9.5vw,2.5em)}
-  .day-card{width:58px;height:42px}
-  .day-thumb-row:hover .day-card{width:58px;height:42px}
-  .day-thumb-row.active .day-card{width:58px;height:42px}
+  .day-thumb-date{font-size:0.72em;padding:7px 11px}
   .day-detail-body{padding:16px 16px 18px}
   .day-detail-head .day-title{font-size:1.08em}
   .countdown{padding:12px 14px;gap:8px}
@@ -774,8 +829,19 @@ footer .sig{
       <a href="#ruta">Mapas</a>
       <a href="#equipaje">Check List</a>
     </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+<div class="nav-mobile-overlay" id="nav-overlay"></div>
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <a href="#viajeros">Viajeros</a>
+  <a href="#itinerario">Itinerario</a>
+  <a href="#hospedajes">Hospedajes</a>
+  <a href="#ruta">Mapas</a>
+  <a href="#equipaje">Check List</a>
+</div>
 
 <!-- ═══════════ HERO ═══════════ -->
 <div class="hero">
@@ -837,9 +903,10 @@ footer .sig{
 <!-- ═══════════ ITINERARIO ═══════════ -->
 <section id="itinerario">
   <h2 class="sec-title reveal">El Itinerario</h2>
-  <p class="sec-lede reveal">Pasá el mouse sobre un día para ver el resumen. Hacé click para ver el detalle completo.</p>
+  <p class="sec-lede reveal">Tocá un día para ver el detalle completo.</p>
 
   <div class="itin-layout reveal reveal-3">
+    <div class="days-strip-wrap">
     <div class="days-strip">
       <div class="day-thumb-row" data-day="0" data-img="img/dia-01-ba-llegada.webp" data-title="Bienvenida a Buenos Aires" data-date="Sábado 18 · Abril" data-meta="✈️ Llegada,🌳 Jardín Japonés">
         <div class="day-thumb-date">Sáb 18</div>
@@ -878,20 +945,14 @@ footer .sig{
         <div class="day-card" data-day="8" style="background-image:url('img/dia-09-despedida.webp');background-color:#2a2018"></div>
       </div>
     </div>
+    </div><!-- /days-strip-wrap -->
 
     <div class="day-panel">
-      <div class="day-preview" id="day-preview">
-        <div class="day-date" id="preview-date"></div>
-        <div class="day-title" id="preview-title"></div>
-        <div class="day-meta" id="preview-meta"></div>
-        <div class="day-preview-hint">Click para ver el detalle completo</div>
-      </div>
       <div class="day-detail-wrap" id="day-detail-wrap">
 
     <div class="day-detail" data-detail="0">
-      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Sábado 18 · Abril</div><div class="day-title">Bienvenida tranquila a Buenos Aires</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Sábado 18 · Abril</div><div class="day-title">Bienvenida tranquila a Buenos Aires</div></div></div>
       <div class="day-detail-body">
-        <div class="info">💡 Día de bienvenida con recorrido clásico porteño. Ritmo tranquilo, paradas frecuentes, nada de forzar caminatas.</div>
         <div class="moment" data-moment="sat18-0"><div class="moment-time">9:20am</div><div class="moment-body"><strong>Aterrizaje Delta DL6019</strong> en Ezeiza.<span class="note">Inmigración puede tardar 1–1.5hs. Esperarlos en Llegadas Internacionales.</span></div></div>
         <div class="moment" data-moment="sat18-1"><div class="moment-time">11:00</div><div class="moment-body"><strong>Comida en casa</strong> y descanso corto.<span class="note">Tiempo para que respiren antes de arrancar el recorrido.</span></div></div>
         <div class="moment" data-moment="sat18-2"><div class="moment-time">12:30pm</div><div class="moment-body"><strong>Jardín Japonés (Palermo)</strong><span class="note">Senderos pavimentados, bancos, estanque con carpas. Av. Casares 2966.</span><span class="acc-badge">Mamá-friendly <span class="acc-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></span></div></div>
@@ -904,7 +965,7 @@ footer .sig{
     </div>
 
     <div class="day-detail" data-detail="1">
-      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Domingo 19 · Abril</div><div class="day-title">Buenos Aires en bus rojo</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Domingo 19 · Abril</div><div class="day-title">Buenos Aires en bus rojo</div></div></div>
       <div class="day-detail-body">
         <div class="moment"><div class="moment-time">Mañana</div><div class="moment-body"><strong>🫓 Desayuno en casa — arepas</strong><span class="note">Algo casero y tranquilo antes de arrancar el día.</span></div></div>
         <div class="moment"><div class="moment-time">10:00am</div><div class="moment-body"><strong>Bus Turístico</strong> desde Barrio Chino.<span class="note">Bajadas a criterio de mamá.</span></div></div>
@@ -919,9 +980,8 @@ footer .sig{
     </div>
 
     <div class="day-detail" data-detail="2">
-      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Lunes 20 · Abril</div><div class="day-title">Vuelo a Bariloche · San Martín de los Andes</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Lunes 20 · Abril</div><div class="day-title">Vuelo a Bariloche · San Martín de los Andes</div></div></div>
       <div class="day-detail-body">
-        <div class="crit">⚠️ Vuelo 7:45am. Salir de casa 4:30am. Aeropuerto 5:30am mínimo.</div>
         <div class="moment"><div class="moment-time">~5:00am</div><div class="moment-body"><strong>🥪 Desayuno en el auto — sanguches</strong><span class="note">Los que se hicieron el domingo. Café para la ruta al aeropuerto.</span></div></div>
         <div class="moment"><div class="moment-time">10:10am</div><div class="moment-body"><strong>Llegada BRC</strong> + retiro Chevrolet Tracker (Alamo).<span class="note">Verificar: rueda de auxilio, botiquín, documentos.</span></div></div>
         <div class="moment"><div class="moment-time">11:00</div><div class="moment-body"><strong>Ruta a SMA por RN40</strong> — 200km, ~3hs con paradas.</div></div>
@@ -929,23 +989,24 @@ footer .sig{
         <div class="moment"><div class="moment-time">2:00pm</div><div class="moment-body"><strong>Check-in Hotel Antiguos</strong> · 751 Coronel Díaz, SMA.</div></div>
         <div class="moment"><div class="moment-time">Tarde</div><div class="moment-body"><strong>Costanera del Lago Lácar</strong><span class="note">Paseo tranquilo, calle San Martín peatonal, muelle.</span><span class="acc-badge">Mamá-friendly <span class="acc-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></span></div></div>
         <div class="moment"><div class="moment-time">Noche</div><div class="moment-body"><strong>🥩 Cena — Las Barricas del Abasto</strong><span class="note">Carnes y pastas, ambiente cálido montañero. Plan B: El Abasto (cordero patagónico). · <a href="https://www.instagram.com/explore/search/keyword/?q=las%20barricas%20del%20abasto%20san%20martin%20de%20los%20andes" target="_blank" rel="noopener">📷 IG</a></span></div></div>
+        <div class="crit">⚠️ Vuelo 7:45am. Salir de casa 4:30am. Aeropuerto 5:30am mínimo.</div>
       </div>
     </div>
 
     <div class="day-detail" data-detail="3">
-      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Martes 21 · Abril</div><div class="day-title">Ruta de los 7 Lagos → Villa La Angostura</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Martes 21 · Abril</div><div class="day-title">Ruta de los 7 Lagos → Villa La Angostura</div></div></div>
       <div class="day-detail-body">
-        <div class="crit">⛽ CRÍTICO: tanque completo en SMA. No hay nafta en toda la ruta de los 7 Lagos ni en Villa Traful.</div>
         <div class="moment"><div class="moment-time">8:30am</div><div class="moment-body"><strong>🫓 Desayuno — arepas</strong> + carga de nafta en YPF de Av. San Martín.<span class="note">Arepas caseras antes de salir. Tanque completo obligatorio.</span></div></div>
         <div class="moment"><div class="moment-time">Mañana</div><div class="moment-body"><strong>Paradas 7 Lagos</strong><span class="note">📍 Lago Hermoso · 📍 Lago Falkner (mirador) · 📍 Pichitraful · 📍 Cascada Ñivinco (opcional, 30min caminando).</span></div></div>
         <div class="moment"><div class="moment-time">1:00pm</div><div class="moment-body"><strong>🍖 Almuerzo en Villa Traful — Peumawe</strong><span class="note">Carnes y pastas caseras con vista al lago. Reservar antes de salir de SMA. · <a href="https://www.instagram.com/explore/search/keyword/?q=peumawe%20villa%20traful" target="_blank" rel="noopener">📷 IG</a></span></div></div>
         <div class="moment"><div class="moment-time">4:30pm</div><div class="moment-body"><strong>Check-in BOG Torres del Bayo</strong> · VLA.</div></div>
         <div class="moment"><div class="moment-time">Noche</div><div class="moment-body"><strong>🔥 Cena casera — asadito en la cabaña</strong><span class="note">Pasar por automercado antes del check-in para comprar lo necesario. Usar la parrillera propia del BOG Torres del Bayo.</span></div></div>
+        <div class="crit">⛽ CRÍTICO: tanque completo en SMA. No hay nafta en toda la ruta de los 7 Lagos ni en Villa Traful.</div>
       </div>
     </div>
 
     <div class="day-detail" data-detail="4">
-      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Miércoles 22 · Abril</div><div class="day-title">Curanto en Colonia Suiza</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Miércoles 22 · Abril</div><div class="day-title">Curanto en Colonia Suiza</div></div></div>
       <div class="day-detail-body">
         <div class="moment"><div class="moment-time">8:00am</div><div class="moment-body"><strong>🫓 Desayuno en la cabaña — arepas</strong><span class="note">Antes de salir a Colonia Suiza.</span></div></div>
         <div class="moment"><div class="moment-time">8:30am</div><div class="moment-body"><strong>Salida a Colonia Suiza</strong> (~80km, 1h).</div></div>
@@ -956,9 +1017,8 @@ footer .sig{
     </div>
 
     <div class="day-detail" data-detail="5">
-      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Jueves 23 · Abril</div><div class="day-title">Traslado suave a Llao Llao</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Jueves 23 · Abril</div><div class="day-title">Traslado suave a Llao Llao</div></div></div>
       <div class="day-detail-body">
-        <div class="info">💡 <strong>Ajuste estratégico:</strong> día de transición, no de turismo intenso. El Circuito Chico completo se corre al viernes.</div>
         <div class="moment"><div class="moment-time">8:30am</div><div class="moment-body"><strong>🫓 Desayuno en la cabaña — arepas</strong><span class="note">Último desayuno antes del checkout.</span></div></div>
         <div class="moment"><div class="moment-time">10:00am</div><div class="moment-body"><strong>Checkout VLA</strong> · carga de nafta · ruta directa al hotel.</div></div>
         <div class="moment"><div class="moment-time">11:30</div><div class="moment-body"><strong>Dejar maletas en Gran Hotel Panamericano</strong><span class="note">Check-in oficial a las 3pm pero guardan equipaje.</span></div></div>
@@ -971,7 +1031,7 @@ footer .sig{
     </div>
 
     <div class="day-detail" data-detail="6">
-      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Viernes 24 · Abril</div><div class="day-title">Cerro Campanario + Miradores</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Viernes 24 · Abril</div><div class="day-title">Cerro Campanario + Miradores</div></div></div>
       <div class="day-detail-body">
         <div class="moment"><div class="moment-time">Mañana</div><div class="moment-body"><strong>Desayuno incluido sin apuro</strong></div></div>
         <div class="moment"><div class="moment-time">10:00am</div><div class="moment-body"><strong>🏔️ Cerro Campanario</strong><span class="note">Aerosilla hasta la cima, vista panorámica 360° del Nahuel Huapi y los cerros. Accesible, sin trekking.</span><span class="acc-badge">Mamá-friendly <span class="acc-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></span></div></div>
@@ -984,9 +1044,8 @@ footer .sig{
     </div>
 
     <div class="day-detail" data-detail="7">
-      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Sábado 25 · Abril</div><div class="day-title">Último día patagónico · vuelo 9:15pm</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Sábado 25 · Abril</div><div class="day-title">Último día patagónico · vuelo 9:15pm</div></div></div>
       <div class="day-detail-body">
-        <div class="crit">🕖 Entregar auto en BRC a las 7pm. Salir del hotel 6:00pm máximo.</div>
         <div class="moment"><div class="moment-time">Mañana</div><div class="moment-body"><strong>Desayuno incluido · checkout 11am</strong> (maletas en consigna).</div></div>
         <div class="moment"><div class="moment-time">11:00</div><div class="moment-body"><strong>Paseo por el centro de Bariloche</strong><span class="note">Catedral, calle Mitre, chocolaterías (Rapa Nui / Del Turista), tiendas de recuerdos.</span></div></div>
         <div class="moment"><div class="moment-time">1:30pm</div><div class="moment-body"><strong>🍽️ Almuerzo — La Fonda del Tío</strong><span class="note">Carnes y pastas caseras en pleno centro (Mitre). · <a href="https://www.instagram.com/explore/search/keyword/?q=la%20fonda%20del%20tio%20bariloche" target="_blank" rel="noopener">📷 IG</a></span></div></div>
@@ -994,11 +1053,12 @@ footer .sig{
         <div class="moment"><div class="moment-time">~5:00pm</div><div class="moment-body"><strong>🥩 Cena temprana — La Terraza</strong><span class="note">Carnes y pastas, cena rápida antes de salir al aeropuerto. Reservar para 5pm. · <a href="https://www.instagram.com/explore/search/keyword/?q=la%20terraza%20bariloche" target="_blank" rel="noopener">📷 IG</a></span></div></div>
         <div class="moment"><div class="moment-time">6:00pm</div><div class="moment-body"><strong>Salida al aeropuerto BRC</strong> (~25km, 30min).</div></div>
         <div class="moment"><div class="moment-time">9:15pm</div><div class="moment-body"><strong>✈️ BRC → AEP</strong> · Llegada 11:20pm.</div></div>
+        <div class="crit">🕖 Entregar auto en BRC a las 7pm. Salir del hotel 6:00pm máximo.</div>
       </div>
     </div>
 
     <div class="day-detail" data-detail="8">
-      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Domingo 26 · Abril</div><div class="day-title">Despedida</div></div><button class="day-detail-close" onclick="closeDetail()">&times;</button></div>
+      <div class="day-detail-head"><div class="day-detail-head-left"><div class="day-date">Domingo 26 · Abril</div><div class="day-title">Despedida</div></div></div>
       <div class="day-detail-body">
         <div class="moment"><div class="moment-time">Mañana</div><div class="moment-body"><strong>🫓 Desayuno en casa</strong>, tranquilo.</div></div>
         <div class="moment"><div class="moment-time">10:30am</div><div class="moment-body"><strong>Salida a Ezeiza</strong>.</div></div>
@@ -1175,33 +1235,26 @@ footer .sig{
   } catch(e){ console.warn('overrides:', e); }
 })();
 
-// Itinerary: hover preview + click detail
+// Hamburger menu
+const hamburger = document.getElementById('nav-hamburger');
+const navOverlay = document.getElementById('nav-overlay');
+const navMobile = document.getElementById('nav-mobile-menu');
+function toggleMenu(){
+  hamburger.classList.toggle('open');
+  navOverlay.classList.toggle('open');
+  navMobile.classList.toggle('open');
+  document.body.style.overflow = navMobile.classList.contains('open') ? 'hidden' : '';
+}
+hamburger.addEventListener('click', toggleMenu);
+navOverlay.addEventListener('click', toggleMenu);
+navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', toggleMenu));
+
+// Itinerary: click to select day (always one active)
+const isMobile = () => window.innerWidth <= 720;
 const thumbRows = document.querySelectorAll('.day-thumb-row');
 const details = document.querySelectorAll('.day-detail');
-const preview = document.getElementById('day-preview');
-const previewDate = document.getElementById('preview-date');
-const previewTitle = document.getElementById('preview-title');
-const previewMeta = document.getElementById('preview-meta');
-
-const dayPanel = document.querySelector('.day-panel');
 
 thumbRows.forEach(row => {
-  row.addEventListener('mouseenter', () => {
-    if(document.querySelector('.day-detail.active')) return;
-    previewDate.textContent = row.dataset.date;
-    previewTitle.textContent = row.dataset.title;
-    previewMeta.innerHTML = row.dataset.meta.split(',').map(m => '<span>'+m+'</span>').join('');
-    preview.style.backgroundImage = "url('" + row.dataset.img + "')";
-    const panelRect = dayPanel.getBoundingClientRect();
-    const rowRect = row.getBoundingClientRect();
-    const rowCenter = rowRect.top + rowRect.height / 2 - panelRect.top;
-    const previewH = preview.offsetHeight || 200;
-    preview.style.top = Math.max(0, rowCenter - previewH / 2) + 'px';
-    preview.classList.add('visible');
-  });
-  row.addEventListener('mouseleave', () => {
-    if(!document.querySelector('.day-detail.active')) preview.classList.remove('visible');
-  });
   row.addEventListener('click', () => selectDay(row));
 });
 
@@ -1215,27 +1268,33 @@ thumbRows.forEach(row => {
   }
 });
 
+let skipScrollOnSelect = false;
 function selectDay(row){
   const idx = row.dataset.day;
-  const isActive = row.classList.contains('active');
+  if(row.classList.contains('active')) return; // already selected, do nothing
 
   thumbRows.forEach(r => r.classList.remove('active'));
   details.forEach(d => d.classList.remove('active'));
-  preview.classList.remove('visible');
 
-  if(!isActive){
-    row.classList.add('active');
-    const detail = document.querySelector('[data-detail="'+idx+'"]');
-    if(detail){
-      detail.classList.add('active');
+  row.classList.add('active');
+  const detail = document.querySelector('[data-detail="'+idx+'"]');
+  if(detail){
+    detail.classList.add('active');
+    // Mobile: scroll detail into view (skip on initial load)
+    if(isMobile() && !skipScrollOnSelect){
+      setTimeout(() => {
+        detail.scrollIntoView({behavior:'smooth',block:'nearest'});
+      }, 80);
     }
   }
-}
-
-function closeDetail(){
-  thumbRows.forEach(r => r.classList.remove('active'));
-  details.forEach(d => d.classList.remove('active'));
-  preview.classList.remove('visible');
+  // Scroll the tab strip to center the active tab
+  if(isMobile() && !skipScrollOnSelect){
+    const strip = document.querySelector('.days-strip');
+    if(strip){
+      const scrollLeft = row.offsetLeft - strip.offsetWidth/2 + row.offsetWidth/2;
+      strip.scrollTo({left:scrollLeft,behavior:'smooth'});
+    }
+  }
 }
 
 // Countdown to April 18, 2026 09:20 (hora AR)
@@ -1244,7 +1303,7 @@ function tick(){
   const now = Date.now();
   const diff = target - now;
   if(diff < 0){
-    document.getElementById('countdown').innerHTML = '<div style="padding:8px 20px;font-family:Fraunces,serif;font-size:1.2em">✈️ Ya están en camino</div>';
+    document.getElementById('countdown').innerHTML = '<div style="padding:8px 20px;font-family:DM Serif Display,serif;font-size:1.2em">✈️ Ya están en camino</div>';
     return;
   }
   const d = Math.floor(diff / (1000*60*60*24));
@@ -1296,6 +1355,12 @@ document.querySelectorAll('.map-carousel-track .map-wrap').forEach(map => {
     });
   });
 });
+
+// Auto-select first day so panel is never empty
+skipScrollOnSelect = true;
+const firstDay = document.querySelector('.day-thumb-row[data-day="0"]');
+if(firstDay) selectDay(firstDay);
+skipScrollOnSelect = false;
 
 // Check list interactivo con persistencia
 document.querySelectorAll('.pack li').forEach((li, i) => {
