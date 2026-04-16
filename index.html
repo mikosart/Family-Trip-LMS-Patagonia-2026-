@@ -449,6 +449,8 @@ section{padding:80px 24px;max-width:1100px;margin:0 auto}
   transition:transform .3s;
 }
 .map-wrap:hover{transform:scale(1.01)}
+.map-img-wrap{padding:0;background:var(--white)}
+.map-img{width:100%;display:block;border-radius:18px}
 
 /* Mapa fullscreen overlay */
 .map-overlay{
@@ -922,263 +924,31 @@ footer .sig{
   <div class="map-carousel reveal">
     <div class="map-carousel-track">
 
-  <!-- ═══════════ MAPA CABA ═══════════ -->
-  <div class="map-wrap">
+  <div class="map-wrap map-img-wrap">
     <div class="map-label">Buenos Aires · Sáb 18 + Dom 19</div>
-    <svg class="map-svg" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="riverGrad" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0" stop-color="#7fa8bd"/>
-          <stop offset="1" stop-color="#4a7c94"/>
-        </linearGradient>
-        <pattern id="dots" patternUnits="userSpaceOnUse" width="18" height="18">
-          <circle cx="1" cy="1" r="0.8" fill="#2d5a3d" opacity="0.15"/>
-        </pattern>
-        <filter id="softShadow"><feGaussianBlur stdDeviation="3"/></filter>
-      </defs>
-
-      <!-- fondo textura -->
-      <rect width="900" height="520" fill="url(#dots)"/>
-
-      <!-- Río de la Plata -->
-      <path d="M 620,0 Q 580,100 600,200 Q 630,280 680,340 Q 720,400 760,460 L 900,520 L 900,0 Z" fill="url(#riverGrad)" opacity="0.85"/>
-      <path d="M 620,0 Q 580,100 600,200 Q 630,280 680,340 Q 720,400 760,460 L 900,520 L 900,0 Z" fill="none" stroke="#3a6a82" stroke-width="1.5" opacity="0.6"/>
-
-      <!-- Olas sutiles -->
-      <g opacity="0.25" stroke="#fff" stroke-width="1" fill="none">
-        <path d="M 680,100 Q 700,95 720,100"/>
-        <path d="M 720,180 Q 740,175 760,180"/>
-        <path d="M 700,260 Q 720,255 740,260"/>
-        <path d="M 740,340 Q 760,335 780,340"/>
-      </g>
-
-      <!-- Barrios (shapes suaves) -->
-      <g opacity="0.4">
-        <ellipse cx="260" cy="200" rx="130" ry="90" fill="#b8c5a8"/>
-        <text x="260" y="170" font-family="Fraunces,serif" font-size="13" font-style="italic" fill="#4a5a3d" text-anchor="middle" opacity="0.9">Palermo</text>
-        <ellipse cx="460" cy="260" rx="100" ry="65" fill="#c8b89a"/>
-        <text x="460" y="265" font-family="Fraunces,serif" font-size="13" font-style="italic" fill="#6a5a3d" text-anchor="middle" opacity="0.9">Centro</text>
-        <ellipse cx="490" cy="360" rx="75" ry="50" fill="#c8a89a"/>
-        <text x="490" y="365" font-family="Fraunces,serif" font-size="12" font-style="italic" fill="#6a4a3d" text-anchor="middle" opacity="0.9">San Telmo</text>
-        <ellipse cx="540" cy="440" rx="70" ry="42" fill="#d8b898"/>
-        <text x="540" y="445" font-family="Fraunces,serif" font-size="12" font-style="italic" fill="#6a4a3d" text-anchor="middle" opacity="0.9">La Boca</text>
-      </g>
-
-      <!-- Ruta dashed -->
-      <path d="M 80,420 Q 180,300 260,200 Q 340,180 460,260 Q 560,300 620,330 Q 560,370 490,360 Q 520,410 540,440 Q 420,440 310,380" fill="none" stroke="#d98851" stroke-width="3" stroke-dasharray="6 6" stroke-linecap="round" opacity="0.8"/>
-
-      <!-- Puntos de interés -->
-      <g font-family="Inter,sans-serif" font-size="12">
-        <!-- EZE -->
-        <circle cx="80" cy="420" r="16" fill="#fff" stroke="#d98851" stroke-width="3"/>
-        <text x="80" y="425" text-anchor="middle" font-size="16">✈️</text>
-        <text x="80" y="458" text-anchor="middle" font-weight="700" fill="#0f2a1d">EZE</text>
-        <text x="80" y="473" text-anchor="middle" font-size="10" fill="#6b6b63">Ezeiza</text>
-
-        <!-- Jardín Japonés -->
-        <circle cx="260" cy="200" r="14" fill="#2d5a3d"/>
-        <text x="260" y="205" text-anchor="middle" font-size="14">🌳</text>
-        <text x="260" y="235" text-anchor="middle" font-weight="700" fill="#0f2a1d">Jardín Japonés</text>
-        <text x="260" y="249" text-anchor="middle" font-size="10" fill="#6b6b63">Sáb · 12:30pm</text>
-
-        <!-- Obelisco / Centro -->
-        <circle cx="460" cy="260" r="13" fill="#2d5a3d"/>
-        <text x="460" y="265" text-anchor="middle" font-size="12">📍</text>
-        <text x="395" y="230" text-anchor="middle" font-weight="700" fill="#0f2a1d">Obelisco</text>
-
-        <!-- San Telmo -->
-        <circle cx="490" cy="360" r="13" fill="#2d5a3d"/>
-        <text x="490" y="365" text-anchor="middle" font-size="12">🎨</text>
-        <text x="425" y="395" text-anchor="middle" font-weight="700" fill="#0f2a1d">San Telmo</text>
-        <text x="425" y="408" text-anchor="middle" font-size="10" fill="#6b6b63">Dom · bus rojo</text>
-
-        <!-- Caminito -->
-        <circle cx="540" cy="440" r="13" fill="#2d5a3d"/>
-        <text x="540" y="445" text-anchor="middle" font-size="12">🎭</text>
-        <text x="610" y="445" text-anchor="start" font-weight="700" fill="#0f2a1d">Caminito</text>
-
-        <!-- Puerto Madero -->
-        <circle cx="620" cy="330" r="13" fill="#2d5a3d"/>
-        <text x="620" y="335" text-anchor="middle" font-size="12">🌉</text>
-        <text x="700" y="320" text-anchor="start" font-weight="700" fill="#0f2a1d">Puerto Madero</text>
-
-        <!-- El Ferroviario -->
-        <circle cx="310" cy="380" r="14" fill="#d98851"/>
-        <text x="310" y="385" text-anchor="middle" font-size="14">🍽️</text>
-        <text x="310" y="415" text-anchor="middle" font-weight="700" fill="#0f2a1d">El Ferroviario</text>
-        <text x="310" y="428" text-anchor="middle" font-size="10" fill="#6b6b63">Dom · cena ✅</text>
-      </g>
-
-      <!-- Compás -->
-      <g transform="translate(820,60)">
-        <circle r="20" fill="#fff" opacity="0.85"/>
-        <path d="M 0,-15 L 5,0 L 0,15 L -5,0 Z" fill="#0f2a1d"/>
-        <text y="-22" text-anchor="middle" font-size="9" font-weight="700" fill="#0f2a1d">N</text>
-      </g>
-
-      <!-- Título río -->
-      <text x="790" y="250" text-anchor="middle" font-family="Fraunces,serif" font-style="italic" font-size="14" fill="#fff" opacity="0.8" transform="rotate(75 790 250)">Río de la Plata</text>
-    </svg>
-    <div class="map-legend">
-      <div class="lg"><span class="dot" style="background:#d98851"></span>Aeropuerto / Reserva confirmada</div>
-      <div class="lg"><span class="dot" style="background:#2d5a3d"></span>Parada del día</div>
-      <div class="lg"><span style="color:#d98851;font-size:1.2em">- -</span>Ruta del fin de semana</div>
-    </div>
+    <img class="map-img" src="img/mapa-caba.png" alt="Mapa Buenos Aires" loading="lazy">
   </div>
 
-  <!-- ═══════════ MAPA PATAGONIA ═══════════ -->
-  <div class="map-wrap">
-    <div class="map-label">Patagonia · Lun 20 → Sáb 25</div>
-    <svg class="map-svg" viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="skyPat" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0" stop-color="#e4f0e7"/>
-          <stop offset="1" stop-color="#f4efe6"/>
-        </linearGradient>
-        <linearGradient id="mountPat" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0" stop-color="#3d5a47"/>
-          <stop offset="1" stop-color="#1d3f2c"/>
-        </linearGradient>
-        <linearGradient id="lakePat" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0" stop-color="#7fb8d4"/>
-          <stop offset="1" stop-color="#4a7c94"/>
-        </linearGradient>
-        <pattern id="forestPat" patternUnits="userSpaceOnUse" width="24" height="24">
-          <path d="M 12,4 L 8,14 L 16,14 Z M 12,10 L 6,22 L 18,22 Z" fill="#2d5a3d" opacity="0.2"/>
-        </pattern>
-      </defs>
-
-      <!-- fondo cielo -->
-      <rect width="1000" height="600" fill="url(#skyPat)"/>
-
-      <!-- Bosque textura -->
-      <rect x="0" y="200" width="1000" height="400" fill="url(#forestPat)" opacity="0.4"/>
-
-      <!-- Cordillera del fondo (lejana) -->
-      <path d="M 0,280 L 60,180 L 120,240 L 180,140 L 240,220 L 300,120 L 360,200 L 420,130 L 480,210 L 540,140 L 600,220 L 660,150 L 720,230 L 780,170 L 840,240 L 900,180 L 960,250 L 1000,220 L 1000,600 L 0,600 Z" fill="#6a9378" opacity="0.3"/>
-
-      <!-- Cordillera frente -->
-      <path d="M 0,400 L 40,320 L 80,380 L 140,280 L 200,360 L 260,260 L 320,340 L 380,240 L 440,320 L 500,260 L 560,340 L 620,270 L 680,350 L 740,290 L 800,370 L 860,300 L 920,380 L 980,320 L 1000,360 L 1000,600 L 0,600 Z" fill="url(#mountPat)" opacity="0.85"/>
-
-      <!-- Picos nevados -->
-      <g fill="#fff" opacity="0.7">
-        <path d="M 140,280 L 160,310 L 120,305 Z"/>
-        <path d="M 260,260 L 280,290 L 240,285 Z"/>
-        <path d="M 380,240 L 405,275 L 355,270 Z"/>
-        <path d="M 500,260 L 520,290 L 480,285 Z"/>
-        <path d="M 620,270 L 640,300 L 600,295 Z"/>
-        <path d="M 740,290 L 760,320 L 720,315 Z"/>
-        <path d="M 860,300 L 880,330 L 840,325 Z"/>
-      </g>
-
-      <!-- Lagos: Lácar, Machónico, Falkner, Villarino, Espejo, Correntoso, Nahuel Huapi -->
-      <g>
-        <!-- Lago Lácar (SMA) -->
-        <ellipse cx="150" cy="180" rx="55" ry="20" fill="url(#lakePat)" transform="rotate(-15 150 180)"/>
-        <text x="150" y="146" font-family="Fraunces,serif" font-style="italic" font-size="13" fill="#3a6a82" text-anchor="middle">Lago Lácar</text>
-
-        <!-- Lago Machónico -->
-        <ellipse cx="260" cy="230" rx="28" ry="12" fill="url(#lakePat)" transform="rotate(-20 260 230)"/>
-        <text x="260" y="252" font-family="Fraunces,serif" font-style="italic" font-size="11" fill="#3a6a82" text-anchor="middle">Machónico</text>
-
-        <!-- Lago Falkner -->
-        <ellipse cx="340" cy="200" rx="42" ry="14" fill="url(#lakePat)" transform="rotate(-10 340 200)"/>
-        <text x="340" y="180" font-family="Fraunces,serif" font-style="italic" font-size="12" fill="#3a6a82" text-anchor="middle">Falkner</text>
-
-        <!-- Lago Villarino -->
-        <ellipse cx="415" cy="245" rx="32" ry="11" fill="url(#lakePat)"/>
-        <text x="415" y="266" font-family="Fraunces,serif" font-style="italic" font-size="11" fill="#3a6a82" text-anchor="middle">Villarino</text>
-
-        <!-- Lago Espejo -->
-        <ellipse cx="500" cy="200" rx="38" ry="13" fill="url(#lakePat)" transform="rotate(-5 500 200)"/>
-        <text x="500" y="180" font-family="Fraunces,serif" font-style="italic" font-size="12" fill="#3a6a82" text-anchor="middle">Espejo</text>
-
-        <!-- Lago Correntoso -->
-        <ellipse cx="565" cy="240" rx="30" ry="11" fill="url(#lakePat)"/>
-        <text x="565" y="262" font-family="Fraunces,serif" font-style="italic" font-size="11" fill="#3a6a82" text-anchor="middle">Correntoso</text>
-
-        <!-- Nahuel Huapi (grande) -->
-        <path d="M 620,260 Q 680,240 740,260 Q 800,280 860,300 Q 900,320 870,340 Q 800,350 740,340 Q 660,330 620,310 Q 590,290 620,260 Z" fill="url(#lakePat)"/>
-        <text x="760" y="310" font-family="Fraunces,serif" font-style="italic" font-size="15" fill="#fff" text-anchor="middle" opacity="0.95">Nahuel Huapi</text>
-      </g>
-
-      <!-- Ruta (dashed, con curvas suaves) -->
-      <path d="M 900,480 Q 700,460 500,400 Q 350,320 200,200 L 150,180" fill="none" stroke="#d98851" stroke-width="4" stroke-dasharray="10 8" stroke-linecap="round" opacity="0.4"/>
-      <path d="M 150,180 Q 250,200 340,210 Q 420,230 500,210 Q 565,230 620,280" fill="none" stroke="#d98851" stroke-width="4" stroke-dasharray="10 8" stroke-linecap="round"/>
-      <path d="M 620,280 Q 700,300 800,310" fill="none" stroke="#d98851" stroke-width="4" stroke-dasharray="10 8" stroke-linecap="round"/>
-      <path d="M 800,310 Q 870,380 900,480" fill="none" stroke="#d98851" stroke-width="4" stroke-dasharray="10 8" stroke-linecap="round" opacity="0.5"/>
-
-      <!-- Ciudades con pulse -->
-      <g>
-        <!-- BRC Aeropuerto -->
-        <circle cx="900" cy="480" r="8" fill="#d98851"/>
-        <circle cx="900" cy="480" r="8" fill="none" stroke="#d98851" stroke-width="2" class="pulse"/>
-        <rect x="870" y="495" width="60" height="22" rx="11" fill="#fff" stroke="#d98851" stroke-width="1.5"/>
-        <text x="900" y="511" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#0f2a1d" text-anchor="middle">BRC ✈️</text>
-
-        <!-- SMA -->
-        <circle cx="150" cy="180" r="10" fill="#0f2a1d"/>
-        <circle cx="150" cy="180" r="5" fill="#fff"/>
-        <rect x="100" y="108" width="100" height="26" rx="13" fill="#0f2a1d"/>
-        <text x="150" y="125" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">🏔️ SMA</text>
-        <path d="M 150,134 L 150,170" stroke="#0f2a1d" stroke-width="1.5" stroke-dasharray="2 2"/>
-
-        <!-- VLA -->
-        <circle cx="570" cy="290" r="10" fill="#0f2a1d"/>
-        <circle cx="570" cy="290" r="5" fill="#fff"/>
-        <rect x="510" y="315" width="120" height="26" rx="13" fill="#0f2a1d"/>
-        <text x="570" y="332" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">🌲 Villa La Angostura</text>
-        <path d="M 570,300 L 570,315" stroke="#0f2a1d" stroke-width="1.5" stroke-dasharray="2 2"/>
-
-        <!-- Bariloche / Llao Llao -->
-        <circle cx="800" cy="310" r="11" fill="#0f2a1d"/>
-        <circle cx="800" cy="310" r="11" fill="none" stroke="#d98851" stroke-width="2" class="pulse"/>
-        <circle cx="800" cy="310" r="5" fill="#fff"/>
-        <rect x="745" y="360" width="120" height="26" rx="13" fill="#0f2a1d"/>
-        <text x="805" y="377" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">🏞️ Llao Llao · BRC</text>
-        <path d="M 800,321 L 800,360" stroke="#0f2a1d" stroke-width="1.5" stroke-dasharray="2 2"/>
-      </g>
-
-      <!-- Distancias en ruta -->
-      <g font-family="Inter,sans-serif" font-size="10" fill="#6b6b63" font-style="italic">
-        <text x="490" y="380" text-anchor="middle">~200km RN40</text>
-        <text x="360" y="190" text-anchor="middle">Ruta de los 7 Lagos · 145km</text>
-        <text x="700" y="275" text-anchor="middle">~80km</text>
-      </g>
-
-      <!-- Compás -->
-      <g transform="translate(930,80)">
-        <circle r="26" fill="#fff" opacity="0.9"/>
-        <path d="M 0,-18 L 6,0 L 0,18 L -6,0 Z" fill="#0f2a1d"/>
-        <text y="-26" text-anchor="middle" font-size="10" font-weight="700" fill="#0f2a1d">N</text>
-      </g>
-
-      <!-- Escala -->
-      <g transform="translate(50,540)">
-        <line x1="0" y1="0" x2="100" y2="0" stroke="#0f2a1d" stroke-width="2"/>
-        <line x1="0" y1="-4" x2="0" y2="4" stroke="#0f2a1d" stroke-width="2"/>
-        <line x1="50" y1="-4" x2="50" y2="4" stroke="#0f2a1d" stroke-width="2"/>
-        <line x1="100" y1="-4" x2="100" y2="4" stroke="#0f2a1d" stroke-width="2"/>
-        <text x="0" y="18" font-size="9" fill="#6b6b63">0</text>
-        <text x="50" y="18" font-size="9" fill="#6b6b63" text-anchor="middle">50 km</text>
-        <text x="100" y="18" font-size="9" fill="#6b6b63" text-anchor="middle">100</text>
-      </g>
-
-      <!-- Decoraciones: arbolitos -->
-      <g fill="#2d5a3d" opacity="0.6">
-        <path d="M 80,450 L 72,470 L 88,470 Z M 80,462 L 70,482 L 90,482 Z"/>
-        <path d="M 220,470 L 214,486 L 226,486 Z M 220,480 L 212,498 L 228,498 Z"/>
-        <path d="M 380,460 L 374,476 L 386,476 Z M 380,470 L 372,488 L 388,488 Z"/>
-        <path d="M 460,490 L 454,506 L 466,506 Z M 460,500 L 452,518 L 468,518 Z"/>
-      </g>
-    </svg>
-    <div class="map-legend">
-      <div class="lg"><span class="dot" style="background:#0f2a1d"></span>Hospedajes</div>
-      <div class="lg"><span class="dot" style="background:#d98851"></span>Aeropuerto BRC (ida/vuelta)</div>
-      <div class="lg"><span class="dot" style="background:#7fb8d4"></span>Los 7 lagos</div>
-      <div class="lg"><span style="color:#d98851;font-size:1.2em">- -</span>Ruta del auto · ~690km</div>
-    </div>
+  <div class="map-wrap map-img-wrap">
+    <div class="map-label">San Martín de los Andes · Lun 20</div>
+    <img class="map-img" src="img/mapa-sma.jpg" alt="Mapa San Martín de los Andes" loading="lazy">
   </div>
+
+  <div class="map-wrap map-img-wrap">
+    <div class="map-label">Ruta de los 7 Lagos · Mar 21</div>
+    <img class="map-img" src="img/mapa-7lagos.png" alt="Mapa 7 Lagos" loading="lazy">
+  </div>
+
+  <div class="map-wrap map-img-wrap">
+    <div class="map-label">Villa La Angostura · Mar 21 → Jue 23</div>
+    <img class="map-img" src="img/mapa-vla.png" alt="Mapa Villa La Angostura" loading="lazy">
+  </div>
+
+  <div class="map-wrap map-img-wrap">
+    <div class="map-label">Bariloche · Jue 23 → Sáb 25</div>
+    <img class="map-img" src="img/mapa-bariloche.png" alt="Mapa Bariloche" loading="lazy">
+  </div>
+
 
     </div>
     <div class="map-carousel-hint reveal">← Desliza para ver más mapas →</div>
