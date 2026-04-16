@@ -673,7 +673,7 @@ footer .sig{
 }
 
 @media(max-width:720px){
-  section{padding:56px 18px}
+  section{padding:56px 18px;overflow-x:hidden}
   .sec-lede{margin-bottom:28px}
 
   /* Nav más compacto */
@@ -695,8 +695,8 @@ footer .sig{
   .cd-lbl{font-size:0.6em;letter-spacing:1px}
 
   /* Itinerary mobile: tab strip instead of thumbnails */
-  .itin-layout{grid-template-columns:1fr;min-height:auto}
-  .days-strip-wrap{display:block;position:relative}
+  .itin-layout{grid-template-columns:1fr;min-height:auto;overflow:hidden}
+  .days-strip-wrap{display:block;position:relative;overflow:hidden}
   .days-strip-wrap::before,.days-strip-wrap::after{
     content:'';position:absolute;top:0;bottom:0;width:24px;
     z-index:3;pointer-events:none;
@@ -711,6 +711,7 @@ footer .sig{
     scrollbar-width:none;
     position:static;
     gap:6px;
+    max-width:100%;
   }
   .days-strip::-webkit-scrollbar{display:none}
 
@@ -745,10 +746,11 @@ footer .sig{
     box-shadow:0 4px 12px -3px rgba(15,42,29,.35);
   }
 
-  .day-panel{padding-left:0;padding-top:12px;border-left:none;position:static;min-height:0}
+  .day-panel{padding-left:0;padding-top:12px;border-left:none;position:static;min-height:0;max-width:100%;overflow:hidden}
+  .day-detail{max-width:100%}
   .day-detail-head{padding:30px 18px 16px;min-height:110px}
   .day-detail-head .day-title{font-size:1.15em}
-  .day-detail-body{padding:18px 18px 20px}
+  .day-detail-body{padding:18px 18px 20px;overflow-wrap:break-word;word-break:break-word}
 
   /* Moments: stack vertical */
   .moment{flex-direction:column;gap:3px;padding:9px 0}
@@ -771,11 +773,16 @@ footer .sig{
   .stat .n{font-size:2.1em}
   .stat .l{font-size:0.66em}
 
-  /* Hoteles */
-  .hotels{grid-template-columns:1fr;gap:14px}
-  .hotel{padding:0}
-  .hotel-img{height:160px}
-  .hotel-info{padding:16px 18px 18px}
+  /* Hoteles: compactos side-by-side en mobile */
+  .hotels{grid-template-columns:1fr;gap:12px}
+  .hotel{padding:0;display:flex;flex-direction:row;border-radius:12px}
+  .hotel-img{height:auto;width:110px;min-height:120px;border-radius:12px 0 0 12px;flex-shrink:0}
+  .hotel-info{padding:14px 16px;flex:1;min-width:0}
+  .hotel h3{font-size:1em}
+  .hotel .loc{font-size:0.74em;margin-bottom:6px}
+  .hotel .dates{font-size:0.78em;margin-bottom:6px}
+  .hotel .feat{margin-top:6px}
+  .hotel .feat span{font-size:0.64em;padding:3px 8px}
 
   /* Presupuesto */
   .budget{padding:22px 18px}
